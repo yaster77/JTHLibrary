@@ -3,6 +3,7 @@ package se.hj.doelibs.api;
 import android.util.Log;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.json.JSONException;
 import org.json.JSONObject;
 import se.hj.doelibs.model.Author;
@@ -16,8 +17,8 @@ import java.io.IOException;
  */
 public class AuthorDao extends BaseDao<Author>{
 
-    public AuthorDao() {
-        super();
+    public AuthorDao(UsernamePasswordCredentials credentials) {
+        super(credentials);
     }
 
     @Override
@@ -36,15 +37,21 @@ public class AuthorDao extends BaseDao<Author>{
             JSONObject result = new JSONObject(responseString);
             JSONObject authorObject = result.getJSONObject("Author");
 
-            author = new Author();
-            author.setAuthorId(authorObject.getInt("Aid"));
-            author.setName(authorObject.getString("Name"));
-
+            author = AuthorDao.parseFromJson(authorObject);
         } catch (IOException e) {
             Log.e("AuthorDao", "Exception on GET request", e);
         } catch (JSONException e) {
             Log.e("AuthorDao", "could not parse JSON result", e);
         }
+
+        return author;
+    }
+
+    public static Author parseFromJson(JSONObject jsonObject) throws JSONException {
+        Author author = new Author();
+
+        author.setAuthorId(jsonObject.getInt("Aid"));
+        author.setName(jsonObject.getString("Name"));
 
         return author;
     }

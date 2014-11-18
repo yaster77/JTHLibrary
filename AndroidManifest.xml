@@ -38,7 +38,10 @@
             android:name=".IsbnScannerActivity"
             android:label="@string/title_activity_isbn_scanner">
         </activity>
-        
+        <activity
+                android:name=".LoginActivity"
+                android:label="Login"/>
+
     </application>
     
 </manifest>

@@ -4,14 +4,13 @@
     <string name="app_name">DoeLibS mobile</string>
     <string name="hello_world">Hello world!</string>
 
-    <string name="api_base_url">http://doelibs-001-site1.myasp.net/api</string>
-
     <!-- activity names -->
     <string name="title_activity_my_loans">My Loans</string>
 
     <!-- Button values -->
     <!-- <string name="btn_save_value">save</string> -->
-
+    <string name="btn_login">Login</string>
+    <string name="btn_logout">Logout</string>
 
     <!-- other descriptions -->
     <string name="drawer_open">Open navigation drawer</string>
@@ -19,5 +18,9 @@
     <string name="title_activity_title_search">TitleSearchActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_isbn_scanner">ISBN scanner</string>
+    <string name="title_activity_login">Login</string>
+
+    <string name="login_password">Password</string>
+    <string name="login_username">Username (email)</string>
 
 </resources>
