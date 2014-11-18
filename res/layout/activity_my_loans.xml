@@ -11,6 +11,7 @@
     tools:context="se.hj.doelibs.mobile.MyLoansActivity" >
 
     <TextView
+            android:id="@+id/myLoanText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="my loans" />

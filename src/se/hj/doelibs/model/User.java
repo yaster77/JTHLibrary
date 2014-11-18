@@ -5,49 +5,67 @@ package se.hj.doelibs.model;
  */
 public class User {
 
-    private int UserId;
-    private UserCategory Category;
-    private String EMail;
-    private String FirstName;
-    private String LastName;
+    private int userId;
+    private UserCategory category;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String room;
+    private String uniPhone;
+
+    public String getUniPhone() {
+        return uniPhone;
+    }
+
+    public void setUniPhone(String uniPhone) {
+        this.uniPhone = uniPhone;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
 
     public int getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(int userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 
     public UserCategory getCategory() {
-        return Category;
+        return category;
     }
 
     public void setCategory(UserCategory category) {
-        Category = category;
+        this.category = category;
     }
 
-    public String getEMail() {
-        return EMail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEMail(String EMail) {
-        this.EMail = EMail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 }

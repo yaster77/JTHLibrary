@@ -36,15 +36,21 @@ public class AuthorDao extends BaseDao<Author>{
             JSONObject result = new JSONObject(responseString);
             JSONObject authorObject = result.getJSONObject("Author");
 
-            author = new Author();
-            author.setAuthorId(authorObject.getInt("Aid"));
-            author.setName(authorObject.getString("Name"));
-
+            author = AuthorDao.parseFromJson(authorObject);
         } catch (IOException e) {
             Log.e("AuthorDao", "Exception on GET request", e);
         } catch (JSONException e) {
             Log.e("AuthorDao", "could not parse JSON result", e);
         }
+
+        return author;
+    }
+
+    public static Author parseFromJson(JSONObject jsonObject) throws JSONException {
+        Author author = new Author();
+
+        author.setAuthorId(jsonObject.getInt("Aid"));
+        author.setName(jsonObject.getString("Name"));
 
         return author;
     }
