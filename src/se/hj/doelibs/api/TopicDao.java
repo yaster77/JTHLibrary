@@ -1,10 +1,14 @@
 package se.hj.doelibs.api;
 
+import android.util.Log;
 import org.apache.http.HttpException;
+import org.apache.http.HttpResponse;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.json.JSONException;
 import org.json.JSONObject;
 import se.hj.doelibs.model.Topic;
+
+import java.io.IOException;
 
 /**
  * @author Christoph
@@ -17,7 +21,28 @@ public class TopicDao extends BaseDao<Topic> {
 
     @Override
     public Topic getById(int id) throws HttpException {
-        return null;
+        Topic topic = null;
+        try {
+            HttpResponse response = get("/Loanable/" + id);
+
+            //check statuscode of request
+            checkResponse(response);
+
+            //get the result
+            String responseString = getResponseAsString(response);
+
+            //create object out of JSON result
+            JSONObject result = new JSONObject(responseString);
+            JSONObject topicJson = result.getJSONObject("Topic");
+
+            topic = TopicDao.parseFromJson(topicJson);
+        } catch (IOException e) {
+            Log.e("TopicDao", "Exception on GET request", e);
+        } catch (JSONException e) {
+            Log.e("TopicDao", "could not parse JSON result", e);
+        }
+
+        return topic;
     }
 
     /**
