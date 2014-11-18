@@ -3,7 +3,6 @@ bin/
 .classpath
 .project
 /target/
-.AndroidJTH.iml
+DoeLibS-Mobile.iml
 out/
-.idea/
-../AndroidJTH/.idea/
+.idea
