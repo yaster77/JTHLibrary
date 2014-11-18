@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DoeLibS mobile</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="api_base_url">http://doelibs-001-site1.myasp.net/api</string>
+
+    <!-- activity names -->
+    <string name="title_activity_my_loans">My Loans</string>
+
+    <!-- Button values -->
+    <!-- <string name="btn_save_value">save</string> -->
+
+
+    <!-- other descriptions -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="title_activity_title_search">TitleSearchActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_isbn_scanner">ISBN scanner</string>
+
+</resources>

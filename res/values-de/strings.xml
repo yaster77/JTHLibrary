@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DoeLibS mobile</string>
+    <string name="hello_world">Hallo Welt!</string>
+
+    <!-- activity names -->
+    <string name="title_activity_my_loans">Meine Leihen</string>
+
+    <!-- Button values -->
+    <!-- <string name="btn_save_value">save</string> -->
+
+
+    <!-- other descriptions -->
+    <string name="drawer_open">Öffne Navigation</string>
+    <string name="drawer_close">Schließe Navigation</string>
+    <string name="title_activity_title_search">Suche</string>
+    <string name="title_activity_settings">Einstellungen</string>
+    <string name="title_activity_isbn_scanner">ISBN Scanner</string>
+
+</resources>
