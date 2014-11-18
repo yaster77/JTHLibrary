@@ -1,8 +1,7 @@
 package se.hj.doelibs.mobile;
 
-import se.hj.doelibs.mobile.listadapter.NavigationListAdapter;
-import se.hj.doelibs.mobile.listener.NavigationItemOnClickListener;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -13,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import se.hj.doelibs.mobile.codes.PreferencesKeys;
+import se.hj.doelibs.mobile.listadapter.NavigationListAdapter;
+import se.hj.doelibs.mobile.listener.NavigationItemOnClickListener;
 
 /**
  * Base activity to provide basic attributes (currently logged in user, ...) and
@@ -28,6 +31,27 @@ public abstract class BaseActivity extends Activity {
 	@SuppressWarnings("deprecation")
 	protected ActionBarDrawerToggle actionBarDrawerToggle;
 
+	/**
+	 * returns the credentials of the current user.
+	 *
+	 * returns null if the user is not logged in
+	 *
+	 * @return
+	 */
+	protected UsernamePasswordCredentials getCredentials() {
+		UsernamePasswordCredentials credentials = null;
+
+		SharedPreferences pref = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, MODE_PRIVATE);
+
+		if(pref.contains(PreferencesKeys.KEY_USER_USERNAME) && pref.contains(PreferencesKeys.KEY_USER_PASSWORD)) {
+			credentials = new UsernamePasswordCredentials(
+					pref.getString(PreferencesKeys.KEY_USER_USERNAME, ""),
+					pref.getString(PreferencesKeys.KEY_USER_PASSWORD, ""));
+		}
+
+		return credentials;
+	}
+
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +65,15 @@ public abstract class BaseActivity extends Activity {
 		LayoutInflater inflater = getLayoutInflater();
 		ViewGroup drawerHeader = (ViewGroup) inflater.inflate(R.layout.navigation_header, drawerListView, false);
 		drawerListView.addHeaderView(drawerHeader, null, false);
-		
 		TextView userNameTextView = (TextView)findViewById(R.id.username);
-		userNameTextView.setText("Max Mustermann");
+
+		//show username if loggedin
+		UsernamePasswordCredentials credentials = getCredentials();
+		if(credentials != null) {
+			userNameTextView.setText(credentials.getUserPrincipal().getName());
+		} else {
+			userNameTextView.setText("Anonymous");
+		}
 		
 		// Set the adapter for the list view
 		ListAdapter listAdapter = new NavigationListAdapter(this);

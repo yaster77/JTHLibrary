@@ -3,6 +3,7 @@ package se.hj.doelibs.api;
 import android.util.Log;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +20,10 @@ import java.util.List;
  * @author Christoph
  */
 public class TitleDao extends BaseDao<Title> {
+
+    public TitleDao(UsernamePasswordCredentials credentials) {
+        super(credentials);
+    }
 
     @Override
     public Title getById(int titleId) throws HttpException {

@@ -1,19 +1,84 @@
 package se.hj.doelibs.api;
 
+import android.util.Log;
 import org.apache.http.HttpException;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.json.JSONException;
 import org.json.JSONObject;
 import se.hj.doelibs.model.User;
 import se.hj.doelibs.model.UserCategory;
+
+import java.io.IOException;
 
 /**
  * @author Christoph
  */
 public class UserDao extends BaseDao<User> {
 
+    public UserDao(UsernamePasswordCredentials credentials) {
+        super(credentials);
+    }
+
     @Override
-    public User getById(int id) throws HttpException {
-        return null;
+    public User getById(int userId) throws HttpException {
+        User user = null;
+
+        try {
+            HttpResponse response = get("/User/" + userId);
+
+            //check statuscode of request
+            checkResponse(response);
+
+            //get the result
+            String responseString = getResponseAsString(response);
+
+            //create object out of JSON result
+            JSONObject userJson = new JSONObject(responseString);
+
+            //get basic userinformation
+            user = UserDao.parseFromJson(userJson);
+
+        } catch (IOException e) {
+            Log.e("AuthorDao", "Exception on GET request", e);
+        } catch (JSONException e) {
+            Log.e("AuthorDao", "could not parse JSON result", e);
+        }
+
+        return user;
+    }
+
+    /**
+     * returns the object of the current logged in user
+     *
+     * @return
+     * @throws HttpException
+     */
+    public User getCurrentLoggedin() throws HttpException {
+        User user = null;
+
+        try {
+            HttpResponse response = get("/User/");
+
+            //check statuscode of request
+            checkResponse(response);
+
+            //get the result
+            String responseString = getResponseAsString(response);
+
+            //create object out of JSON result
+            JSONObject userJson = new JSONObject(responseString);
+
+            //get basic userinformation
+            user = UserDao.parseFromJson(userJson);
+
+        } catch (IOException e) {
+            Log.e("AuthorDao", "Exception on GET request", e);
+        } catch (JSONException e) {
+            Log.e("AuthorDao", "could not parse JSON result", e);
+        }
+
+        return user;
     }
 
     /**

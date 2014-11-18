@@ -1,6 +1,7 @@
 package se.hj.doelibs.api;
 
 import org.apache.http.HttpException;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.json.JSONException;
 import org.json.JSONObject;
 import se.hj.doelibs.model.Publisher;
@@ -9,6 +10,11 @@ import se.hj.doelibs.model.Publisher;
  * @author Christoph
  */
 public class PublisherDao extends BaseDao<Publisher> {
+
+    public PublisherDao(UsernamePasswordCredentials credentials) {
+        super(credentials);
+    }
+
     @Override
     public Publisher getById(int id) throws HttpException {
         return null;

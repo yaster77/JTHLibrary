@@ -3,6 +3,7 @@ package se.hj.doelibs.api;
 import android.util.Log;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.json.JSONException;
 import org.json.JSONObject;
 import se.hj.doelibs.model.Author;
@@ -16,8 +17,8 @@ import java.io.IOException;
  */
 public class AuthorDao extends BaseDao<Author>{
 
-    public AuthorDao() {
-        super();
+    public AuthorDao(UsernamePasswordCredentials credentials) {
+        super(credentials);
     }
 
     @Override

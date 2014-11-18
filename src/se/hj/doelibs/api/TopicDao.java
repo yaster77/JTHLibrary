@@ -1,6 +1,7 @@
 package se.hj.doelibs.api;
 
 import org.apache.http.HttpException;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.json.JSONException;
 import org.json.JSONObject;
 import se.hj.doelibs.model.Topic;
@@ -9,6 +10,10 @@ import se.hj.doelibs.model.Topic;
  * @author Christoph
  */
 public class TopicDao extends BaseDao<Topic> {
+
+    public TopicDao(UsernamePasswordCredentials credentials) {
+        super(credentials);
+    }
 
     @Override
     public Topic getById(int id) throws HttpException {

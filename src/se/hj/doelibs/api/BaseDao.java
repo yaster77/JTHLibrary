@@ -1,11 +1,11 @@
 package se.hj.doelibs.api;
 
+import android.util.Base64;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.Header;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
@@ -14,6 +14,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public abstract class BaseDao<T> {
 
     protected final String API_BASE_URL;
     protected AbstractHttpClient httpClient;
-
+    protected Header authorizationHeader;
 
     /**
      * returns the object with the given ID
@@ -42,14 +43,17 @@ public abstract class BaseDao<T> {
     /**
      * Sets up the API_BASE_URL string and the httpClient with authentification
      */
-    public BaseDao() {
+    public BaseDao(UsernamePasswordCredentials credentials) {
         API_BASE_URL = "http://doelibs-001-site1.myasp.net/api";
 
         httpClient = new DefaultHttpClient();
 
-        Credentials creds = new UsernamePasswordCredentials("user", "passsword");
-        AuthScope authScope = new AuthScope(API_BASE_URL, 80);
-        httpClient.getCredentialsProvider().setCredentials(authScope, creds);
+        if(credentials != null) {
+            String authorizationString = "Basic " + Base64.encodeToString((credentials.getUserName() + ":" + credentials.getPassword()).getBytes(), Base64.NO_WRAP);
+            authorizationHeader = new BasicHeader("Authorization", authorizationString);
+        } else {
+            authorizationHeader = new BasicHeader("Authorization", "");
+        }
     }
 
     /**
@@ -65,6 +69,7 @@ public abstract class BaseDao<T> {
         }
 
         HttpGet httpGet = new HttpGet(API_BASE_URL + context);
+        httpGet.addHeader(authorizationHeader);
         HttpResponse response = httpClient.execute(httpGet);
 
         return response;
@@ -84,6 +89,7 @@ public abstract class BaseDao<T> {
         }
 
         HttpPost httpPost = new HttpPost(API_BASE_URL + context);
+        httpPost.addHeader(authorizationHeader);
         httpPost.setEntity(new UrlEncodedFormEntity(parameters));
 
         HttpResponse response = httpClient.execute(httpPost);
@@ -105,6 +111,7 @@ public abstract class BaseDao<T> {
         }
 
         HttpPut httpPut = new HttpPut(API_BASE_URL + context);
+        httpPut.addHeader(authorizationHeader);
         httpPut.setEntity(new UrlEncodedFormEntity(parameters));
 
         HttpResponse response = httpClient.execute(httpPut);
@@ -126,6 +133,7 @@ public abstract class BaseDao<T> {
         }
 
         HttpDelete httpDelete = new HttpDelete(API_BASE_URL + context);
+        httpDelete.addHeader(authorizationHeader);
         HttpResponse response = httpClient.execute(httpDelete);
 
         return response;

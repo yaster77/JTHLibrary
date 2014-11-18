@@ -1,6 +1,7 @@
 package se.hj.doelibs.api;
 
 import org.apache.http.HttpException;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.json.JSONException;
 import org.json.JSONObject;
 import se.hj.doelibs.model.Loanable;
@@ -9,6 +10,10 @@ import se.hj.doelibs.model.Loanable;
  * @author Christoph
  */
 public class LoanableDao extends BaseDao<Loanable> {
+
+    public LoanableDao(UsernamePasswordCredentials credentials) {
+        super(credentials);
+    }
 
     @Override
     public Loanable getById(int id) throws HttpException {
