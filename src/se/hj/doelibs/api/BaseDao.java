@@ -1,6 +1,7 @@
 package se.hj.doelibs.api;
 
 import android.util.Base64;
+import android.util.Log;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpException;
@@ -20,10 +21,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
- * Baseclass for all Dao classes which communicate with the API. Provides basic functionality like to perform GET requests
+ * Baseclass for all Dao classes which communicate with the API. Provides basic functionality like to perform HTTP GET, POST, PUT and DELETE requests
  * @author Christoph
  */
 public abstract class BaseDao<T> {
@@ -31,6 +35,11 @@ public abstract class BaseDao<T> {
     protected final String API_BASE_URL;
     protected AbstractHttpClient httpClient;
     protected Header authorizationHeader;
+    private static final SimpleDateFormat dotNetDateTimeFormat;
+
+    static {
+        dotNetDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss.SS");//2014-12-07T15:28:54.63
+    }
 
     /**
      * returns the object with the given ID
@@ -70,9 +79,8 @@ public abstract class BaseDao<T> {
 
         HttpGet httpGet = new HttpGet(API_BASE_URL + context);
         httpGet.addHeader(authorizationHeader);
-        HttpResponse response = httpClient.execute(httpGet);
 
-        return response;
+        return httpClient.execute(httpGet);
     }
 
     /**
@@ -92,9 +100,7 @@ public abstract class BaseDao<T> {
         httpPost.addHeader(authorizationHeader);
         httpPost.setEntity(new UrlEncodedFormEntity(parameters));
 
-        HttpResponse response = httpClient.execute(httpPost);
-
-        return response;
+        return httpClient.execute(httpPost);
     }
 
     /**
@@ -114,9 +120,7 @@ public abstract class BaseDao<T> {
         httpPut.addHeader(authorizationHeader);
         httpPut.setEntity(new UrlEncodedFormEntity(parameters));
 
-        HttpResponse response = httpClient.execute(httpPut);
-
-        return response;
+        return httpClient.execute(httpPut);
     }
 
     /**
@@ -134,9 +138,8 @@ public abstract class BaseDao<T> {
 
         HttpDelete httpDelete = new HttpDelete(API_BASE_URL + context);
         httpDelete.addHeader(authorizationHeader);
-        HttpResponse response = httpClient.execute(httpDelete);
 
-        return response;
+        return httpClient.execute(httpDelete);
     }
     /**
      * converts the content of a HttpResponse to a string
@@ -201,5 +204,27 @@ public abstract class BaseDao<T> {
         } else {
             throw new HttpException("Error Unknown. Statuscode: " + status + ")");
         }
+    }
+
+    /**
+     * convert a .NET DateTime string (ie: 2014-12-07T15:28:54.63) into a java Date object
+     *
+     * @param dateTime
+     * @return Date object, null if could not parses
+     */
+    protected static Date convertDotNetDateTime(String dateTime) {
+        //ignore null values and DateTime.MinValue
+        if(dateTime.equals("null") || dateTime.equals("0001-01-01T00:00:00")) {
+            return null;
+        }
+
+        Date result = null;
+        try {
+            result = dotNetDateTimeFormat.parse(dateTime);
+        } catch (ParseException e) {
+            Log.d("BaseDao", "could not parse given date ("+dateTime+")", e);
+        }
+
+        return result;
     }
 }
