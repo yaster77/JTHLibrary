@@ -62,6 +62,9 @@ public class LoginActivity extends BaseActivity {
                     SharedPreferences.Editor editor = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, MODE_PRIVATE).edit();
                     editor.putString(PreferencesKeys.KEY_USER_USERNAME, credentials.getUserName());
                     editor.putString(PreferencesKeys.KEY_USER_PASSWORD, credentials.getPassword());
+                    editor.putString(PreferencesKeys.KEY_USER_FIRSTNAME, user.getFirstName());
+                    editor.putString(PreferencesKeys.KEY_USER_LASTNAME, user.getLastName());
+
                     editor.commit();
 				} catch (HttpException e) {
                     Log.d("Login", "Login failed", e);

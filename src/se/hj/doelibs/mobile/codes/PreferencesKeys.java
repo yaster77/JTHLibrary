@@ -12,6 +12,8 @@ public class PreferencesKeys {
 
     public static final String KEY_USER_USERNAME = "loggedInUserUsername";
     public static final String KEY_USER_PASSWORD = "loggedInUserPassword";
+    public static final String KEY_USER_FIRSTNAME = "loggedInUserFirstname";
+    public static final String KEY_USER_LASTNAME = "loggedInUserLastname";
     public static final String KEY_ISBN_NUMBER = "isbnNumber";
     public static final String KEY_ISBN_VERSION = "isbnVersion";
 

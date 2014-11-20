@@ -36,12 +36,16 @@ public class SettingsActivity extends BaseActivity {
 		SharedPreferences sharedPreferences = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, MODE_PRIVATE);
 
 		if(sharedPreferences.contains(PreferencesKeys.KEY_USER_USERNAME)) {
-			Log.d("Logout", "found shared preferences for username");
 			sharedPreferences.edit().remove(PreferencesKeys.KEY_USER_USERNAME).commit();
 		}
 		if(sharedPreferences.contains(PreferencesKeys.KEY_USER_PASSWORD)) {
-			Log.d("Logout", "found shared preferences for password");
 			sharedPreferences.edit().remove(PreferencesKeys.KEY_USER_PASSWORD).commit();
+		}
+		if(sharedPreferences.contains(PreferencesKeys.KEY_USER_FIRSTNAME)) {
+			sharedPreferences.edit().remove(PreferencesKeys.KEY_USER_FIRSTNAME).commit();
+		}
+		if(sharedPreferences.contains(PreferencesKeys.KEY_USER_LASTNAME)) {
+			sharedPreferences.edit().remove(PreferencesKeys.KEY_USER_LASTNAME).commit();
 		}
 
 		Toast.makeText(this, "you are logged out now", Toast.LENGTH_SHORT).show();

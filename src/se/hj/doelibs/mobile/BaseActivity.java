@@ -70,7 +70,17 @@ public abstract class BaseActivity extends Activity {
 		//show username if loggedin
 		UsernamePasswordCredentials credentials = getCredentials();
 		if(credentials != null) {
-			userNameTextView.setText(credentials.getUserPrincipal().getName());
+			//userNameTextView.setText(credentials.getUserPrincipal().getName());
+
+			//load username from preferences:
+			SharedPreferences pref = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, MODE_PRIVATE);
+			if(pref.contains(PreferencesKeys.KEY_USER_FIRSTNAME) && pref.contains(PreferencesKeys.KEY_USER_LASTNAME)) {
+				userNameTextView.setText(
+						pref.getString(PreferencesKeys.KEY_USER_FIRSTNAME, "")
+						+ " "
+						+ pref.getString(PreferencesKeys.KEY_USER_LASTNAME, ""));
+			}
+
 		} else {
 			userNameTextView.setText("Anonymous");
 		}

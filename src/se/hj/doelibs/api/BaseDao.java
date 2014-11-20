@@ -16,6 +16,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
+import se.hj.doelibs.api.exception.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -182,25 +183,25 @@ public abstract class BaseDao<T> {
             //OK - do nothing
         } else if (status >= 300 && status <= 308) {
             //redirect
-            throw new HttpException("Service has been moved (statuscode: " + status + ")");
+            throw new HttpRedirectException("Service has been moved (statuscode: " + status + ")");
         } else if (status == 400) {
-            throw new HttpException("Error: 400 Bad Request");
+            throw new HttpBadRequestException("Error: 400 Bad Request");
         } else if (status == 401) {
-            throw new HttpException("Error: HTTP 401 Unauthorized");
+            throw new HttpUnauthorizedException("Error: HTTP 401 Unauthorized");
         } else if (status == 403) {
-            throw new HttpException("Error: HTTP 403 Forbidden");
+            throw new HttpForbiddenException("Error: HTTP 403 Forbidden");
         } else if (status == 404) {
-            throw new HttpException("Error: HTTP 404 Not Found");
+            throw new HttpNotFoundException("Error: HTTP 404 Not Found");
         } else if (status == 402 || (status >= 400 && status <= 431)) {
             //redirect
-            throw new HttpException("Error: HTTP Client error (statuscode: " + status + ")");
+            throw new HttpClientErrorException("Error: HTTP Client error (statuscode: " + status + ")");
         } else if (status == 500) {
-            throw new HttpException("Error: HTTP 500 Internal Server Error");
+            throw new HttpInternalServerErrorException("Error: HTTP 500 Internal Server Error");
         } else if (status == 501) {
-            throw new HttpException("Error: HTTP 501 Not Implemented");
+            throw new HttpNotImplementedException("Error: HTTP 501 Not Implemented");
         } else if (status >= 502 && status <= 599) {
             //redirect
-            throw new HttpException("Server Error (statuscode: " + status + ")");
+            throw new HttpServerErrorException("Server Error (statuscode: " + status + ")");
         } else {
             throw new HttpException("Error Unknown. Statuscode: " + status + ")");
         }
