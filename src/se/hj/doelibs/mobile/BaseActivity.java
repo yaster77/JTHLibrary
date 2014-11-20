@@ -1,18 +1,18 @@
 package se.hj.doelibs.mobile;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import se.hj.doelibs.mobile.codes.ExtraKeys;
 import se.hj.doelibs.mobile.codes.PreferencesKeys;
 import se.hj.doelibs.mobile.listadapter.NavigationListAdapter;
 import se.hj.doelibs.mobile.listener.NavigationItemOnClickListener;
@@ -108,9 +108,18 @@ public abstract class BaseActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+			//if menuebar item was selected
 			return true;
+		} else {
+			//other action (probably from the menuebar)
+			switch (item.getItemId()) {
+				case R.id.action_isbn_scanner:
+					openSearch();
+					return true;
+				default:
+					return super.onOptionsItemSelected(item);
+			}
 		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -118,5 +127,23 @@ public abstract class BaseActivity extends Activity {
 		super.onPostCreate(savedInstanceState);
 		// Sync the toggle state after onRestoreInstanceState has occurred. 
 		actionBarDrawerToggle.syncState();
+	}
+
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu items for use in the action bar
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.base_activity_actions, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	/**
+	 * starts the isbn scanner activity
+	 */
+	private void openSearch() {
+		Intent isbnScannerActivity = new Intent(this, IsbnScannerActivity.class);
+		isbnScannerActivity.putExtra(ExtraKeys.ISBN_SCANNER_START_ZXING, true);
+		startActivity(isbnScannerActivity);
 	}
 }

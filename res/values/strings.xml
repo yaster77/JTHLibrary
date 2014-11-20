@@ -7,10 +7,18 @@
     <!-- activity names -->
     <string name="title_activity_my_loans">My Loans</string>
 
+    <!-- activity links -->
+    <string name="action_isbn_scanner">ISBN scanner</string>
+
     <!-- Button values -->
     <!-- <string name="btn_save_value">save</string> -->
     <string name="btn_login">Login</string>
     <string name="btn_logout">Logout</string>
+    <string name="btn_isbn_scanner_more_scanning">Scan again</string>
+    <string name="btn_isbn_scanner_no_more_scanning">Cancel</string>
+
+    <!-- dialog messages -->
+    <string name="dialog_no_isbn_on_scanning_found">The scanned ISBN number is not known in DoeLibS</string>
 
     <!-- other descriptions -->
     <string name="drawer_open">Open navigation drawer</string>
@@ -22,5 +30,6 @@
 
     <string name="login_password">Password</string>
     <string name="login_username">Username (email)</string>
+
 
 </resources>

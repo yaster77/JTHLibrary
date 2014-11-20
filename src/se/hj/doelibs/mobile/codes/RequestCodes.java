@@ -12,5 +12,9 @@ package se.hj.doelibs.mobile.codes;
 public final class RequestCodes {
 	
 	public static final int ISBN_SCANNER = 1;
-	
+
+	/**
+	 * resultcode for starting the 3rd party scanner app
+	 */
+	public static final int ISBN_SCANNER_START_ZXING = 2;
 }
