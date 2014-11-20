@@ -80,7 +80,6 @@ public abstract class BaseActivity extends Activity {
 						+ " "
 						+ pref.getString(PreferencesKeys.KEY_USER_LASTNAME, ""));
 			}
-
 		} else {
 			userNameTextView.setText("Anonymous");
 		}
