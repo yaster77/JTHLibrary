@@ -35,11 +35,4 @@
             android:text="@string/btn_login"
             android:onClick="onLogin"/>
 
-    <ProgressBar
-            android:id="@+id/login_progressbar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
 </LinearLayout>

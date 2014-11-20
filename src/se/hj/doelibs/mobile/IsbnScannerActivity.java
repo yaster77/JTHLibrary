@@ -153,6 +153,9 @@ public class IsbnScannerActivity extends BaseActivity {
 		}.execute(new String[]{isbn, format});
 	}
 
+	/**
+	 * opens a dialog that the title is not known to the DoeLibS and asks what the user wants to do
+	 */
 	private void showDialogNoTitleFound() {
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(R.string.dialog_no_isbn_on_scanning_found)
@@ -172,6 +175,9 @@ public class IsbnScannerActivity extends BaseActivity {
 		builder.create().show();
 	}
 
+	/**
+	 * opens the zxing scanner app
+	 */
 	private void openScanner() {
 		IntentIntegrator scanIntegrator = new IntentIntegrator(this);
 		scanIntegrator.initiateScan();
