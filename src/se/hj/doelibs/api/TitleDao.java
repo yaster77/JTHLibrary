@@ -91,6 +91,40 @@ public class TitleDao extends BaseDao<Title> {
         return title;
     }
 
+    /**
+     * returns the title with the given ISBN number if it exists in DoeLibS
+     *
+     * @param isbn
+     * @param isbnFormat the ISBN format (isbn10 or isbn13)
+     * @return Title
+     */
+    public Title getByIsbn(String isbn, IsbnFormat isbnFormat) throws HttpException {
+        Title title = null;
+
+        try {
+            String context = String.format("/Title/%s/%s", isbnFormat.getValue(), isbn);
+            HttpResponse response = get(context);
+
+            //check statuscode of request
+            checkResponse(response);
+
+            //get the result
+            String responseString = getResponseAsString(response);
+
+            //create object out of JSON result
+            JSONObject titleModel = new JSONObject(responseString);
+
+            //get basic titleinformation
+            title = TitleDao.parseFromJson(titleModel.getJSONObject("Title"));
+        } catch (IOException e) {
+            Log.e("AuthorDao", "Exception on GET request", e);
+        } catch (JSONException e) {
+            Log.e("AuthorDao", "could not parse JSON result", e);
+        }
+
+        return title;
+    }
+
     public static Title parseFromJson(JSONObject jsonObject) throws JSONException {
         Title title = new Title();
 
@@ -108,5 +142,26 @@ public class TitleDao extends BaseDao<Title> {
         title.setPublisher(PublisherDao.parseFromJson(jsonObject.getJSONObject("Publisher")));
 
         return title;
+    }
+
+    /**
+     * specifies the format of the isbn number
+     */
+    public enum IsbnFormat {
+        ISBN10("isbn10"),
+        ISBN13("isbn13");
+
+        private String value;
+        private IsbnFormat(String value) {
+            this.value = value;
+        }
+
+        /**
+         * returns the isbn string representation for this ISBN version
+         * @return String
+         */
+        public String getValue() {
+            return value;
+        }
     }
 }
