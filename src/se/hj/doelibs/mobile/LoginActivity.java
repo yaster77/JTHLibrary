@@ -1,5 +1,6 @@
 package se.hj.doelibs.mobile;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 import org.apache.http.HttpException;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -23,7 +23,6 @@ import se.hj.doelibs.model.User;
 public class LoginActivity extends BaseActivity {
     private EditText usernameField;
     private EditText passwordField;
-    private ProgressBar loadingProgressbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,8 +34,6 @@ public class LoginActivity extends BaseActivity {
 
         usernameField = (EditText)findViewById(R.id.login_username);
         passwordField = (EditText)findViewById(R.id.login_password);
-        loadingProgressbar = (ProgressBar)findViewById(R.id.login_progressbar);
-        loadingProgressbar.setVisibility(View.GONE);
     }
 
     public void onLogin(View view) {
@@ -50,6 +47,7 @@ public class LoginActivity extends BaseActivity {
         final UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
 
         //make request in another thread
+        final ProgressDialog dialog = new ProgressDialog(this);
         new AsyncTask<Void, Void, Boolean>() {
 			@Override
 			protected Boolean doInBackground(Void... voids) {
@@ -64,6 +62,9 @@ public class LoginActivity extends BaseActivity {
                     SharedPreferences.Editor editor = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, MODE_PRIVATE).edit();
                     editor.putString(PreferencesKeys.KEY_USER_USERNAME, credentials.getUserName());
                     editor.putString(PreferencesKeys.KEY_USER_PASSWORD, credentials.getPassword());
+                    editor.putString(PreferencesKeys.KEY_USER_FIRSTNAME, user.getFirstName());
+                    editor.putString(PreferencesKeys.KEY_USER_LASTNAME, user.getLastName());
+
                     editor.commit();
 				} catch (HttpException e) {
                     Log.d("Login", "Login failed", e);
@@ -75,7 +76,7 @@ public class LoginActivity extends BaseActivity {
 
 			@Override
 			protected void onPostExecute(Boolean loginSuccessfull) {
-                loadingProgressbar.setVisibility(View.GONE);
+                dialog.dismiss();
 
                 if(loginSuccessfull) {
                     Intent myLoanActivity = new Intent(LoginActivity.this, MyLoansActivity.class);
@@ -88,7 +89,9 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             protected void onPreExecute() {
-                loadingProgressbar.setVisibility(View.VISIBLE);
+                dialog.setMessage("checking credentials...");
+                dialog.setCancelable(false);
+                dialog.show();
             }
 		}.execute();
     }
