@@ -20,6 +20,12 @@
     <!-- dialog messages -->
     <string name="dialog_no_isbn_on_scanning_found">The scanned ISBN number is not known in DoeLibS</string>
 
+    <!--textviews-->
+    <string name="tv_titledetails_loanables">Loanables</string>
+    <string name="tv_titledetails_categories">Topics</string>
+    <string name="tv_titledetails_publisher">Publisher</string>
+    <string name="tv_titledetails_authors">Authors</string>
+
     <!-- other descriptions -->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

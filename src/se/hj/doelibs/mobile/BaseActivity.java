@@ -56,6 +56,8 @@ public abstract class BaseActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
 		setContentView(R.layout.activity_base);
 
 		// get ListView for the navigation
@@ -144,6 +146,7 @@ public abstract class BaseActivity extends Activity {
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.base_activity_actions, menu);
+
 		return super.onCreateOptionsMenu(menu);
 	}
 

@@ -1,11 +1,12 @@
 package se.hj.doelibs.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Christoph
  */
-public class Title {
+public class Title implements Serializable{
 
     private int titleId;
     private String bookTitle;

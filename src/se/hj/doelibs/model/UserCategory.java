@@ -1,9 +1,11 @@
 package se.hj.doelibs.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Christoph on 17.11.2014.
  */
-public class UserCategory {
+public class UserCategory implements Serializable {
 
     private int categoryId;
     private String name;

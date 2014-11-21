@@ -1,9 +1,12 @@
 package se.hj.doelibs.model;
 
+import java.io.Serializable;
+
 /**
  * @author Christoph
  */
-public class Loanable {    private int loanableId;
+public class Loanable implements Serializable {
+    private int loanableId;
     private String barcode;
     private LocationCategory category;
     private User owner;

@@ -9,4 +9,5 @@ public class ExtraKeys {
 
 	public static final String ISBN_SCANNER_START_ZXING = "startZxing";
 
+	public static String TITLE_OBJECT = "title";
 }

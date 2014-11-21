@@ -140,7 +140,11 @@ public class IsbnScannerActivity extends BaseActivity {
 					showDialogNoTitleFound();
 				} else {
 					//redirect to action...
-					tv.setText("redirect to titledetails view...");
+					//tv.setText("redirect to titledetails view...");
+
+					Intent titleDetailsActivity = new Intent(IsbnScannerActivity.this, TitleDetailsActivity.class);
+					titleDetailsActivity.putExtra(ExtraKeys.TITLE_OBJECT, title);
+					startActivity(titleDetailsActivity);
 				}
 			}
 

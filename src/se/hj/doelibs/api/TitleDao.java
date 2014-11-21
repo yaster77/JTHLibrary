@@ -69,7 +69,7 @@ public class TitleDao extends BaseDao<Title> {
             }
 
             //get Topics
-            JSONArray topicArray = titleModel.getJSONArray("Editors");
+            JSONArray topicArray = titleModel.getJSONArray("Topics");
             List<Topic> topics = new ArrayList<Topic>();
             for(int i = 0;i<topicArray.length();i++) {
                 Topic topic = TopicDao.parseFromJson(topicArray.getJSONObject(i));
@@ -115,7 +115,7 @@ public class TitleDao extends BaseDao<Title> {
             JSONObject titleModel = new JSONObject(responseString);
 
             //get basic titleinformation
-            title = TitleDao.parseFromJson(titleModel.getJSONObject("Title"));
+            title = TitleDao.parseFromJson(titleModel);
         } catch (IOException e) {
             Log.e("AuthorDao", "Exception on GET request", e);
         } catch (JSONException e) {
@@ -133,7 +133,7 @@ public class TitleDao extends BaseDao<Title> {
         title.setIsbn10(jsonObject.getString("ISBN10"));
         title.setIsbn13(jsonObject.getString("ISBN13"));
         title.setEditionNumber(jsonObject.getInt("EditionNumber"));
-        title.setEditionNumber(jsonObject.getInt("EditionYear"));
+        title.setEditionYear(jsonObject.getInt("EditionYear"));
         if(jsonObject.has("FirstEditionYear") && !jsonObject.isNull("FirstEditionYear")) {
             title.setFirstEditionYear(jsonObject.getInt("FirstEditionYear"));
         }

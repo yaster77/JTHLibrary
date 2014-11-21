@@ -1,9 +1,11 @@
 package se.hj.doelibs.model;
 
+import java.io.Serializable;
+
 /**
  * @author Christoph
  */
-public class Publisher {
+public class Publisher implements Serializable {
 
     private int publisherId;
     private String name;
