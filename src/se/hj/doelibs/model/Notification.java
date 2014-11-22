@@ -1,11 +1,12 @@
 package se.hj.doelibs.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Christoph
  */
-public class Notification {
+public class Notification implements Serializable {
 
     private int notificationId;
     private User recipient;

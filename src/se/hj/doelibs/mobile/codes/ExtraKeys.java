@@ -5,8 +5,10 @@ package se.hj.doelibs.mobile.codes;
  *
  * @author Christoph
  */
-public class ExtraKeys {
+public final class ExtraKeys {
 
 	public static final String ISBN_SCANNER_START_ZXING = "startZxing";
 
+	//public static String TITLE_OBJECT = "title";
+	public static final String TITLE_ID = "titleId";
 }

@@ -5,7 +5,7 @@ package se.hj.doelibs.mobile.codes;
  *
  * @author Christoph
  */
-public class PreferencesKeys {
+public final class PreferencesKeys {
 
     public static final String NAME_MAIN_SETTINGS = "MainSettings";
     public static final String NAME_TMP_VALUES = "TemporaryValues";

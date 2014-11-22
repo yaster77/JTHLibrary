@@ -37,9 +37,10 @@ public abstract class BaseDao<T> {
     protected AbstractHttpClient httpClient;
     protected Header authorizationHeader;
     private static final SimpleDateFormat dotNetDateTimeFormat;
+    protected UsernamePasswordCredentials credentials;
 
     static {
-        dotNetDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss.SS");//2014-12-07T15:28:54.63
+        dotNetDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss");//2014-12-07T15:28:54
     }
 
     /**
@@ -55,6 +56,7 @@ public abstract class BaseDao<T> {
      */
     public BaseDao(UsernamePasswordCredentials credentials) {
         API_BASE_URL = "http://doelibs-001-site1.myasp.net/api";
+        this.credentials = credentials;
 
         httpClient = new DefaultHttpClient();
 
@@ -99,7 +101,10 @@ public abstract class BaseDao<T> {
 
         HttpPost httpPost = new HttpPost(API_BASE_URL + context);
         httpPost.addHeader(authorizationHeader);
-        httpPost.setEntity(new UrlEncodedFormEntity(parameters));
+
+        if(parameters != null) {
+            httpPost.setEntity(new UrlEncodedFormEntity(parameters));
+        }
 
         return httpClient.execute(httpPost);
     }
@@ -119,7 +124,10 @@ public abstract class BaseDao<T> {
 
         HttpPut httpPut = new HttpPut(API_BASE_URL + context);
         httpPut.addHeader(authorizationHeader);
-        httpPut.setEntity(new UrlEncodedFormEntity(parameters));
+
+        if(parameters != null) {
+            httpPut.setEntity(new UrlEncodedFormEntity(parameters));
+        }
 
         return httpClient.execute(httpPut);
     }
@@ -128,11 +136,10 @@ public abstract class BaseDao<T> {
      * executes a delete request on the given context at the API
      *
      * @param context
-     * @param parameters
      * @return
      * @throws IOException
      */
-    protected HttpResponse delete(String context, List<NameValuePair> parameters) throws IOException {
+    protected HttpResponse delete(String context) throws IOException {
         if (context.charAt(0) != '/') {
             context = '/' + context;
         }
@@ -221,6 +228,9 @@ public abstract class BaseDao<T> {
 
         Date result = null;
         try {
+            //workarround because sometimes .NET removes the milliseconds:
+            dateTime = dateTime.split("\\.")[0];
+
             result = dotNetDateTimeFormat.parse(dateTime);
         } catch (ParseException e) {
             Log.d("BaseDao", "could not parse given date ("+dateTime+")", e);
