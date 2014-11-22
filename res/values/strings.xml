@@ -27,6 +27,8 @@
 
     <string name="dialog_progress_checkin_loanable">Checking in loanable...</string>
     <string name="dialog_progress_checkout_loanable">Checking out loanable...</string>
+    <string name="dialog_progress_load_titleinformation">Loading titleinformation...</string>
+    <string name="dialog_progress_check_reservations">Loading reservations...</string>
 
     <!--textviews-->
     <string name="tv_titledetails_loanables">Loanables</string>

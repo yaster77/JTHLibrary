@@ -143,7 +143,7 @@ public class IsbnScannerActivity extends BaseActivity {
 					//tv.setText("redirect to titledetails view...");
 
 					Intent titleDetailsActivity = new Intent(IsbnScannerActivity.this, TitleDetailsActivity.class);
-					titleDetailsActivity.putExtra(ExtraKeys.TITLE_OBJECT, title);
+					titleDetailsActivity.putExtra(ExtraKeys.TITLE_ID, title.getTitleId());
 					startActivity(titleDetailsActivity);
 				}
 			}

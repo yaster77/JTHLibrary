@@ -19,7 +19,7 @@ public class ListUtils {
 	public static <T> String implode(List<T> list, String glue) {
 		StringBuilder sb = new StringBuilder();
 
-		int listsize = list.size();
+		int listsize = (list != null)?list.size():0;
 		for(int i = 0;i<listsize;i++) {
 			sb.append(list.get(i));
 
