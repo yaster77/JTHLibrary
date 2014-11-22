@@ -17,6 +17,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import org.apache.http.HttpException;
 import se.hj.doelibs.api.TitleDao;
+import se.hj.doelibs.mobile.asynctask.TaskCallback;
 import se.hj.doelibs.mobile.codes.ExtraKeys;
 import se.hj.doelibs.mobile.codes.PreferencesKeys;
 import se.hj.doelibs.model.Title;
@@ -43,17 +44,17 @@ public class IsbnScannerActivity extends BaseActivity {
 		isbnScannerTmpValues = getSharedPreferences(PreferencesKeys.NAME_TMP_VALUES, MODE_PRIVATE);
 		isbnScannerTmpValuesEditor = isbnScannerTmpValues.edit();
 
-		//open scanner only if the user clicked on the cammera button - not in case the display was rotated
-		if(getIntent().getBooleanExtra(ExtraKeys.ISBN_SCANNER_START_ZXING, false)) {
-			openScanner();
-		}
-
 		//when we read isbn numbers successfully, we save them in tmp preferences in case the display is rotated and so this activity reloaded
 		if(isbnScannerTmpValues.contains(PreferencesKeys.KEY_ISBN_VERSION)
 				&& isbnScannerTmpValues.contains(PreferencesKeys.KEY_ISBN_NUMBER)) {
 			String isbn = isbnScannerTmpValues.getString(PreferencesKeys.KEY_ISBN_NUMBER, "");
 			String format = isbnScannerTmpValues.getString(PreferencesKeys.KEY_ISBN_VERSION, "");
 			handleScanResults(isbn, format);
+		} else {
+			//open scanner only if the user clicked on the cammera button - not in case the display was rotated
+			if(getIntent().getBooleanExtra(ExtraKeys.ISBN_SCANNER_START_ZXING, false)) {
+				openScanner();
+			}
 		}
 	}
 
@@ -108,49 +109,27 @@ public class IsbnScannerActivity extends BaseActivity {
 	private void checkIsbn(String isbn, String format) {
 		final ProgressDialog dialog = new ProgressDialog(IsbnScannerActivity.this);
 
-		new AsyncTask<String, Void, Title>() {
+		new CheckIfIsbnExistsTask(isbn, format, new TaskCallback<Title>() {
 			@Override
-			protected Title doInBackground(String... params) {
-				String isbn = params[0];
-				//tv.setText(isbn);
-
-				TitleDao.IsbnFormat format;
-				if(params[1].equals("isbn10")) {
-					format = TitleDao.IsbnFormat.ISBN10;
-				} else {
-					format = TitleDao.IsbnFormat.ISBN13;
-				}
-
-				TitleDao titleDao = new TitleDao(getCredentials());
-				Title title = null;
-				try {
-					title = titleDao.getByIsbn(isbn, format);
-				} catch (HttpException e) {
-					Log.d("IsbnScannerActivity", "could not load titleinformation by ISBN", e);
-				}
-
-				return title;
-			}
-
-			@Override
-			protected void onPostExecute(Title title) {
+			public void onTaskCompleted(Title title) {
 				dialog.dismiss();
-
 				if (title == null) {
 					showDialogNoTitleFound();
 				} else {
 					//redirect to action...
-					tv.setText("redirect to titledetails view...");
+					Intent titleDetailsActivity = new Intent(IsbnScannerActivity.this, TitleDetailsActivity.class);
+					titleDetailsActivity.putExtra(ExtraKeys.TITLE_ID, title.getTitleId());
+					startActivity(titleDetailsActivity);
 				}
 			}
 
 			@Override
-			protected void onPreExecute() {
+			public void beforeTaskRun() {
 				dialog.setMessage("checking if title exists in DoeLibS");
 				dialog.setCancelable(false);
 				dialog.show();
 			}
-		}.execute(new String[]{isbn, format});
+		}).execute();
 	}
 
 	/**
@@ -181,5 +160,48 @@ public class IsbnScannerActivity extends BaseActivity {
 	private void openScanner() {
 		IntentIntegrator scanIntegrator = new IntentIntegrator(this);
 		scanIntegrator.initiateScan();
+	}
+
+
+
+	private class CheckIfIsbnExistsTask extends AsyncTask<Void, Void, Title> {
+
+		private String isbn;
+		private TitleDao.IsbnFormat format;
+		private TaskCallback<Title> callback;
+
+		public CheckIfIsbnExistsTask(String isbn, String format, TaskCallback<Title> callback) {
+			this.isbn = isbn;
+			this.callback = callback;
+
+			if(format.equals("isbn10")) {
+				this.format = TitleDao.IsbnFormat.ISBN10;
+			} else {
+				this.format = TitleDao.IsbnFormat.ISBN13;
+			}
+		}
+
+		@Override
+		protected Title doInBackground(Void... params) {
+			TitleDao titleDao = new TitleDao(getCredentials());
+			Title title = null;
+			try {
+				title = titleDao.getByIsbn(isbn, format);
+			} catch (HttpException e) {
+				Log.d("IsbnScannerActivity", "could not load titleinformation by ISBN", e);
+			}
+
+			return title;
+		}
+
+		@Override
+		protected void onPostExecute(Title title) {
+			callback.onTaskCompleted(title);
+		}
+
+		@Override
+		protected void onPreExecute() {
+			callback.beforeTaskRun();
+		}
 	}
 }

@@ -1,9 +1,11 @@
 package se.hj.doelibs.model;
 
+import java.io.Serializable;
+
 /**
  * @author Christoph
  */
-public class LocationCategory {
+public class LocationCategory implements Serializable {
 
     private int categoryId;
     private String name;

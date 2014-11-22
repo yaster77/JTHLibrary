@@ -16,6 +16,7 @@ import se.hj.doelibs.mobile.codes.ExtraKeys;
 import se.hj.doelibs.mobile.codes.PreferencesKeys;
 import se.hj.doelibs.mobile.listadapter.NavigationListAdapter;
 import se.hj.doelibs.mobile.listener.NavigationItemOnClickListener;
+import se.hj.doelibs.mobile.utils.CurrentUserUtils;
 
 /**
  * Base activity to provide basic attributes (currently logged in user, ...) and
@@ -39,23 +40,15 @@ public abstract class BaseActivity extends Activity {
 	 * @return
 	 */
 	protected UsernamePasswordCredentials getCredentials() {
-		UsernamePasswordCredentials credentials = null;
-
-		SharedPreferences pref = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, MODE_PRIVATE);
-
-		if(pref.contains(PreferencesKeys.KEY_USER_USERNAME) && pref.contains(PreferencesKeys.KEY_USER_PASSWORD)) {
-			credentials = new UsernamePasswordCredentials(
-					pref.getString(PreferencesKeys.KEY_USER_USERNAME, ""),
-					pref.getString(PreferencesKeys.KEY_USER_PASSWORD, ""));
-		}
-
-		return credentials;
+		return CurrentUserUtils.getCredentials(this);
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
 		setContentView(R.layout.activity_base);
 
 		// get ListView for the navigation
@@ -144,6 +137,7 @@ public abstract class BaseActivity extends Activity {
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.base_activity_actions, menu);
+
 		return super.onCreateOptionsMenu(menu);
 	}
 

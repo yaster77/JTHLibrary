@@ -1,11 +1,12 @@
 package se.hj.doelibs.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Christoph
  */
-public class Loan {
+public class Loan implements Serializable {
 
     private int loanId;
     private Loanable loanable;

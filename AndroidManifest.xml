@@ -41,6 +41,9 @@
         <activity
                 android:name=".LoginActivity"
                 android:label="Login"/>
+        <activity
+                android:name=".TitleDetailsActivity"
+                android:label="Title details"/>
 
     </application>
     
