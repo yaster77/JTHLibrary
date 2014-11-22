@@ -63,11 +63,11 @@ public class LoanablesListAdapter extends BaseAdapter {
 		if(CurrentUserUtils.getCredentials(activity) != null) {
 			if(loanable.getStatus() == Loanable.Status.AVAILABLE || loanable.getStatus() == Loanable.Status.RESERVED) {
 				button.setText(R.string.btn_check_out);
-				button.setOnClickListener(new LoanableCheckOutOnClickListener(loanable.getLoanableId(), activity));
+				button.setOnClickListener(new LoanableCheckOutOnClickListener(loanable.getTitle().getTitleId(), loanable.getLoanableId(), activity));
 			} else {
 				//these loanables are already filtered --> only AVAILABLE, RESERVED, BORROWED, RECALLED loanables
 				button.setText(R.string.btn_check_in);
-				button.setOnClickListener(new LoanableCheckInOnClickListener(loanable.getLoanableId(), activity));
+				button.setOnClickListener(new LoanableCheckInOnClickListener(loanable.getTitle().getTitleId(), loanable.getLoanableId(), activity));
 			}
 		} else {
 			button.setVisibility(View.INVISIBLE);

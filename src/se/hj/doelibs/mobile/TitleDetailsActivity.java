@@ -150,10 +150,10 @@ public class TitleDetailsActivity extends BaseActivity {
 	 * @return
 	 */
 	private String createAuthorEditorString(List<Author> authors, List<Author> editors) {
-		//TODO: don't hardcode Editor - read from resource
+		String editorText = getResources().getText(R.string.titledetails_editor_prefix).toString();
 
 		String authorString = ListUtils.implode(authors, ", ");
-		String editorString = ListUtils.implode(editors, " (Editor), ");
+		String editorString = ListUtils.implode(editors, " ("+editorText+"), ");
 
 		if(editors != null && editors.size() > 0) {
 			editorString += " (Editor)";
@@ -273,7 +273,7 @@ public class TitleDetailsActivity extends BaseActivity {
 			boolean activateReserveButton = false;
 
 			if(getCredentials() == null) {
-				//if use is not logged in
+				//if user is not logged in
 				return false;
 			}
 
@@ -282,16 +282,14 @@ public class TitleDetailsActivity extends BaseActivity {
 
 			//check if user has title currently checked out
 			boolean userHasALoanableOfThisTitle = false;
-			if(getCredentials() != null) {
-				for(Loan loan : loanDao.getCurrentUsersLoans()) {
-					if(loan.getLoanable().getTitle().getTitleId() == this.titleId){
-						userHasALoanableOfThisTitle = true;
-					}
+			for(Loan loan : loanDao.getCurrentUsersLoans()) {
+				if (loan.getLoanable().getTitle().getTitleId() == this.titleId) {
+					userHasALoanableOfThisTitle = true;
 				}
 			}
 
-			//show title reserve button only if user is logged in and has the title currently not borrowed or a reservation for it
-			if(getCredentials() != null && !userHasALoanableOfThisTitle) {
+			//show title reserve button only if user has the title currently not borrowed or a reservation for it
+			if(!userHasALoanableOfThisTitle) {
 				boolean userHasReservationForTitle = false;
 				for(Reservation reservation : reservationDao.getCurrentUsersReservations()) {
 					if(reservation.getTitle().getTitleId() == this.titleId) {

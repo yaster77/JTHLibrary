@@ -48,8 +48,12 @@
     <string name="title_activity_isbn_scanner">ISBN scanner</string>
     <string name="title_activity_login">Login</string>
 
+    <string name="titledetails_editor_prefix">Editor</string>
+
     <string name="loanable_checkout_error">Error on checking the loanable out. Please try again</string>
+    <string name="loanable_checkout_successfull">Loanable successfull checked out</string>
     <string name="loanable_checkin_error">Error on checking the loanable in. Please try again</string>
+    <string name="loanable_checkin_successfull">Loanable successfull checked in again</string>
 
     <string name="login_password">Password</string>
     <string name="login_username">Username (email)</string>

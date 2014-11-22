@@ -1,7 +1,7 @@
 package se.hj.doelibs.mobile.asynctask;
 
 /**
- * Interface to handle objects after a tasks completed
+ * Abstract class to handle objects after a tasks completed
  *
  * I.e to set up the view so it doesn't have to be done in the asyncTask class
  *
