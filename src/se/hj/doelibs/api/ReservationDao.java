@@ -115,6 +115,31 @@ public class ReservationDao extends BaseDao<Reservation> {
         return hasReservation;
     }
 
+    /**
+     * reserves a title
+     *
+     * @param titleId
+     * @return
+     */
+    public boolean reserve(int titleId) {
+        boolean reservationSuccessfull = false;
+
+        try {
+            HttpResponse response = post("/Reservation?titleId=" + titleId, null);
+
+            //check statuscode of request
+            checkResponse(response);
+
+            reservationSuccessfull = true;
+        } catch (IOException e) {
+            Log.d("ReservationDao", "error on POST request", e);
+        } catch (HttpException e) {
+            Log.d("ReservationDao", "http exception", e);
+        }
+
+        return reservationSuccessfull;
+    }
+
     public static Reservation  parseFromJson(JSONObject jsonObject) throws JSONException {
         Reservation reservation = new Reservation();
 

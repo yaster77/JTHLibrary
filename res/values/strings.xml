@@ -24,11 +24,13 @@
     <string name="dialog_no_isbn_on_scanning_found">The scanned ISBN number is not known in DoeLibS</string>
     <string name="dialog_really_checkout_loanable">Do you really want to checkout this loanable?</string>
     <string name="dialog_really_checkin_loanable">Do you really want to checkin this loanable again?</string>
+    <string name="dialog_really_reserve_title">Do you really want to reserve this title?</string>
 
-    <string name="dialog_progress_checkin_loanable">Checking in loanable...</string>
-    <string name="dialog_progress_checkout_loanable">Checking out loanable...</string>
-    <string name="dialog_progress_load_titleinformation">Loading titleinformation...</string>
-    <string name="dialog_progress_check_reservations">Loading reservations...</string>
+    <string name="dialog_progress_checkin_loanable">Check in loanable...</string>
+    <string name="dialog_progress_checkout_loanable">Check out loanable...</string>
+    <string name="dialog_progress_load_titleinformation">Load titleinformation...</string>
+    <string name="dialog_progress_check_reservations">Load reservations...</string>
+    <string name="dialog_progress_reserve_title">Reserve title...</string>
 
     <!--textviews-->
     <string name="tv_titledetails_loanables">Loanables</string>
@@ -54,6 +56,8 @@
     <string name="loanable_checkout_successfull">Loanable successfull checked out</string>
     <string name="loanable_checkin_error">Error on checking the loanable in. Please try again</string>
     <string name="loanable_checkin_successfull">Loanable successfull checked in again</string>
+    <string name="title_reserve_error">Error on reserving the title. Please try again</string>
+    <string name="title_reserve_successfull">Title successfully reserved</string>
 
     <string name="login_password">Password</string>
     <string name="login_username">Username (email)</string>

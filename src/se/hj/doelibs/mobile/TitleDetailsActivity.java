@@ -1,7 +1,9 @@
 package se.hj.doelibs.mobile;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import org.apache.http.HttpException;
 import se.hj.doelibs.api.LoanDao;
 import se.hj.doelibs.api.ReservationDao;
@@ -68,15 +71,52 @@ public class TitleDetailsActivity extends BaseActivity {
 	}
 
 	public void onReserve(View view) {
+		final ProgressDialog progressDialog = new ProgressDialog(this);
+		final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
+		dialogBuilder
+				.setMessage(R.string.dialog_really_reserve_title)
+				.setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						//reserve title
+
+						new ReserveTitleAsyncTask(titleId, new TaskCallback<Boolean>() {
+							@Override
+							public void onTaskCompleted(Boolean success) {
+
+								if (success) {
+									TitleDetailsActivity.this.btn_reserve.setVisibility(View.INVISIBLE);
+									Toast.makeText(TitleDetailsActivity.this, getResources().getText(R.string.title_reserve_successfull), Toast.LENGTH_SHORT).show();
+								} else {
+									Toast.makeText(TitleDetailsActivity.this, getResources().getText(R.string.title_reserve_error), Toast.LENGTH_LONG).show();
+								}
+								progressDialog.hide();
+							}
+
+							@Override
+							public void beforeTaskRun() {
+								progressDialog.setMessage(getResources().getText(R.string.dialog_progress_reserve_title));
+								progressDialog.setCancelable(false);
+								progressDialog.show();
+							}
+						}).execute();
+
+					}
+				})
+				.setNegativeButton(R.string.CANCEL, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						//nothing
+					}
+				});
+		dialogBuilder.show();
 	}
 
 	/**
 	 * loads all data into the viewfields.
 	 */
 	private void setupView(){
-		setupData();
 		setupReserveButton();
+		setupData();
 	}
 
 	/**
@@ -156,10 +196,10 @@ public class TitleDetailsActivity extends BaseActivity {
 		String editorString = ListUtils.implode(editors, " ("+editorText+"), ");
 
 		if(editors != null && editors.size() > 0) {
-			editorString += " (Editor)";
+			editorString += " ("+editorText+")";
 		}
 
-		return authors + ((authorString.length()>0 && editorString.length() > 0)?", ":"") + editors;
+		return authorString + ((authorString.length()>0 && editorString.length() > 0)?", ":"") + editorString;
 	}
 
 
@@ -313,6 +353,36 @@ public class TitleDetailsActivity extends BaseActivity {
 		@Override
 		protected void onPreExecute() {
 			taskCallbacks.beforeTaskRun();
+		}
+	}
+
+	/**
+	 * reserves a title
+	 */
+	private class ReserveTitleAsyncTask extends AsyncTask<Void, Void, Boolean> {
+
+		private int titleId;
+		private TaskCallback<Boolean> callback;
+
+		public ReserveTitleAsyncTask(int titleId, TaskCallback<Boolean> callback) {
+			this.titleId = titleId;
+			this.callback = callback;
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			ReservationDao reservationDao = new ReservationDao(getCredentials());
+			return reservationDao.reserve(this.titleId);
+		}
+
+		@Override
+		protected void onPostExecute(Boolean reservationSuccessfull) {
+			callback.onTaskCompleted(reservationSuccessfull);
+		}
+
+		@Override
+		protected void onPreExecute() {
+			callback.beforeTaskRun();
 		}
 	}
 }
