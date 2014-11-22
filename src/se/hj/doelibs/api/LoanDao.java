@@ -53,7 +53,7 @@ public class LoanDao extends BaseDao<Loan> {
      * @return list of loans
      */
     public List<Loan> getCurrentUsersLoans() {
-        List<Loan> loans = null;
+        List<Loan> loans = new ArrayList<Loan>();
         try {
             HttpResponse response = get("/Loan/");
 
@@ -65,7 +65,6 @@ public class LoanDao extends BaseDao<Loan> {
 
             //create object out of JSON result
             JSONArray result = new JSONArray(responseString);
-            loans = new ArrayList<Loan>();
             for(int i = 0; i<result.length();i++) {
                 loans.add(LoanDao.parseFromJson(result.getJSONObject(i)));
             }
@@ -78,6 +77,31 @@ public class LoanDao extends BaseDao<Loan> {
         }
 
         return loans;
+    }
+
+    /**
+     * checks a loan in
+     *
+     * @param loanId
+     * @return
+     */
+    public boolean checkIn(int loanId) {
+        boolean success = false;
+        try {
+            HttpResponse response = delete("/Loan/" + loanId);
+
+            //check statuscode of request
+            checkResponse(response);
+
+            //if no HTTP-exception was thrown everything is ok
+            success = true;
+        } catch (IOException e) {
+            Log.e("LoanDao", "error on DELETE request", e);
+        } catch (HttpException e) {
+            Log.d("LoanDao", "could not checkIn", e);
+        }
+
+        return success;
     }
 
     public static Loan parseFromJson(JSONObject jsonObject) throws JSONException {

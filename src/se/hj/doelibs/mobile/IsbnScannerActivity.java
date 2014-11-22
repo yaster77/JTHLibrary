@@ -43,17 +43,17 @@ public class IsbnScannerActivity extends BaseActivity {
 		isbnScannerTmpValues = getSharedPreferences(PreferencesKeys.NAME_TMP_VALUES, MODE_PRIVATE);
 		isbnScannerTmpValuesEditor = isbnScannerTmpValues.edit();
 
-		//open scanner only if the user clicked on the cammera button - not in case the display was rotated
-		if(getIntent().getBooleanExtra(ExtraKeys.ISBN_SCANNER_START_ZXING, false)) {
-			openScanner();
-		}
-
 		//when we read isbn numbers successfully, we save them in tmp preferences in case the display is rotated and so this activity reloaded
 		if(isbnScannerTmpValues.contains(PreferencesKeys.KEY_ISBN_VERSION)
 				&& isbnScannerTmpValues.contains(PreferencesKeys.KEY_ISBN_NUMBER)) {
 			String isbn = isbnScannerTmpValues.getString(PreferencesKeys.KEY_ISBN_NUMBER, "");
 			String format = isbnScannerTmpValues.getString(PreferencesKeys.KEY_ISBN_VERSION, "");
 			handleScanResults(isbn, format);
+		} else {
+			//open scanner only if the user clicked on the cammera button - not in case the display was rotated
+			if(getIntent().getBooleanExtra(ExtraKeys.ISBN_SCANNER_START_ZXING, false)) {
+				openScanner();
+			}
 		}
 	}
 

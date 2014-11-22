@@ -6,6 +6,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.json.JSONException;
 import org.json.JSONObject;
+import se.hj.doelibs.model.Loan;
 import se.hj.doelibs.model.Loanable;
 
 import java.io.IOException;
@@ -42,6 +43,58 @@ public class LoanableDao extends BaseDao<Loanable> {
         }
 
         return loanable;
+    }
+
+    /**
+     * checks a loanable out
+     *
+     * @param loanableId
+     * @return
+     */
+    public Loan checkOut(int loanableId) {
+        Loan loan = null;
+        try {
+            HttpResponse response = post("/Loanable/" + loanableId, null);
+
+            //check statuscode of request
+            checkResponse(response);
+
+            //get the result
+            String responseString = getResponseAsString(response);
+
+            //create object out of JSON result
+            JSONObject result = new JSONObject(responseString);
+
+            loan = LoanDao.parseFromJson(result);
+        } catch (IOException e) {
+            Log.e("LoanableDao", "Exception on PUT request", e);
+        } catch (HttpException e) {
+            Log.e("LoanableDao", "Exception on PUT request", e);
+        } catch (JSONException e) {
+            Log.e("LoanableDao", "Could not parse JSON", e);
+        }
+
+        return loan;
+    }
+
+    /**
+     * checks the given loanable back in.
+     * This method takes the loanableId instead of the loanId because in some cases we have only the loanableId.
+     * If you have the loanId, you should use the LoanDao.checkIn(loanId) because it will be faster
+     *
+     * @param loanableId
+     * @return
+     */
+    public boolean checkInByLoanableId(int loanableId) {
+        //get the loanId for this loanable from the current users loans:
+        LoanDao loanDao = new LoanDao(credentials);
+
+        for (Loan loan : loanDao.getCurrentUsersLoans()) {
+            if(loan.getLoanable().getLoanableId() == loanableId) {
+                return loanDao.checkIn(loan.getLoanId());
+            }
+        }
+        return false;
     }
 
     public static Loanable parseFromJson(JSONObject jsonObject) throws JSONException {

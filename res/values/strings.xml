@@ -16,9 +16,17 @@
     <string name="btn_logout">Logout</string>
     <string name="btn_isbn_scanner_more_scanning">Scan again</string>
     <string name="btn_isbn_scanner_no_more_scanning">Cancel</string>
+    <string name="btn_check_out">check out</string>
+    <string name="btn_check_in">check in</string>
+    <string name="btn_reserve">reserve</string>
 
     <!-- dialog messages -->
     <string name="dialog_no_isbn_on_scanning_found">The scanned ISBN number is not known in DoeLibS</string>
+    <string name="dialog_really_checkout_loanable">Do you really want to checkout this loanable?</string>
+    <string name="dialog_really_checkin_loanable">Do you really want to checkin this loanable again?</string>
+
+    <string name="dialog_progress_checkin_loanable">Checking in loanable...</string>
+    <string name="dialog_progress_checkout_loanable">Checking out loanable...</string>
 
     <!--textviews-->
     <string name="tv_titledetails_loanables">Loanables</string>
@@ -27,12 +35,19 @@
     <string name="tv_titledetails_authors">Authors</string>
 
     <!-- other descriptions -->
+    <string name="YES">Yes</string>
+    <string name="NO">No</string>
+    <string name="CANCEL">Cancel</string>
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="title_activity_title_search">TitleSearchActivity</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_title_search">Search</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="title_activity_isbn_scanner">ISBN scanner</string>
     <string name="title_activity_login">Login</string>
+
+    <string name="loanable_checkout_error">Error on checking the loanable out. Please try again</string>
+    <string name="loanable_checkin_error">Error on checking the loanable in. Please try again</string>
 
     <string name="login_password">Password</string>
     <string name="login_username">Username (email)</string>

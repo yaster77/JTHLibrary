@@ -69,11 +69,24 @@
         </TableRow>
     </TableLayout>
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/tv_titledetails_loanables"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/tv_titledetails_loanables" android:layout_weight="1"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_reserve"
+                android:id="@+id/btn_titledetails_reserve"
+                android:onClick="onReserve"
+                android:visibility="invisible"/>
+    </LinearLayout>
+
     <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
