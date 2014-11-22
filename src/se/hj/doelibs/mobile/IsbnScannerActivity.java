@@ -112,7 +112,7 @@ public class IsbnScannerActivity extends BaseActivity {
 		new CheckIfIsbnExistsTask(isbn, format, new TaskCallback<Title>() {
 			@Override
 			public void onTaskCompleted(Title title) {
-				dialog.hide();
+				dialog.dismiss();
 				if (title == null) {
 					showDialogNoTitleFound();
 				} else {
