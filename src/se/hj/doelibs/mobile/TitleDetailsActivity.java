@@ -44,6 +44,10 @@ public class TitleDetailsActivity extends BaseActivity {
 	private Button btn_reserve;
 	private ListView lv_loanables;
 
+	private ProgressDialog reserveProgressDialog;
+	private ProgressDialog loadReservationDetailsProgressDialog;
+	private ProgressDialog loadTitleDetailProgressDialog;
+
 	private int loadingCompleateStatus = 0;
 	private final int numberOfBackgroundLoadings = 2;
 
@@ -71,7 +75,7 @@ public class TitleDetailsActivity extends BaseActivity {
 	}
 
 	public void onReserve(View view) {
-		final ProgressDialog progressDialog = new ProgressDialog(this);
+		reserveProgressDialog = new ProgressDialog(this);
 		final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
 		dialogBuilder
@@ -90,14 +94,14 @@ public class TitleDetailsActivity extends BaseActivity {
 								} else {
 									Toast.makeText(TitleDetailsActivity.this, getResources().getText(R.string.title_reserve_error), Toast.LENGTH_LONG).show();
 								}
-								progressDialog.hide();
+								reserveProgressDialog.dismiss();
 							}
 
 							@Override
 							public void beforeTaskRun() {
-								progressDialog.setMessage(getResources().getText(R.string.dialog_progress_reserve_title));
-								progressDialog.setCancelable(false);
-								progressDialog.show();
+								reserveProgressDialog.setMessage(getResources().getText(R.string.dialog_progress_reserve_title));
+								reserveProgressDialog.setCancelable(false);
+								reserveProgressDialog.show();
 							}
 						}).execute();
 
@@ -123,7 +127,7 @@ public class TitleDetailsActivity extends BaseActivity {
 	 * loads all the data of the book and puts it into the view
 	 */
 	private void setupData() {
-		final ProgressDialog progressDialog = new ProgressDialog(this);
+		loadTitleDetailProgressDialog = new ProgressDialog(this);
 
 		new LoadTitleInformationAsynTaks(this.titleId, new TaskCallback<Title>() {
 			@Override
@@ -137,15 +141,15 @@ public class TitleDetailsActivity extends BaseActivity {
 				lv_loanables.setAdapter(new LoanablesListAdapter(TitleDetailsActivity.this, title.getLoanables()));
 
 				//hide progressbar
-				progressDialog.hide();
+				loadTitleDetailProgressDialog.dismiss();
 			}
 
 			@Override
 			public void beforeTaskRun() {
 				//setup a progressdialog
-				progressDialog.setMessage(getResources().getText(R.string.dialog_progress_load_titleinformation));
-				progressDialog.setCancelable(false);
-				progressDialog.show();
+				loadTitleDetailProgressDialog.setMessage(getResources().getText(R.string.dialog_progress_load_titleinformation));
+				loadTitleDetailProgressDialog.setCancelable(false);
+				loadTitleDetailProgressDialog.show();
 			}
 		}).execute();
 	}
@@ -155,7 +159,7 @@ public class TitleDetailsActivity extends BaseActivity {
 	 */
 	private void setupReserveButton() {
 		if(getCredentials() != null) {
-			final ProgressDialog progressDialog = new ProgressDialog(this);
+			reserveProgressDialog = new ProgressDialog(this);
 
 			new LoadReservationStatusAsyncTask(this.titleId, new TaskCallback<Boolean>() {
 				@Override
@@ -165,15 +169,15 @@ public class TitleDetailsActivity extends BaseActivity {
 					} else {
 						btn_reserve.setVisibility(View.INVISIBLE);
 					}
-					progressDialog.hide();
+					reserveProgressDialog.dismiss();
 				}
 
 				@Override
 				public void beforeTaskRun() {
 					//setup a progressdialog
-					progressDialog.setMessage(getResources().getText(R.string.dialog_progress_check_reservations));
-					progressDialog.setCancelable(false);
-					progressDialog.show();
+					reserveProgressDialog.setMessage(getResources().getText(R.string.dialog_progress_check_reservations));
+					reserveProgressDialog.setCancelable(false);
+					reserveProgressDialog.show();
 				}
 			}).execute();
 
