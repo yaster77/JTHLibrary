@@ -1,9 +1,11 @@
 package se.hj.doelibs.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Christoph on 17.11.2014.
  */
-public class Author {
+public class Author implements Serializable {
 
     private int authorId;
     private String name;
@@ -22,5 +24,10 @@ public class Author {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

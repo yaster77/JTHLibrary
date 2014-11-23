@@ -1,9 +1,12 @@
 package se.hj.doelibs.model;
 
+import java.io.Serializable;
+
 /**
  * @author Christoph
  */
-public class Loanable {    private int loanableId;
+public class Loanable implements Serializable {
+    private int loanableId;
     private String barcode;
     private LocationCategory category;
     private User owner;
@@ -92,45 +95,51 @@ public class Loanable {    private int loanableId;
         /**
          * Book is available
          */
-        AVAILABLE(0),
+        AVAILABLE(0, "Available"),
 
         /**
          * Book is currently borrowed
          */
-        BORROWED(1),
+        BORROWED(1, "Borrowed"),
         
         /**
          * the loanable is reserved
          */
-        RESERVED(2),
+        RESERVED(2, "Reserved"),
 
         /**
          * the loanable is available, but locked from the owner cause of a recall/mark as unavailable 
          */
-        UNAVAILABLE_FROM_OWNER(3),
+        UNAVAILABLE_FROM_OWNER(3, "Unavailable"),
  
         /**
          * the loanable is currently recalled (borrowed but ordered back from the owner)
          */
-        RECALLED(4),
+        RECALLED(4, "Recalled"),
  
         /**
          * the loanable has been deleted
          */
-        DELETED(5),
+        DELETED(5, "Deleted"),
  
         /**
          * fallback
          */
-        UNKNOWN(-1);
+        UNKNOWN(-1, "Unknown");
 
         private int value;
-        private Status(int val) {
+        private String description;
+        private Status(int val, String description) {
             this.value = val;
+            this.description = description;
         }
 
         public int getValue() {
             return value;
+        }
+
+        public String getText() {
+            return description;
         }
 
         public static Status getType(int val) {

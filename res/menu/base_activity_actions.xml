@@ -8,4 +8,5 @@
         android:title="@string/action_isbn_scanner"
         android:showAsAction="always"
         android:icon="@drawable/ic_camera"/>
+
 </menu>

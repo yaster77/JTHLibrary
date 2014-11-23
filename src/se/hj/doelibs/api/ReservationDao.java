@@ -76,6 +76,70 @@ public class ReservationDao extends BaseDao<Reservation> {
         return reservations;
     }
 
+    /**
+     * returns if the user has a available reservation for the title
+     *
+     * @param titleId
+     * @return
+     */
+    public boolean userHasAvailableReservationForTitle(int titleId) {
+        boolean hasReservation = false;
+        try {
+            HttpResponse response = get("/Reservation?availableReservation&titleId=" + titleId);
+
+            //check statuscode of request
+            checkResponse(response);
+
+            //get the result
+            String responseString = getResponseAsString(response);
+
+            //create object out of JSON result
+            JSONObject result = new JSONObject(responseString);
+            if (result.length() > 0) {
+                Reservation reservation = ReservationDao.parseFromJson(result);
+
+                if(reservation != null) {
+                    hasReservation = true;
+                }
+            } else {
+                //it was empty --> no reservation
+            }
+        } catch (IOException e) {
+            Log.d("ReservationDao", "check if user has available reservation", e);
+        } catch (HttpException e) {
+            Log.d("ReservationDao", "check if user has available reservation", e);
+        } catch (JSONException e) {
+            Log.d("ReservationDao", "check if user has available reservation", e);
+        }
+
+        return hasReservation;
+    }
+
+    /**
+     * reserves a title
+     *
+     * @param titleId
+     * @return
+     */
+    public boolean reserve(int titleId) {
+        boolean reservationSuccessfull = false;
+
+        try {
+            HttpResponse response = post("/Reservation?titleId=" + titleId, null);
+
+            //check statuscode of request
+            checkResponse(response);
+
+            reservationSuccessfull = true;
+        } catch (IOException e) {
+            Log.d("ReservationDao", "error on POST request", e);
+        } catch (HttpException e) {
+            Log.d("ReservationDao", "http exception", e);
+        }
+
+        return reservationSuccessfull;
+    }
+
     public static Reservation  parseFromJson(JSONObject jsonObject) throws JSONException {
         Reservation reservation = new Reservation();
 
