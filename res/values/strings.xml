@@ -62,5 +62,15 @@
     <string name="login_password">Password</string>
     <string name="login_username">Username (email)</string>
 
+    <string name="loanable_status_available">Available</string>
+    <string name="loanable_status_borrowed">Borrowed</string>
+    <string name="loanable_status_reserved">Reserved</string>
+    <string name="loanable_status_recalled">Recalled</string>
+    <string name="loanable_status_unavailable">Unavailable from owner</string>
+    <string name="loanable_status_deleted">Deleted</string>
+    <string name="loanable_status_unknown">Unknown</string>
+
+    <string name="prefix_status">Status</string>
+    <string name="no_loanables_available">Currently no loanable available</string>
 
 </resources>

@@ -73,7 +73,7 @@ public class LoanDao extends BaseDao<Loan> {
         } catch (JSONException e) {
             Log.e("LoanDao", "could not parse JSON result", e);
         } catch (HttpException e) {
-            Log.e("LoanDao", "could not load users loans", e);
+            Log.d("LoanDao", "could not load users loans", e);
         }
 
         return loans;

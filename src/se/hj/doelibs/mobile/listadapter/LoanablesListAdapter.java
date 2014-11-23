@@ -63,7 +63,7 @@ public class LoanablesListAdapter extends BaseAdapter {
 
 		header.setText(loanable.getLocation() + " (" + loanable.getCategory().getName() + ")");
 		subcontent1.setText(loanable.getOwner().toString());
-		subcontent2.setText("Status: " + loanable.getStatus().getText());
+		subcontent2.setText(activity.getResources().getText(R.string.prefix_status) + ": " + loanable.getStatus().getText(activity));
 
 		//show button only logged in users
 		if(CurrentUserUtils.getCredentials(activity) != null) {

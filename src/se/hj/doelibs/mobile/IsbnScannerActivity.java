@@ -20,6 +20,7 @@ import se.hj.doelibs.api.TitleDao;
 import se.hj.doelibs.mobile.asynctask.TaskCallback;
 import se.hj.doelibs.mobile.codes.ExtraKeys;
 import se.hj.doelibs.mobile.codes.PreferencesKeys;
+import se.hj.doelibs.mobile.utils.ProgressDialogUtils;
 import se.hj.doelibs.model.Title;
 
 public class IsbnScannerActivity extends BaseActivity {
@@ -111,7 +112,7 @@ public class IsbnScannerActivity extends BaseActivity {
 		new CheckIfIsbnExistsTask(isbn, format, new TaskCallback<Title>() {
 			@Override
 			public void onTaskCompleted(Title title) {
-				checkIfTitleExistsDialog.dismiss();
+				ProgressDialogUtils.dismissQuitely(checkIfTitleExistsDialog);
 				if (title == null) {
 					showDialogNoTitleFound();
 				} else {

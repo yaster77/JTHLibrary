@@ -16,6 +16,7 @@ import se.hj.doelibs.mobile.asynctask.*;
 import se.hj.doelibs.mobile.codes.ExtraKeys;
 import se.hj.doelibs.mobile.listadapter.LoanablesListAdapter;
 import se.hj.doelibs.mobile.utils.ListUtils;
+import se.hj.doelibs.mobile.utils.ProgressDialogUtils;
 import se.hj.doelibs.model.Author;
 import se.hj.doelibs.model.Loan;
 import se.hj.doelibs.model.Title;
@@ -35,6 +36,7 @@ public class TitleDetailsActivity extends BaseActivity {
 	private TextView tv_categories;
 	private TextView tv_publisher;
 	private TextView tv_authors;
+	private TextView tv_noLoanablesAvailable;
 
 	private Button btn_reserve;
 	private ListView lv_loanables;
@@ -63,6 +65,7 @@ public class TitleDetailsActivity extends BaseActivity {
 		tv_authors = (TextView)findViewById(R.id.tv_titledetails_authors);
 		btn_reserve = (Button)findViewById(R.id.btn_titledetails_reserve);
 		lv_loanables = (ListView)findViewById(R.id.lv_titledetails_loanableslist);
+		tv_noLoanablesAvailable = (TextView)findViewById(R.id.tv_no_loanables_available);
 
 		Intent intent = getIntent();
 		titleId = intent.getIntExtra(ExtraKeys.TITLE_ID, 0);
@@ -90,7 +93,7 @@ public class TitleDetailsActivity extends BaseActivity {
 								} else {
 									Toast.makeText(TitleDetailsActivity.this, getResources().getText(R.string.title_reserve_error), Toast.LENGTH_LONG).show();
 								}
-								reserveProgressDialog.dismiss();
+								ProgressDialogUtils.dismissQuitely(reserveProgressDialog);
 							}
 
 							@Override
@@ -129,7 +132,7 @@ public class TitleDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onTaskCompleted(Boolean checkInSuccess) {
-				checkInAndOutProgressDialog.dismiss();
+				ProgressDialogUtils.dismissQuitely(checkInAndOutProgressDialog);
 				if(checkInSuccess) {
 					Toast.makeText(TitleDetailsActivity.this, getResources().getText(R.string.loanable_checkin_successfull), Toast.LENGTH_SHORT).show();
 
@@ -162,7 +165,7 @@ public class TitleDetailsActivity extends BaseActivity {
 		return new TaskCallback<Loan>() {
 			@Override
 			public void onTaskCompleted(Loan loan) {
-				checkInAndOutProgressDialog.dismiss();
+				ProgressDialogUtils.dismissQuitely(checkInAndOutProgressDialog);
 
 				if(loan != null) {
 					Toast.makeText(TitleDetailsActivity.this, getResources().getText(R.string.loanable_checkout_successfull), Toast.LENGTH_SHORT).show();
@@ -200,10 +203,17 @@ public class TitleDetailsActivity extends BaseActivity {
 				tv_publisher.setText(title.getPublisher().getName() + " (" + title.getEditionYear() + ")");
 				tv_categories.setText(ListUtils.implode(title.getTopics(), ", "));
 				tv_authors.setText(createAuthorEditorString(title.getAuthors(), title.getEditors()));
-				lv_loanables.setAdapter(new LoanablesListAdapter(TitleDetailsActivity.this, title.getLoanables(), getAfterCheckOutTaskCallback(), getAfterCheckInTaskCallback()));
+
+				if(title.getLoanables() != null && title.getLoanables().size()>0) {
+					lv_loanables.setAdapter(new LoanablesListAdapter(TitleDetailsActivity.this, title.getLoanables(), getAfterCheckOutTaskCallback(), getAfterCheckInTaskCallback()));
+				} else {
+					tv_noLoanablesAvailable.setText(getResources().getText(R.string.no_loanables_available));
+					tv_noLoanablesAvailable.setVisibility(View.VISIBLE);
+				}
+
 
 				//hide progressbar
-				loadTitleDetailProgressDialog.dismiss();
+				ProgressDialogUtils.dismissQuitely(loadTitleDetailProgressDialog);
 			}
 
 			@Override
@@ -230,7 +240,7 @@ public class TitleDetailsActivity extends BaseActivity {
 					} else {
 						btn_reserve.setVisibility(View.INVISIBLE);
 					}
-					reserveProgressDialog.dismiss();
+					ProgressDialogUtils.dismissQuitely(reserveProgressDialog);
 				}
 
 				@Override

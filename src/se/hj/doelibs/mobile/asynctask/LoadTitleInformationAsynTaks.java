@@ -42,21 +42,27 @@ public class LoadTitleInformationAsynTaks extends AsyncTask<Void, Void, Title> {
 		List<Loanable> filteredLoanables = new ArrayList<Loanable>();
 
 		if(allLoanables != null && allLoanables.size() > 0) {
-			ReservationDao reservationDao = new ReservationDao(CurrentUserUtils.getCredentials(this.context));
 			LoanDao loanDao = new LoanDao(CurrentUserUtils.getCredentials(this.context));
-			List<Loan> usersLoans = loanDao.getCurrentUsersLoans();
+			List<Loan> usersLoans = new ArrayList<Loan>();
 
 			//check if user has title currently checked out
 			boolean userHasALoanableOfThisTitle = false;
+			boolean userHasAvailableReservationForTitle = false;
+
 			if(CurrentUserUtils.getCredentials(this.context) != null) {
+				usersLoans = loanDao.getCurrentUsersLoans();
+
 				for(Loan loan : usersLoans) {
 					if(loan.getLoanable().getTitle().getTitleId() == this.titleId){
 						userHasALoanableOfThisTitle = true;
 					}
 				}
+
+				ReservationDao reservationDao = new ReservationDao(CurrentUserUtils.getCredentials(this.context));
+				userHasAvailableReservationForTitle = reservationDao.userHasAvailableReservationForTitle(this.titleId);
 			}
 
-			boolean userHasAvailableReservationForTitle = reservationDao.userHasAvailableReservationForTitle(this.titleId);
+
 
 			//decide on each status and the userinformation if the loanable will be added
 			for(Loanable loanable : allLoanables) {
@@ -69,7 +75,7 @@ public class LoadTitleInformationAsynTaks extends AsyncTask<Void, Void, Title> {
 				} else if(loanable.getStatus() == Loanable.Status.RECALLED || loanable.getStatus() == Loanable.Status.BORROWED) {
 
 					//add if user has borrowed this loanable
-					for(Loan loan : loanDao.getCurrentUsersLoans()) {
+					for(Loan loan : usersLoans) {
 						if(loan.getLoanable().getLoanableId() == loanable.getLoanableId()){
 							filteredLoanables.add(loanable);
 						}
