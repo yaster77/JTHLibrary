@@ -26,11 +26,11 @@
     <string name="dialog_really_checkin_loanable">Do you really want to checkin this loanable again?</string>
     <string name="dialog_really_reserve_title">Do you really want to reserve this title?</string>
 
-    <string name="dialog_progress_checkin_loanable">Check in loanable...</string>
-    <string name="dialog_progress_checkout_loanable">Check out loanable...</string>
-    <string name="dialog_progress_load_titleinformation">Load titleinformation...</string>
-    <string name="dialog_progress_check_reservations">Load reservations...</string>
-    <string name="dialog_progress_reserve_title">Reserve title...</string>
+    <string name="dialog_progress_checkin_loanable">Check in loanable&#8230;</string>
+    <string name="dialog_progress_checkout_loanable">Check out loanable&#8230;</string>
+    <string name="dialog_progress_load_titleinformation">Load titleinformation&#8230;</string>
+    <string name="dialog_progress_check_reservations">Load reservations&#8230;</string>
+    <string name="dialog_progress_reserve_title">Reserve title&#8230;</string>
 
     <!--textviews-->
     <string name="tv_titledetails_loanables">Loanables</string>
@@ -53,14 +53,18 @@
     <string name="titledetails_editor_prefix">Editor</string>
 
     <string name="loanable_checkout_error">Error on checking the loanable out. Please try again</string>
-    <string name="loanable_checkout_successfull">Loanable successfull checked out</string>
+    <string name="loanable_checkout_successfull">Loanable successful checked out</string>
     <string name="loanable_checkin_error">Error on checking the loanable in. Please try again</string>
-    <string name="loanable_checkin_successfull">Loanable successfull checked in again</string>
+    <string name="loanable_checkin_successfull">Loanable successful checked in again</string>
     <string name="title_reserve_error">Error on reserving the title. Please try again</string>
     <string name="title_reserve_successfull">Title successfully reserved</string>
 
     <string name="login_password">Password</string>
     <string name="login_username">Username (email)</string>
-
+    <string name="settings_language_selection">Select the application language</string>
+    <string name="settings_user_connected">You are currently connected as a </string>
+    <string name="settings_account_section">My account</string>
+    <string name="title_activity_splash_screen">DoeLibs</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
