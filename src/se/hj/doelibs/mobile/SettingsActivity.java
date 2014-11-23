@@ -1,14 +1,20 @@
 package se.hj.doelibs.mobile;
 
+import java.util.Arrays;
+
+import se.hj.doelibs.mobile.codes.PreferencesKeys;
+import se.hj.doelibs.mobile.listener.LanguageSettingListener;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
-import se.hj.doelibs.mobile.codes.PreferencesKeys;
 
 public class SettingsActivity extends BaseActivity {
 
@@ -16,7 +22,7 @@ public class SettingsActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
+		
 	    super.onCreate(savedInstanceState);
 	    LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    
@@ -28,6 +34,26 @@ public class SettingsActivity extends BaseActivity {
 		if(getCredentials() == null) {
 			logoutBtn.setVisibility(View.GONE);
 		}
+		
+		// Creating and filing the Spinner
+		Spinner spinner = (Spinner) findViewById(R.id.language_spinner);
+		
+		LanguageSettingListener languageListener = new LanguageSettingListener(this);
+		
+		// Creating an ArrayAdapter
+		ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
+		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		
+		spinner.setAdapter(spinnerAdapter);
+		spinner.setOnItemSelectedListener(languageListener);
+		
+		// Setting the default value
+		SharedPreferences prefs =  getApplicationContext().getSharedPreferences(PreferencesKeys.NAME_TMP_VALUES, MODE_PRIVATE);
+		Resources res = getResources();
+		String[] codes = res.getStringArray(R.array.languages_code);
+		
+		int position = Arrays.asList(codes).indexOf(prefs.getString("application_language", ""));
+		spinner.setSelection(position);
 	}
 
 	public void onLogout(View view) {
