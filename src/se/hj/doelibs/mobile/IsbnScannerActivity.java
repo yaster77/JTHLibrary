@@ -108,8 +108,6 @@ public class IsbnScannerActivity extends BaseActivity {
 	 * @param format
 	 */
 	private void checkIsbn(String isbn, String format) {
-		checkIfTitleExistsDialog = new ProgressDialog(IsbnScannerActivity.this);
-
 		new CheckIfIsbnExistsTask(isbn, format, new TaskCallback<Title>() {
 			@Override
 			public void onTaskCompleted(Title title) {
@@ -126,6 +124,7 @@ public class IsbnScannerActivity extends BaseActivity {
 
 			@Override
 			public void beforeTaskRun() {
+				checkIfTitleExistsDialog = new ProgressDialog(IsbnScannerActivity.this);
 				checkIfTitleExistsDialog.setMessage("checking if title exists in DoeLibS");
 				checkIfTitleExistsDialog.setCancelable(false);
 				checkIfTitleExistsDialog.show();

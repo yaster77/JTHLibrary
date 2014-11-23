@@ -12,14 +12,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import se.hj.doelibs.mobile.asynctask.LoadReservationStatusAsyncTask;
-import se.hj.doelibs.mobile.asynctask.LoadTitleInformationAsynTaks;
-import se.hj.doelibs.mobile.asynctask.ReserveTitleAsyncTask;
-import se.hj.doelibs.mobile.asynctask.TaskCallback;
+import se.hj.doelibs.mobile.asynctask.*;
 import se.hj.doelibs.mobile.codes.ExtraKeys;
 import se.hj.doelibs.mobile.listadapter.LoanablesListAdapter;
 import se.hj.doelibs.mobile.utils.ListUtils;
 import se.hj.doelibs.model.Author;
+import se.hj.doelibs.model.Loan;
 import se.hj.doelibs.model.Title;
 
 import java.util.List;
@@ -44,6 +42,7 @@ public class TitleDetailsActivity extends BaseActivity {
 	private ProgressDialog reserveProgressDialog;
 	private ProgressDialog loadReservationDetailsProgressDialog;
 	private ProgressDialog loadTitleDetailProgressDialog;
+	private ProgressDialog checkInAndOutProgressDialog;
 
 	private int loadingCompleateStatus = 0;
 	private final int numberOfBackgroundLoadings = 2;
@@ -121,11 +120,77 @@ public class TitleDetailsActivity extends BaseActivity {
 	}
 
 	/**
+	 * returns the callback after the checkIn loanable
+	 * this will only make some UI changes, because it shouldn't be done in the onClick listener
+	 * @return
+	 */
+	private TaskCallback<Boolean> getAfterCheckInTaskCallback() {
+		return new TaskCallback<Boolean>() {
+
+			@Override
+			public void onTaskCompleted(Boolean checkInSuccess) {
+				checkInAndOutProgressDialog.dismiss();
+				if(checkInSuccess) {
+					Toast.makeText(TitleDetailsActivity.this, getResources().getText(R.string.loanable_checkin_successfull), Toast.LENGTH_SHORT).show();
+
+					//reload title activity
+					Intent titleActivity = new Intent(TitleDetailsActivity.this, TitleDetailsActivity.class);
+					titleActivity.putExtra(ExtraKeys.TITLE_ID, titleId);
+					finish();
+					startActivity(titleActivity);
+				} else {
+					Toast.makeText(TitleDetailsActivity.this, getResources().getText(R.string.loanable_checkin_error), Toast.LENGTH_LONG).show();
+				}
+			}
+
+			@Override
+			public void beforeTaskRun() {
+				checkInAndOutProgressDialog = new ProgressDialog(TitleDetailsActivity.this);
+				checkInAndOutProgressDialog.setMessage(getResources().getText(R.string.dialog_progress_checkin_loanable));
+				checkInAndOutProgressDialog.setCancelable(false);
+				checkInAndOutProgressDialog.show();
+			}
+		};
+	}
+
+	/**
+	 * returns the callback which will be called after a checkOut of a loanable
+	 * this will only make some UI changes, because it shouldn't be done in the onClick listener
+	 * @return
+	 */
+	private TaskCallback<Loan> getAfterCheckOutTaskCallback() {
+		return new TaskCallback<Loan>() {
+			@Override
+			public void onTaskCompleted(Loan loan) {
+				checkInAndOutProgressDialog.dismiss();
+
+				if(loan != null) {
+					Toast.makeText(TitleDetailsActivity.this, getResources().getText(R.string.loanable_checkout_successfull), Toast.LENGTH_SHORT).show();
+					//reload title activity
+					Intent titleActivity = new Intent(TitleDetailsActivity.this, TitleDetailsActivity.class);
+					titleActivity.putExtra(ExtraKeys.TITLE_ID, titleId);
+					finish();
+					startActivity(titleActivity);
+				} else {
+					Toast.makeText(TitleDetailsActivity.this, getResources().getText(R.string.loanable_checkout_error), Toast.LENGTH_LONG).show();
+				}
+			}
+
+			@Override
+			public void beforeTaskRun() {
+				checkInAndOutProgressDialog = new ProgressDialog(TitleDetailsActivity.this);
+
+				checkInAndOutProgressDialog.setMessage(getResources().getText(R.string.dialog_progress_checkout_loanable));
+				checkInAndOutProgressDialog.setCancelable(false);
+				checkInAndOutProgressDialog.show();
+			}
+		};
+	}
+
+	/**
 	 * loads all the data of the book and puts it into the view
 	 */
 	private void setupData() {
-		loadTitleDetailProgressDialog = new ProgressDialog(this);
-
 		new LoadTitleInformationAsynTaks(TitleDetailsActivity.this, this.titleId, new TaskCallback<Title>() {
 			@Override
 			public void onTaskCompleted(Title title) {
@@ -135,7 +200,7 @@ public class TitleDetailsActivity extends BaseActivity {
 				tv_publisher.setText(title.getPublisher().getName() + " (" + title.getEditionYear() + ")");
 				tv_categories.setText(ListUtils.implode(title.getTopics(), ", "));
 				tv_authors.setText(createAuthorEditorString(title.getAuthors(), title.getEditors()));
-				lv_loanables.setAdapter(new LoanablesListAdapter(TitleDetailsActivity.this, title.getLoanables()));
+				lv_loanables.setAdapter(new LoanablesListAdapter(TitleDetailsActivity.this, title.getLoanables(), getAfterCheckOutTaskCallback(), getAfterCheckInTaskCallback()));
 
 				//hide progressbar
 				loadTitleDetailProgressDialog.dismiss();
@@ -144,6 +209,7 @@ public class TitleDetailsActivity extends BaseActivity {
 			@Override
 			public void beforeTaskRun() {
 				//setup a progressdialog
+				loadTitleDetailProgressDialog = new ProgressDialog(TitleDetailsActivity.this);
 				loadTitleDetailProgressDialog.setMessage(getResources().getText(R.string.dialog_progress_load_titleinformation));
 				loadTitleDetailProgressDialog.setCancelable(false);
 				loadTitleDetailProgressDialog.show();
@@ -156,8 +222,6 @@ public class TitleDetailsActivity extends BaseActivity {
 	 */
 	private void setupReserveButton() {
 		if(getCredentials() != null) {
-			reserveProgressDialog = new ProgressDialog(this);
-
 			new LoadReservationStatusAsyncTask(TitleDetailsActivity.this, this.titleId, new TaskCallback<Boolean>() {
 				@Override
 				public void onTaskCompleted(Boolean showButton) {
@@ -172,6 +236,7 @@ public class TitleDetailsActivity extends BaseActivity {
 				@Override
 				public void beforeTaskRun() {
 					//setup a progressdialog
+					reserveProgressDialog = new ProgressDialog(TitleDetailsActivity.this);
 					reserveProgressDialog.setMessage(getResources().getText(R.string.dialog_progress_check_reservations));
 					reserveProgressDialog.setCancelable(false);
 					reserveProgressDialog.show();
