@@ -5,15 +5,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Toast;
-import se.hj.doelibs.api.LoanableDao;
 import se.hj.doelibs.mobile.R;
 import se.hj.doelibs.mobile.TitleDetailsActivity;
+import se.hj.doelibs.mobile.asynctask.CheckInAsyncTask;
 import se.hj.doelibs.mobile.asynctask.TaskCallback;
 import se.hj.doelibs.mobile.codes.ExtraKeys;
-import se.hj.doelibs.mobile.utils.CurrentUserUtils;
 
 /**
  * @author Christoph
@@ -54,7 +52,7 @@ public class LoanableCheckInOnClickListener implements View.OnClickListener {
 	private void checkInLoanable() {
 		final ProgressDialog progressDialog = new ProgressDialog(context);
 
-		new CheckInTask(loanableId, new TaskCallback<Boolean>() {
+		new CheckInAsyncTask(context, loanableId, new TaskCallback<Boolean>() {
 			@Override
 			public void onTaskCompleted(Boolean checkInSuccess) {
 				progressDialog.hide();
@@ -79,33 +77,4 @@ public class LoanableCheckInOnClickListener implements View.OnClickListener {
 		}).execute();
 	}
 
-	/**
-	 * task for checking a loanable back in
-	 */
-	private class CheckInTask extends AsyncTask<Void, Void, Boolean> {
-
-		private int loanableId;
-		private TaskCallback<Boolean> callback;
-
-		public CheckInTask(int loanableId, TaskCallback<Boolean> callback) {
-			this.loanableId = loanableId;
-			this.callback = callback;
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... voids) {
-			LoanableDao loanableDao = new LoanableDao(CurrentUserUtils.getCredentials(context));
-			return loanableDao.checkInByLoanableId(loanableId);
-		}
-
-		@Override
-		protected void onPostExecute(Boolean checkInSuccess) {
-			callback.onTaskCompleted(checkInSuccess);
-		}
-
-		@Override
-		protected void onPreExecute() {
-			callback.beforeTaskRun();
-		}
-	}
 }
