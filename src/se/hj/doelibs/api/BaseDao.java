@@ -162,7 +162,7 @@ public abstract class BaseDao<T> {
 
         try {
             inputStream = response.getEntity().getContent();
-            BufferedReader bReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
+            BufferedReader bReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
 
             String line = null;
             while ((line = bReader.readLine()) != null) {

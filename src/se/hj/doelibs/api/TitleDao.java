@@ -13,6 +13,7 @@ import se.hj.doelibs.model.Title;
 import se.hj.doelibs.model.Topic;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,6 +125,76 @@ public class TitleDao extends BaseDao<Title> {
 
         return title;
     }
+
+    /**
+     * Search for titles. Returns a list.
+     * @param term
+     * @param topics
+     * @return
+     * @throws HttpException
+     */
+    public List<Title> searchTitle(String term, String topics) throws HttpException {
+        List<Title> result = new ArrayList<Title>();
+
+        try {
+            boolean noTopic = false;
+            boolean noTerm = false;
+            if(topics.equals(""))
+                noTopic = true;
+            if(term.equals(""))
+                noTerm = true;
+
+            String context;
+            HttpResponse response;
+            if(!noTopic && !noTerm) {
+                String encodedTopics = URLEncoder.encode(topics, "UTF-8");
+                context = String.format("/Title?q=%s&topics=%s&onlyTopicMatches=true", term, encodedTopics);
+                response = get(context);
+                checkResponse(response);
+
+                String responseString = getResponseAsString(response);
+                JSONArray titleArr = new JSONArray(responseString);
+                for (int i = 0; i < titleArr.length(); i++) {
+                    JSONObject obj = new JSONObject(titleArr.get(i).toString());
+                    result.add(TitleDao.parseFromJson(obj));
+                }
+            }
+            else if (noTopic && !noTerm){
+                String encodedTerm = URLEncoder.encode(term, "UTF-8");
+                context = String.format("/Search/?searchTerm=%s&searchOption=Title", encodedTerm);
+                response = get(context);
+
+                String responseString = getResponseAsString(response);
+                JSONObject titleObj = new JSONObject(responseString);
+                JSONArray allTitles = titleObj.getJSONArray("Titles");
+                for (int i = 0; i < allTitles.length(); i++) {
+                    result.add(TitleDao.parseFromJson(allTitles.getJSONObject(i).getJSONObject("Title")));
+                }
+            }
+            else{
+                String encodedTopics = URLEncoder.encode(topics, "UTF-8");
+                context = String.format("/Topic?=%s", encodedTopics);
+                response = get(context);
+
+                String responseString = getResponseAsString(response);
+                JSONArray topicObj = new JSONArray(responseString);
+                JSONArray titlesArr = topicObj.getJSONObject(0).getJSONArray("Titles");
+                for (int i = 0; i < titlesArr.length(); i++) {
+                    result.add(TitleDao.parseFromJson(titlesArr.getJSONObject(i)));
+                }
+            }
+
+
+        } catch (IOException e) {
+            Log.e("TitleDao", "Exception on GET request", e);
+        } catch (JSONException e) {
+            Log.e("TitleDao", "could not parse JSON result", e);
+        }
+
+        return result;
+    }
+
+
 
     public static Title parseFromJson(JSONObject jsonObject) throws JSONException {
         Title title = new Title();
