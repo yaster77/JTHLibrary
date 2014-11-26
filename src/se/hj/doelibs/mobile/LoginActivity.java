@@ -1,5 +1,6 @@
 package se.hj.doelibs.mobile;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,12 +10,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import org.apache.http.HttpException;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import se.hj.doelibs.api.UserDao;
 import se.hj.doelibs.mobile.codes.PreferencesKeys;
+import se.hj.doelibs.mobile.utils.ConnectionUtils;
 import se.hj.doelibs.model.User;
 
 /**
@@ -23,6 +26,7 @@ import se.hj.doelibs.model.User;
 public class LoginActivity extends BaseActivity {
     private EditText usernameField;
     private EditText passwordField;
+    private Button btnLogin;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,17 @@ public class LoginActivity extends BaseActivity {
 
         usernameField = (EditText)findViewById(R.id.login_username);
         passwordField = (EditText)findViewById(R.id.login_password);
+        btnLogin = (Button)findViewById(R.id.login_button);
+
+        if(!ConnectionUtils.isConnected(this)) {
+            btnLogin.setActivated(false);
+            btnLogin.setEnabled(false);
+
+            new AlertDialog.Builder(this)
+                    .setMessage(R.string.login_error_internet_connection)
+                    .show();
+
+        }
     }
 
     public void onLogin(View view) {
@@ -83,13 +98,13 @@ public class LoginActivity extends BaseActivity {
                     startActivity(myLoanActivity);
                 } else {
                     passwordField.setText("");
-                    Toast.makeText(LoginActivity.this, "Could not login. Please check your credentials", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, getResources().getText(R.string.login_error_credentials), Toast.LENGTH_LONG).show();
                 }
 			}
 
             @Override
             protected void onPreExecute() {
-                dialog.setMessage("checking credentials...");
+                dialog.setMessage(getResources().getText(R.string.login_checking_credentials));
                 dialog.setCancelable(false);
                 dialog.show();
             }
