@@ -15,7 +15,9 @@
             android:id="@+id/myLoanText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/my_loans_MyLoans" />
+        android:text="@string/my_loans_MyLoans"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+            />
 
     <ListView
             android:id="@+id/loans_list"
@@ -28,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_loans_MyReservations"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             />
     <ListView
             android:id="@+id/reservations_list"
