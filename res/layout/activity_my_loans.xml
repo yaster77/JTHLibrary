@@ -10,10 +10,28 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="se.hj.doelibs.mobile.MyLoansActivity" >
 
+
     <TextView
             android:id="@+id/myLoanText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="my loans" />
+        android:text="@string/my_loans_MyLoans" />
 
+    <ListView
+            android:id="@+id/loans_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    <TextView
+            android:id="@+id/myReservationsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_loans_MyReservations"
+            />
+    <ListView
+            android:id="@+id/reservations_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 </LinearLayout>
