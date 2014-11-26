@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
     <string-array name="nav_drawer_items">
-        <item>My Loans</item>
-        <item>Titles</item>
-        <item>Settings</item>
+        <item>Mon compte</item>
+        <item>Catalogue</item>
+        <item>Réglages</item>
     </string-array>
+    
 </resources>

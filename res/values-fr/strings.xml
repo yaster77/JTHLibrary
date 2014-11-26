@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">DoeLibS mobile</string>
+    <string name="hello_world">Bonjour le monde!</string>
+
+    <!-- activity names -->
+    <string name="title_activity_my_loans">Mes emprunts</string>
+
+    <!-- activity links -->
+    <string name="action_isbn_scanner">ISBN scanner</string>
+
+    <!-- Button values -->
+    <!-- <string name="btn_save_value">save</string> -->
+    <string name="btn_login">Se connecter</string>
+    <string name="btn_logout">Deconnexion</string>
+    <string name="btn_isbn_scanner_more_scanning">Rec</string>
+    <string name="btn_isbn_scanner_no_more_scanning">Annuler</string>
+
+    <!-- dialog messages -->
+    <string name="dialog_no_isbn_on_scanning_found">Le code ISBM scanner n\'est pas répertorié dans DoeLibS.</string>
+
+    <!-- other descriptions -->
+    <string name="drawer_open">Ouvrir le menu</string>
+    <string name="drawer_close">Fermer le menu</string>
+    <string name="title_activity_title_search">TitleSearchActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_isbn_scanner">ISBN scanner</string>
+    <string name="title_activity_login">Login</string>
+
+    <string name="login_password">Mot de passe</string>
+    <string name="login_username">Nom d\'utilisateur (email)</string>
+    
+    <string name="settings_user_connected">Vous êtes actuellement connecté en tant que</string>
+    <string name="settings_language_selection">Choisir la langue</string>
+    <string name="settings_account_section">Mon compte</string>
+
+
+</resources>
