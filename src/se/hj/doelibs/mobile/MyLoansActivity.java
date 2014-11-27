@@ -28,7 +28,7 @@ public class MyLoansActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    
+
 	    View contentView = inflater.inflate(R.layout.activity_my_loans, null, false);
 	    drawerLayout.addView(contentView, 0);
 

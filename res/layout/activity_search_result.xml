@@ -5,11 +5,13 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+
     <fragment
-            android:id="@+id/detailFragment"
-            android:layout_width="match_parent"
+            android:id="@+id/listFragment"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
             android:layout_height="match_parent"
-            class="se.hj.doelibs.mobile.TitleDetailsFragment" >
+            class="se.hj.doelibs.mobile.SearchResultListFragment" >
     </fragment>
 
 </LinearLayout>

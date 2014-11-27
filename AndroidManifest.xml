@@ -48,7 +48,7 @@
             android:label="@string/title_activity_title_search" >
         </activity>
         <activity
-                android:name=".SearchResultActivity"
+                android:name=".OldSearchResultActivity"
                 android:label="@string/title_activity_title_searchresult" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -69,6 +69,7 @@
                 android:name=".TitleDetailsActivity"
                 android:label="@string/title_activity_title_details"/>
         <activity android:name=".NoConnectionActivity" android:label="Not connected"/>
+        <activity android:name=".BrowseActivity" android:label="Search"/>
 
     </application>
 
