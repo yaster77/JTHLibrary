@@ -7,16 +7,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import org.apache.http.HttpException;
 import se.hj.doelibs.api.TitleDao;
+import se.hj.doelibs.mobile.asynctask.TaskCallback;
 import se.hj.doelibs.mobile.codes.ExtraKeys;
+import se.hj.doelibs.mobile.listadapter.SearchResultListAdapter;
 import se.hj.doelibs.mobile.listener.OnTitleItemSelectedListener;
 import se.hj.doelibs.model.Title;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +29,6 @@ import java.util.List;
 public class BrowseActivity extends BaseActivity implements OnTitleItemSelectedListener {
 
 	private ListView _list;
-	private ArrayList<SearchResultItem> _data;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,55 +40,30 @@ public class BrowseActivity extends BaseActivity implements OnTitleItemSelectedL
 		drawerLayout.addView(contentView, 0);
 
 		Intent intent = getIntent();
-		final String searchTerm = intent.getStringExtra("Term");
-		final String topics = intent.getStringExtra("Topics");
+		String searchTerm = intent.getStringExtra("Term");
+		String topics = intent.getStringExtra("Topics");
 
-		final TitleDao titleDao = new TitleDao(getCredentials());
 		_list = (ListView)findViewById(R.id.searchResultList);
-		_data = new ArrayList<SearchResultItem>();
-
 
 		_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				SearchResultItem clicked = (SearchResultItem)_list.getItemAtPosition(position);
-				onTitleItemSelected(clicked.titleId);
+				Title clicked = (Title)_list.getItemAtPosition(position);
+				onTitleItemSelected(clicked.getTitleId());
 			}
 		});
 
-
-
-		new AsyncTask<Void, Void, List<Title>>() {
-
+		//do the search
+		new SearchTitleAsyncTask(searchTerm, topics, new TaskCallback<List<Title>>() {
 			@Override
-			protected List<Title> doInBackground(Void... params) {
-				List<Title> response = null;
-				try {
-					response = titleDao.searchTitle(searchTerm, topics);
-				} catch (HttpException e) {
-					e.printStackTrace();
-				}
-
-				return response;
-			}
-
-			@Override
-			protected void onPostExecute(List<Title> titles) {
-				for (Title title : titles)
-				{
-					SearchResultItem item = new SearchResultItem();
-					item.title = title.getBookTitle();
-					item.titleId = title.getTitleId();
-					_data.add(item);
-				}
-
-				if(_data.isEmpty()){
+			public void onTaskCompleted(List<Title> titles) {
+				if(titles.isEmpty()){
 					Toast emptyToast = Toast.makeText(BrowseActivity.this, R.string.search_result_none, Toast.LENGTH_LONG);
 					emptyToast.show();
 				}
-				_list.setAdapter(new ArrayAdapter<SearchResultItem>(BrowseActivity.this, android.R.layout.simple_list_item_1, _data));
+				_list.setAdapter(new SearchResultListAdapter(BrowseActivity.this, android.R.layout.simple_list_item_1, titles));
 			}
-		}.execute();
+		}).execute();
 	}
 
 	@Override
@@ -104,6 +78,42 @@ public class BrowseActivity extends BaseActivity implements OnTitleItemSelectedL
 			Intent titleDetailsActivity = new Intent(this, TitleDetailsActivity.class);
 			titleDetailsActivity.putExtra(ExtraKeys.TITLE_ID, titleId);
 			startActivity(titleDetailsActivity);
+		}
+	}
+
+
+	/**
+	 * class which does the search for a title in background
+	 */
+	private class SearchTitleAsyncTask extends AsyncTask<Void, Void, List<Title>> {
+
+		private TitleDao titleDao;
+		private String searchTerm;
+		private String topics;
+		private TaskCallback<List<Title>> callback;
+
+		public SearchTitleAsyncTask(String searchTerm, String topics, TaskCallback<List<Title>> callback) {
+			this.titleDao = new TitleDao(getCredentials());
+			this.searchTerm = searchTerm;
+			this.topics = topics;
+			this.callback = callback;
+		}
+
+		@Override
+		protected List<Title> doInBackground(Void... params) {
+			List<Title> response = null;
+			try {
+				response = this.titleDao.searchTitle(this.searchTerm, this.topics);
+			} catch (HttpException e) {
+				e.printStackTrace();
+			}
+
+			return response;
+		}
+
+		@Override
+		protected void onPostExecute(List<Title> titles) {
+			callback.onTaskCompleted(titles);
 		}
 	}
 }

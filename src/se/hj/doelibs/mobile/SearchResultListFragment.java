@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import se.hj.doelibs.mobile.listener.OnTitleItemSelectedListener;
-
-import java.util.ArrayList;
-import java.util.List;
+import se.hj.doelibs.model.Title;
 
 /**
  * Fragment to show the search results in a list
@@ -27,13 +25,12 @@ public class SearchResultListFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_search_result_list, container, false);
 
 		final ListView _list = (ListView)view.findViewById(R.id.searchResultList);
-		final List<SearchResultItem> _data = new ArrayList<SearchResultItem>();
 
 		_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				SearchResultItem clicked = (SearchResultItem)_list.getItemAtPosition(position);
-				listener.onTitleItemSelected(clicked.titleId);
+				Title clicked = (Title)_list.getItemAtPosition(position);
+				listener.onTitleItemSelected(clicked.getTitleId());
 			}
 		});
 

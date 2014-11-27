@@ -9,7 +9,14 @@ package se.hj.doelibs.mobile.asynctask;
  */
 public abstract class TaskCallback<T> {
 
+	/**
+	 * callback method after to call after the task completed
+	 * @param objectOnComplete
+	 */
 	public void onTaskCompleted(T objectOnComplete) {}
 
+	/**
+	 * callback method to run before the actuall task runs
+	 */
 	public void beforeTaskRun() {}
 }
