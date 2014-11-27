@@ -23,7 +23,7 @@ import java.util.List;
 public class SearchResultActivity extends BaseActivity {
 
     private ListView _list;
-    private ArrayList<searchResultItem> _data;
+    private ArrayList<SearchResultItem> _data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +40,13 @@ public class SearchResultActivity extends BaseActivity {
 
         final TitleDao titleDao = new TitleDao(getCredentials());
         _list = (ListView)findViewById(R.id.searchResultList);
-        _data = new ArrayList<searchResultItem>();
+        _data = new ArrayList<SearchResultItem>();
 
 
         _list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                searchResultItem clicked = (searchResultItem)_list.getItemAtPosition(position);
+                SearchResultItem clicked = (SearchResultItem)_list.getItemAtPosition(position);
                 Intent titleDetailsActivity = new Intent(SearchResultActivity.this, TitleDetailsActivity.class);
                 titleDetailsActivity.putExtra(ExtraKeys.TITLE_ID, clicked.titleId);
                 startActivity(titleDetailsActivity);
@@ -73,7 +73,7 @@ public class SearchResultActivity extends BaseActivity {
             protected void onPostExecute(List<Title> titles) {
                 for (Title title : titles)
                 {
-                    searchResultItem item = new searchResultItem();
+                    SearchResultItem item = new SearchResultItem();
                     item.title = title.getBookTitle();
                     item.titleId = title.getTitleId();
                     _data.add(item);
@@ -83,7 +83,7 @@ public class SearchResultActivity extends BaseActivity {
                     Toast emptyToast = Toast.makeText(SearchResultActivity.this, R.string.search_result_none, Toast.LENGTH_LONG);
                     emptyToast.show();
                 }
-                _list.setAdapter(new ArrayAdapter<searchResultItem>(SearchResultActivity.this, android.R.layout.simple_list_item_1, _data));
+                _list.setAdapter(new ArrayAdapter<SearchResultItem>(SearchResultActivity.this, android.R.layout.simple_list_item_1, _data));
             }
         }.execute();
 
