@@ -87,8 +87,15 @@
                 android:visibility="invisible"/>
     </LinearLayout>
 
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_no_loanables_available"
+            android:visibility="gone"/>
+
     <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lv_titledetails_loanableslist"/>
+            android:id="@+id/lv_titledetails_loanableslist"
+            android:layout_weight="1"/>
 </LinearLayout>

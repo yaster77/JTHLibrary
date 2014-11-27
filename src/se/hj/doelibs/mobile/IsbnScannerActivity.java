@@ -20,6 +20,7 @@ import se.hj.doelibs.api.TitleDao;
 import se.hj.doelibs.mobile.asynctask.TaskCallback;
 import se.hj.doelibs.mobile.codes.ExtraKeys;
 import se.hj.doelibs.mobile.codes.PreferencesKeys;
+import se.hj.doelibs.mobile.utils.ProgressDialogUtils;
 import se.hj.doelibs.model.Title;
 
 public class IsbnScannerActivity extends BaseActivity {
@@ -27,6 +28,7 @@ public class IsbnScannerActivity extends BaseActivity {
 	private SharedPreferences isbnScannerTmpValues;
 	private SharedPreferences.Editor isbnScannerTmpValuesEditor;
 	private TextView tv;
+	private ProgressDialog checkIfTitleExistsDialog;
 
 	@Override
 	public void onCreate(Bundle state) {
@@ -107,12 +109,10 @@ public class IsbnScannerActivity extends BaseActivity {
 	 * @param format
 	 */
 	private void checkIsbn(String isbn, String format) {
-		final ProgressDialog dialog = new ProgressDialog(IsbnScannerActivity.this);
-
 		new CheckIfIsbnExistsTask(isbn, format, new TaskCallback<Title>() {
 			@Override
 			public void onTaskCompleted(Title title) {
-				dialog.dismiss();
+				ProgressDialogUtils.dismissQuitely(checkIfTitleExistsDialog);
 				if (title == null) {
 					showDialogNoTitleFound();
 				} else {
@@ -125,9 +125,10 @@ public class IsbnScannerActivity extends BaseActivity {
 
 			@Override
 			public void beforeTaskRun() {
-				dialog.setMessage("checking if title exists in DoeLibS");
-				dialog.setCancelable(false);
-				dialog.show();
+				checkIfTitleExistsDialog = new ProgressDialog(IsbnScannerActivity.this);
+				checkIfTitleExistsDialog.setMessage("checking if title exists in DoeLibS");
+				checkIfTitleExistsDialog.setCancelable(false);
+				checkIfTitleExistsDialog.show();
 			}
 		}).execute();
 	}
