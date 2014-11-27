@@ -7,13 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import se.hj.doelibs.mobile.listener.OnTitleItemSelectedListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Fragment to show the search results in a list
+ *
+ * @author Elias
  * @author Christoph
  */
 public class SearchResultListFragment extends Fragment {
@@ -26,17 +29,6 @@ public class SearchResultListFragment extends Fragment {
 		final ListView _list = (ListView)view.findViewById(R.id.searchResultList);
 		final List<SearchResultItem> _data = new ArrayList<SearchResultItem>();
 
-		SearchResultItem item1 = new SearchResultItem();
-		SearchResultItem item2 = new SearchResultItem();
-
-		item1.title = "title1";
-		item1.titleId = 39;
-		item2.title = "title2";
-		item2.titleId = 40;
-
-		_data.add(item1);
-		_data.add(item2);
-		_list.setAdapter(new ArrayAdapter<SearchResultItem>(view.getContext(), android.R.layout.simple_list_item_1, _data));
 		_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -48,17 +40,13 @@ public class SearchResultListFragment extends Fragment {
 		return view;
 	}
 
-	public interface OnTitleItemSelectedListener {
-		public void onTitleItemSelected(int titleId);
-	}
-
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		if (activity instanceof OnTitleItemSelectedListener) {
 			listener = (OnTitleItemSelectedListener) activity;
 		} else {
-			throw new ClassCastException(activity.toString() + " must implemenet MyListFragment.OnItemSelectedListener");
+			throw new ClassCastException(activity.toString() + " must implemenet OnTitleItemSelectedListener");
 		}
 	}
 }

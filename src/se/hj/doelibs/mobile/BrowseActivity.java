@@ -2,10 +2,8 @@ package se.hj.doelibs.mobile;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +13,7 @@ import android.widget.Toast;
 import org.apache.http.HttpException;
 import se.hj.doelibs.api.TitleDao;
 import se.hj.doelibs.mobile.codes.ExtraKeys;
+import se.hj.doelibs.mobile.listener.OnTitleItemSelectedListener;
 import se.hj.doelibs.model.Title;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ import java.util.List;
  * @author Elias
  * @author Christoph
  */
-public class BrowseActivity extends BaseActivity implements SearchResultListFragment.OnTitleItemSelectedListener {
+public class BrowseActivity extends BaseActivity implements OnTitleItemSelectedListener {
 
 	private ListView _list;
 	private ArrayList<SearchResultItem> _data;
@@ -37,8 +36,6 @@ public class BrowseActivity extends BaseActivity implements SearchResultListFrag
 
 		super.onCreate(savedInstanceState);
 		LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-		Log.d("screen resolution", getResources().getConfiguration().isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_LARGE)?"large":"smaller");
 
 		View contentView = inflater.inflate(R.layout.activity_browse, null, false);
 		drawerLayout.addView(contentView, 0);

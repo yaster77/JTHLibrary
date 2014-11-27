@@ -26,6 +26,8 @@ import se.hj.doelibs.model.Title;
 import java.util.List;
 
 /**
+ * Fragment to show title details.
+ *
  * @author Christoph
  */
 public class TitleDetailsFragment extends Fragment {

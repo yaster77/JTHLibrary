@@ -7,7 +7,8 @@ import android.view.View;
 import se.hj.doelibs.mobile.codes.ExtraKeys;
 
 /**
- * Activity to show title details. This activity will only be called on small devices. Otherwise it has the "splitscreen"
+ * Activity to show title details.
+ * This activity will only be called on small devices or from the ISBN scanner. Otherwise it has the "splitscreen"
  *
  * @author Christoph
  */
