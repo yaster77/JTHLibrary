@@ -68,7 +68,7 @@ public class SearchActivity extends BaseActivity {
 			toast.show();
 		}
 		else {
-			Intent searchResult = new Intent(SearchActivity.this, SearchResultActivity.class);
+			Intent searchResult = new Intent(SearchActivity.this, BrowseActivity.class);
 			searchResult.putExtra("Term", et.getText().toString());
 			searchResult.putExtra("Topics", mactvText);
 			startActivity(searchResult);

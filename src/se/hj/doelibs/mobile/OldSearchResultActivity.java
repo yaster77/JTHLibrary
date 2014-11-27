@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchResultActivity extends BaseActivity {
+public class OldSearchResultActivity extends BaseActivity {
 
     private ListView _list;
     private ArrayList<SearchResultItem> _data;
@@ -31,7 +31,7 @@ public class SearchResultActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View contentView = inflater.inflate(R.layout.activity_searchresult, null, false);
+        View contentView = inflater.inflate(R.layout.activity_search_result, null, false);
         drawerLayout.addView(contentView, 0);
 
         Intent intent = getIntent();
@@ -47,7 +47,7 @@ public class SearchResultActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SearchResultItem clicked = (SearchResultItem)_list.getItemAtPosition(position);
-                Intent titleDetailsActivity = new Intent(SearchResultActivity.this, TitleDetailsActivity.class);
+                Intent titleDetailsActivity = new Intent(OldSearchResultActivity.this, TitleDetailsActivity.class);
                 titleDetailsActivity.putExtra(ExtraKeys.TITLE_ID, clicked.titleId);
                 startActivity(titleDetailsActivity);
             }
@@ -80,10 +80,10 @@ public class SearchResultActivity extends BaseActivity {
                 }
 
                 if(_data.isEmpty()){
-                    Toast emptyToast = Toast.makeText(SearchResultActivity.this, R.string.search_result_none, Toast.LENGTH_LONG);
+                    Toast emptyToast = Toast.makeText(OldSearchResultActivity.this, R.string.search_result_none, Toast.LENGTH_LONG);
                     emptyToast.show();
                 }
-                _list.setAdapter(new ArrayAdapter<SearchResultItem>(SearchResultActivity.this, android.R.layout.simple_list_item_1, _data));
+                _list.setAdapter(new ArrayAdapter<SearchResultItem>(OldSearchResultActivity.this, android.R.layout.simple_list_item_1, _data));
             }
         }.execute();
 
