@@ -1,7 +1,6 @@
 package se.hj.doelibs.mobile.listadapter;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import se.hj.doelibs.mobile.R;
-import se.hj.doelibs.mobile.TitleDetailsActivity;
-import se.hj.doelibs.mobile.codes.ExtraKeys;
-import se.hj.doelibs.mobile.listener.LoanableCheckInOnClickListener;
 import se.hj.doelibs.model.Loan;
 
 import java.util.List;
@@ -66,7 +62,7 @@ public class LoanListAdapter extends BaseAdapter{
         subcontent2.setText( R.string.loans_to_be_returned+ ": " + loan.getToBeReturnedDate().toGMTString() );
 
         //Todo Handle button
-        button.setOnClickListener(new LoanableCheckInOnClickListener(loan.getLoanable().getTitle().getTitleId(), loan.getLoanable().getLoanableId(), activity));
+        //button.setOnClickListener(new LoanableCheckInOnClickListener(loan.getLoanable().getTitle().getTitleId(), loan.getLoanable().getLoanableId(), activity));
 
         return rowView;
 
