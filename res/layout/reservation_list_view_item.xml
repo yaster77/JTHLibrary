@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="2sp"
+        >
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                    android:id="@+id/tv_reservations_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="titlePlaceholder"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    />
+
+
+
+            <TextView
+                    android:id="@+id/tv_reservations_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Misc"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
+
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/btn_reservations_check_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="check out"
+            android:focusable="false"
+            />
+
+
+</LinearLayout>
