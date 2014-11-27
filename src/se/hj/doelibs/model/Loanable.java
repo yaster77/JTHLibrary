@@ -1,5 +1,8 @@
 package se.hj.doelibs.model;
 
+import android.content.Context;
+import se.hj.doelibs.mobile.R;
+
 import java.io.Serializable;
 
 /**
@@ -95,51 +98,57 @@ public class Loanable implements Serializable {
         /**
          * Book is available
          */
-        AVAILABLE(0, "Available"),
+        AVAILABLE(0),
 
         /**
          * Book is currently borrowed
          */
-        BORROWED(1, "Borrowed"),
+        BORROWED(1),
         
         /**
          * the loanable is reserved
          */
-        RESERVED(2, "Reserved"),
+        RESERVED(2),
 
         /**
          * the loanable is available, but locked from the owner cause of a recall/mark as unavailable 
          */
-        UNAVAILABLE_FROM_OWNER(3, "Unavailable"),
+        UNAVAILABLE_FROM_OWNER(3),
  
         /**
          * the loanable is currently recalled (borrowed but ordered back from the owner)
          */
-        RECALLED(4, "Recalled"),
+        RECALLED(4),
  
         /**
          * the loanable has been deleted
          */
-        DELETED(5, "Deleted"),
+        DELETED(5),
  
         /**
          * fallback
          */
-        UNKNOWN(-1, "Unknown");
+        UNKNOWN(-1);
 
         private int value;
-        private String description;
-        private Status(int val, String description) {
+        private Status(int val) {
             this.value = val;
-            this.description = description;
         }
 
         public int getValue() {
             return value;
         }
 
-        public String getText() {
-            return description;
+        public String getText(Context context) {
+            switch (value){
+                case 0: return context.getResources().getString(R.string.loanable_status_available);
+                case 1: return context.getResources().getString(R.string.loanable_status_borrowed);
+                case 2: return context.getResources().getString(R.string.loanable_status_reserved);
+                case 3: return context.getResources().getString(R.string.loanable_status_unavailable);
+                case 4: return context.getResources().getString(R.string.loanable_status_recalled);
+                case 5: return context.getResources().getString(R.string.loanable_status_deleted);
+                default: return context.getResources().getString(R.string.loanable_status_unknown);
+            }
         }
 
         public static Status getType(int val) {

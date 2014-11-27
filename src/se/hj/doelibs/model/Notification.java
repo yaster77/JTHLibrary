@@ -99,6 +99,11 @@ public class Notification implements Serializable {
         RECALL(3),
 
         /**
+         * this type of message tells the user his loan has been autorenewed
+         */
+        LOAN_RENEWED(4),
+
+        /**
          * this is a fallback
          */
         UNKNOWN(-1);
