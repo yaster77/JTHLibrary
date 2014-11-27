@@ -24,11 +24,13 @@ public class TitleDetailsActivity extends BaseActivity {
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			int titleId = extras.getInt(ExtraKeys.TITLE_ID);
+			int titleId = extras.getInt(ExtraKeys.TITLE_ID, -1);
 
-			TitleDetailsFragment detailFragment = (TitleDetailsFragment) getFragmentManager().findFragmentById(R.id.detailFragment);
-			detailFragment.setTitleId(titleId);
-			detailFragment.setupView();
+			if(titleId != -1) {
+				TitleDetailsFragment detailFragment = (TitleDetailsFragment) getFragmentManager().findFragmentById(R.id.detailFragment);
+				detailFragment.setTitleId(titleId);
+				detailFragment.setupView();
+			}
 		}
 	}
 }

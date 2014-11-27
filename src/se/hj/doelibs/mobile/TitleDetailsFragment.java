@@ -9,10 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import se.hj.doelibs.mobile.asynctask.LoadReservationStatusAsyncTask;
 import se.hj.doelibs.mobile.asynctask.LoadTitleInformationAsynTaks;
 import se.hj.doelibs.mobile.asynctask.ReserveTitleAsyncTask;
@@ -75,6 +72,11 @@ public class TitleDetailsFragment extends Fragment {
 	 * loads all data into the viewfields.
 	 */
 	public void setupView(){
+		//by default will is there the relative layout to show the a error message that no title is selected.
+		// At this point a titleId was already given --> hide message
+		RelativeLayout errorPannel = (RelativeLayout)getView().findViewById(R.id.title_details_no_title_selected);
+		errorPannel.setVisibility(View.GONE);
+
 		setupReserveButton();
 		setupData();
 	}

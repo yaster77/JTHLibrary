@@ -69,6 +69,8 @@
     <string name="title_reserve_error">Error on reserving the title. Please try again</string>
     <string name="title_reserve_successfull">Title successfully reserved</string>
 
+    <string name="title_details_no_title_selected">Please select a title</string>
+
     <string name="login_password">Password</string>
     <string name="login_username">Username (email)</string>
 
