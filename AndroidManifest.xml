@@ -61,6 +61,7 @@
         <activity
                 android:name=".TitleDetailsActivity"
                 android:label="@string/title_activity_title_details"/>
+        <activity android:name=".NoConnectionActivity" android:label="Not connected"/>
 
     </application>
 
