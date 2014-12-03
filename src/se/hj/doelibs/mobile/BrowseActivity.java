@@ -2,6 +2,8 @@ package se.hj.doelibs.mobile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -44,6 +46,7 @@ public class BrowseActivity extends BaseActivity implements OnTitleItemSelectedL
 		String topics = intent.getStringExtra("Topics");
 
 		_list = (ListView)findViewById(R.id.searchResultList);
+		_list.setBackgroundColor(0);
 
 		_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override

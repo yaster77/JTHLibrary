@@ -1,6 +1,7 @@
 package se.hj.doelibs.mobile.listadapter;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -38,6 +39,12 @@ public class SearchResultListAdapter extends ArrayAdapter<Title> {
 
 		TextView text = (TextView) view.findViewById(R.id.search_result_list_item_text);
 		text.setText(title.getBookTitle());
+
+		if (position % 2 == 1) {
+			view.setBackgroundResource(R.drawable.list_item1);
+		} else {
+			view.setBackgroundResource(R.drawable.list_item2);
+		}
 
 		return view;
 	}
