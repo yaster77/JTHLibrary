@@ -208,9 +208,12 @@ public class TitleDetailsFragment extends Fragment {
 
 				if(title.getLoanables() != null && title.getLoanables().size()>0) {
 					lv_loanables.setAdapter(new LoanablesListAdapter(getActivity(), title.getLoanables(), getAfterCheckOutTaskCallback(), getAfterCheckInTaskCallback()));
+					tv_noLoanablesAvailable.setVisibility(View.INVISIBLE);
+					lv_loanables.setVisibility(View.VISIBLE);
 				} else {
 					tv_noLoanablesAvailable.setText(getResources().getText(R.string.no_loanables_available));
 					tv_noLoanablesAvailable.setVisibility(View.VISIBLE);
+					lv_loanables.setVisibility(View.INVISIBLE);
 				}
 
 
