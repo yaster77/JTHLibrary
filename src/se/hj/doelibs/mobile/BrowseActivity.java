@@ -2,6 +2,8 @@ package se.hj.doelibs.mobile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
