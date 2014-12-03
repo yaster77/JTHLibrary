@@ -44,6 +44,7 @@ public class BrowseActivity extends BaseActivity implements OnTitleItemSelectedL
 		String topics = intent.getStringExtra("Topics");
 
 		_list = (ListView)findViewById(R.id.searchResultList);
+		_list.setBackgroundColor(0);
 
 		_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override

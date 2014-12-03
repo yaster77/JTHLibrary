@@ -22,7 +22,7 @@
 
     <!-- dialog messages -->
     <string name="dialog_no_isbn_on_scanning_found">The scanned ISBN number is not known in DoeLibS</string>
-    <string name="dialog_really_checkout_loanable">Do you really want to checkout this loanable?</string>
+    <string name="dialog_really_checkout_loanable">Do you really want to check out this loanable?</string>
     <string name="dialog_really_checkin_loanable">Do you really want to check in this loanable again?</string>
     <string name="dialog_really_reserve_title">Do you really want to reserve this title?</string>
 
