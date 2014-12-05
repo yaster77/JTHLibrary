@@ -43,7 +43,7 @@ public class SearchResultListFragment extends Fragment {
 		if (activity instanceof OnTitleItemSelectedListener) {
 			listener = (OnTitleItemSelectedListener) activity;
 		} else {
-			throw new ClassCastException(activity.toString() + " must implemenet OnTitleItemSelectedListener");
+			throw new ClassCastException(activity.toString() + " must implement OnTitleItemSelectedListener");
 		}
 	}
 }

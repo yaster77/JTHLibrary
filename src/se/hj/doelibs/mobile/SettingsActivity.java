@@ -154,7 +154,7 @@ public class SettingsActivity extends BaseActivity {
 				dialog.dismiss();
 
 				if(loginSuccessfull) {
-					Intent myLoanActivity = new Intent(SettingsActivity.this, MyLoansActivity.class);
+					Intent myLoanActivity = new Intent(SettingsActivity.this, MyLoansListFragment.class);
 					startActivity(myLoanActivity);
 				} else {
 					txtPassword.setText("");

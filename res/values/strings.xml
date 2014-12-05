@@ -31,6 +31,8 @@
     <string name="dialog_progress_load_titleinformation">Loading title information&#8230;</string>
     <string name="dialog_progress_check_reservations">Load reservations&#8230;</string>
     <string name="dialog_progress_reserve_title">Reserve title&#8230;</string>
+    <string name="dialog_progress_load_loans">loading loans&#8230;</string>
+    <string name="dialog_progress_load_reservations">loading reservations&#8230;</string>
 
     <!--textviews-->
     <string name="tv_titledetails_loanables">Loanables</string>
@@ -101,5 +103,7 @@
     <string name="my_loans_MyReservations">My reservations</string>
 
     <string name="loans_to_be_returned">To be returned</string>
+    <string name="searching">searching&#8230;</string>
+    <string name="reservation_waiting_for_loanable">waiting for loanable</string>
 
 </resources>

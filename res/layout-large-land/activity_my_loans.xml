@@ -13,4 +13,12 @@
             class="se.hj.doelibs.mobile.MyLoansListFragment" >
     </fragment>
 
+    <fragment
+            android:id="@+id/detailFragment"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            class="se.hj.doelibs.mobile.TitleDetailsFragment" >
+    </fragment>
+
 </LinearLayout>
