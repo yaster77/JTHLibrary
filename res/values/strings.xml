@@ -101,5 +101,6 @@
     <string name="my_loans_MyReservations">My reservations</string>
 
     <string name="loans_to_be_returned">To be returned</string>
+    <string name="loans_room">Room</string>
 
 </resources>

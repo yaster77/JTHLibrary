@@ -1,5 +1,6 @@
 package se.hj.doelibs.mobile;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,10 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import se.hj.doelibs.api.LoanDao;
 import se.hj.doelibs.api.ReservationDao;
+import se.hj.doelibs.mobile.asynctask.TaskCallback;
+import se.hj.doelibs.mobile.codes.ExtraKeys;
 import se.hj.doelibs.mobile.listadapter.LoanListAdapter;
 import se.hj.doelibs.mobile.listadapter.ReservationListAdapter;
+import se.hj.doelibs.mobile.utils.ProgressDialogUtils;
 import se.hj.doelibs.model.Loan;
 import se.hj.doelibs.model.Reservation;
 
@@ -74,13 +79,32 @@ public class MyLoansActivity extends BaseActivity {
 				@Override
 				protected void onPostExecute(List<Loan> loans) {
 					//tv.setText("user has " + loans.size() + " reservations");
-					lv_myLoans.setAdapter(new LoanListAdapter(MyLoansActivity.this, loans));
+					lv_myLoans.setAdapter(new LoanListAdapter(MyLoansActivity.this, loans, getAfterCheckInTaskCallback()));
 				}
 			}.execute();
 
 
 		}
-		//lv_myReservations.setAdapter(new ReservationListAdapter(MyLoansActivity.this, reservationDaoDao.getCurrentUsersReservations()));
+
+	}
+	private TaskCallback<Boolean> getAfterCheckInTaskCallback() {
+		return new TaskCallback<Boolean>() {
+
+			@Override
+			public void onTaskCompleted(Boolean checkInSuccess) {
+				if(checkInSuccess) {
+					Intent titleActivity = new Intent(MyLoansActivity.this, MyLoansActivity.class);
+					startActivity(titleActivity);
+				} else {
+
+				}
+			}
+
+			@Override
+			public void beforeTaskRun() {
+
+			}
+		};
 	}
 
 }

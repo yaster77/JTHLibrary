@@ -58,7 +58,7 @@ public class ReservationListAdapter extends BaseAdapter {
         Reservation reservation = reservations.get(position);
 
         header.setText(reservation.getTitle().getBookTitle() + " (" + reservation.getTitle().getEditionYear() + ")");
-        subcontent1.setText("Placeholder");
+        subcontent1.setText("");
 
         //Todo Handle CheckOut Checkout button and implement a function to check if you're first in reservation queue
 
