@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 import se.hj.doelibs.mobile.R;
+import se.hj.doelibs.model.Loanable;
 import se.hj.doelibs.model.Reservation;
 
 import java.util.List;
@@ -53,22 +53,16 @@ public class ReservationListAdapter extends BaseAdapter {
 
         TextView header = (TextView)rowView.findViewById(R.id.tv_reservations_header);
         TextView subcontent1 = (TextView)rowView.findViewById(R.id.tv_reservations_info);
-        Button button = (Button)rowView.findViewById(R.id.btn_reservations_check_out);
 
         Reservation reservation = reservations.get(position);
 
         header.setText(reservation.getTitle().getBookTitle() + " (" + reservation.getTitle().getEditionYear() + ")");
-        subcontent1.setText("Placeholder");
-
-        //Todo Handle CheckOut Checkout button and implement a function to check if you're first in reservation queue
-
+        if(reservation.isLoanRecalled() && reservation.getAvailableDate() != null) {
+            subcontent1.setText(activity.getText(R.string.prefix_status) + ": " + Loanable.Status.AVAILABLE.getText(activity));
+        } else {
+            subcontent1.setText(activity.getText(R.string.prefix_status) + ": " + activity.getText(R.string.reservation_waiting_for_loanable));
+        }
 
         return rowView;
-
-
     }
-
-
-
-
 }

@@ -20,7 +20,9 @@ public class ProgressDialogUtils {
 	 */
 	public static void dismissQuitely(ProgressDialog dialog) {
 		try {
-			dialog.dismiss();
+			if(dialog != null) {
+				dialog.dismiss();
+			}
 		} catch (IllegalArgumentException e) {
 			//nothing
 			Log.v(ProgressDialogUtils.class.getName(), "dialog dismiss threw an InvalidArgumentExpection");

@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import se.hj.doelibs.mobile.R;
+import se.hj.doelibs.mobile.asynctask.TaskCallback;
+import se.hj.doelibs.mobile.listener.LoanableCheckInOnClickListener;
 import se.hj.doelibs.model.Loan;
 
 import java.util.List;
@@ -20,12 +22,13 @@ public class LoanListAdapter extends BaseAdapter{
 
     private Activity activity;
     private List<Loan> loans;
+    private TaskCallback<Boolean> checkInCallback;
 
-    public LoanListAdapter( Activity activity, List<Loan> loans)
+    public LoanListAdapter( Activity activity, List<Loan> loans, TaskCallback<Boolean> checkInCallback)
     {
         this.activity = activity;
         this.loans = loans;
-
+        this.checkInCallback = checkInCallback;
     }
 
     @Override
@@ -59,12 +62,13 @@ public class LoanListAdapter extends BaseAdapter{
 
         header.setText(loan.getLoanable().getTitle().getBookTitle() +" ("+ loan.getLoanable().getTitle().getEditionYear()+") ");
         subcontent1.setText(loan.getLoanable().getLocation()+" ("+ loan.getLoanable().getCategory().getName()+") ");
-        subcontent2.setText( R.string.loans_to_be_returned+ ": " + loan.getToBeReturnedDate().toGMTString() );
+        subcontent2.setText( rowView.getResources().getText(R.string.loans_to_be_returned)+ ": " + loan.getToBeReturnedDate().toGMTString() );
 
-        //Todo Handle button
-        //button.setOnClickListener(new LoanableCheckInOnClickListener(loan.getLoanable().getTitle().getTitleId(), loan.getLoanable().getLoanableId(), activity));
+        //the checkIn button will be only on small devices be displayed. on tablets the checkin will be in the title details fragment
+        if(button != null) {
+            button.setOnClickListener(new LoanableCheckInOnClickListener(loan.getLoanable().getTitle().getTitleId(), loan.getLoanable().getLoanableId(), activity, checkInCallback));
+        }
 
         return rowView;
-
     }
 }
