@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:padding="10dp">
 
     <!--this pannel will only be displayed as long no title is selected-->
     <RelativeLayout
@@ -98,7 +99,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/btn_reserve"
                 android:id="@+id/btn_titledetails_reserve"
-                android:onClick="onReserve"
                 android:visibility="invisible"/>
     </LinearLayout>
 

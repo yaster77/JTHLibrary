@@ -3,11 +3,10 @@ package se.hj.doelibs.mobile;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+<<<<<<< HEAD
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,26 +26,34 @@ public class MyLoansActivity extends BaseActivity {
 
 	ListView lv_myLoans;
 	ListView lv_myReservations;
+=======
+import se.hj.doelibs.mobile.codes.ExtraKeys;
+import se.hj.doelibs.mobile.listener.OnTitleItemSelectedListener;
+>>>>>>> upstream/master
 
+/**
+ * @author Alexander
+ */
+public class MyLoansActivity extends BaseActivity implements OnTitleItemSelectedListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		super.onCreate(savedInstanceState);
+		LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-	    View contentView = inflater.inflate(R.layout.activity_my_loans, null, false);
-	    drawerLayout.addView(contentView, 0);
+		View contentView = inflater.inflate(R.layout.activity_my_loans, null, false);
+		drawerLayout.addView(contentView, 0);
+	}
 
-		lv_myLoans = (ListView) findViewById(R.id.loans_list);
-		lv_myReservations = (ListView) findViewById(R.id.reservations_list);
+	@Override
+	public void onTitleItemSelected(int titleId) {
+		TitleDetailsFragment fragment = (TitleDetailsFragment) getFragmentManager().findFragmentById(R.id.detailFragment);
 
-
-		//check if user is logged in
-		if(getCredentials() == null) {
-			Log.d("MyLoans", "user is not logged in");
-			Intent loginActivity = new Intent(this, LoginActivity.class);
-			startActivity(loginActivity);
+		if (fragment != null && fragment.isInLayout()) {
+			fragment.setTitleId(titleId);
+			fragment.setupView();
 		} else {
+<<<<<<< HEAD
 			final TextView tv = (TextView)findViewById(R.id.myLoanText);
 			final LoanDao loanDao = new LoanDao(getCredentials());
 			final ReservationDao reservationDaoDao = new ReservationDao(getCredentials());
@@ -105,6 +112,12 @@ public class MyLoansActivity extends BaseActivity {
 
 			}
 		};
+=======
+			//fragment was not found in current layout --> it is not on a large device --> start activity with title details
+			Intent titleDetailsActivity = new Intent(this, TitleDetailsActivity.class);
+			titleDetailsActivity.putExtra(ExtraKeys.TITLE_ID, titleId);
+			startActivity(titleDetailsActivity);
+		}
+>>>>>>> upstream/master
 	}
-
 }

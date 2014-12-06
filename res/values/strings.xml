@@ -22,15 +22,17 @@
 
     <!-- dialog messages -->
     <string name="dialog_no_isbn_on_scanning_found">The scanned ISBN number is not known in DoeLibS</string>
-    <string name="dialog_really_checkout_loanable">Do you really want to checkout this loanable?</string>
-    <string name="dialog_really_checkin_loanable">Do you really want to checkin this loanable again?</string>
+    <string name="dialog_really_checkout_loanable">Do you really want to check out this loanable?</string>
+    <string name="dialog_really_checkin_loanable">Do you really want to check in this loanable again?</string>
     <string name="dialog_really_reserve_title">Do you really want to reserve this title?</string>
 
     <string name="dialog_progress_checkin_loanable">Check in loanable&#8230;</string>
     <string name="dialog_progress_checkout_loanable">Check out loanable&#8230;</string>
-    <string name="dialog_progress_load_titleinformation">Load titleinformation&#8230;</string>
+    <string name="dialog_progress_load_titleinformation">Loading title information&#8230;</string>
     <string name="dialog_progress_check_reservations">Load reservations&#8230;</string>
     <string name="dialog_progress_reserve_title">Reserve title&#8230;</string>
+    <string name="dialog_progress_load_loans">loading loans&#8230;</string>
+    <string name="dialog_progress_load_reservations">loading reservations&#8230;</string>
 
     <!--textviews-->
     <string name="tv_titledetails_loanables">Loanables</string>
@@ -62,11 +64,11 @@
 
     <string name="titledetails_editor_prefix">Editor</string>
 
-    <string name="loanable_checkout_error">Error on checking the loanable out. Please try again</string>
-    <string name="loanable_checkout_successfull">Loanable successful checked out</string>
-    <string name="loanable_checkin_error">Error on checking the loanable in. Please try again</string>
+    <string name="loanable_checkout_error">Error when checking the loanable out. Please try again</string>
+    <string name="loanable_checkout_successfull">Loanable successfully checked out</string>
+    <string name="loanable_checkin_error">Error when checking the loanable in. Please try again</string>
     <string name="loanable_checkin_successfull">Loanable successful checked in again</string>
-    <string name="title_reserve_error">Error on reserving the title. Please try again</string>
+    <string name="title_reserve_error">Error when reserving the title. Please try again</string>
     <string name="title_reserve_successfull">Title successfully reserved</string>
 
     <string name="title_details_no_title_selected">Please select a title</string>
@@ -76,7 +78,7 @@
 
     <string name="login_checking_credentials">Checking credentials&#8230;</string>
     <string name="login_error_credentials">Could not login. Please check your credentials</string>
-    <string name="login_error_internet_connection">Could not login. Please check your internetconnection</string>
+    <string name="login_error_internet_connection">Could not login. Please check your internet connection</string>
 
     <string name="loanable_status_available">Available</string>
     <string name="loanable_status_borrowed">Borrowed</string>
@@ -101,6 +103,11 @@
     <string name="my_loans_MyReservations">My reservations</string>
 
     <string name="loans_to_be_returned">To be returned</string>
+<<<<<<< HEAD
     <string name="loans_room">Room</string>
+=======
+    <string name="searching">searching&#8230;</string>
+    <string name="reservation_waiting_for_loanable">waiting for loanable</string>
+>>>>>>> upstream/master
 
 </resources>

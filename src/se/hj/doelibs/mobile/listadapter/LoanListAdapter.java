@@ -22,6 +22,7 @@ public class LoanListAdapter extends BaseAdapter{
 
     private Activity activity;
     private List<Loan> loans;
+<<<<<<< HEAD
     private TaskCallback<Boolean> checkingCallback;//
 
     public LoanListAdapter( Activity activity, List<Loan> loans,TaskCallback<Boolean> callback)
@@ -30,6 +31,15 @@ public class LoanListAdapter extends BaseAdapter{
         this.loans = loans;
         this.checkingCallback = callback;//
 
+=======
+    private TaskCallback<Boolean> checkInCallback;
+
+    public LoanListAdapter( Activity activity, List<Loan> loans, TaskCallback<Boolean> checkInCallback)
+    {
+        this.activity = activity;
+        this.loans = loans;
+        this.checkInCallback = checkInCallback;
+>>>>>>> upstream/master
     }
 
     @Override
@@ -65,14 +75,23 @@ public class LoanListAdapter extends BaseAdapter{
         String LocationAndCategory = loan.getLoanable().getLocation()+" ("+loan.getLoanable().getCategory().getName()+") ";
 
         header.setText(loan.getLoanable().getTitle().getBookTitle() +" ("+ loan.getLoanable().getTitle().getEditionYear()+") ");
+<<<<<<< HEAD
         subcontent1.setText(": " + LocationAndCategory);
         subcontent2.setText(": "+ timeGMT);
 
         //Todo Handle button
         button.setOnClickListener(new LoanableCheckInOnClickListener(loan.getLoanable().getTitle().getTitleId(), loan.getLoanable().getLoanableId(), activity, checkingCallback));
+=======
+        subcontent1.setText(loan.getLoanable().getLocation()+" ("+ loan.getLoanable().getCategory().getName()+") ");
+        subcontent2.setText( rowView.getResources().getText(R.string.loans_to_be_returned)+ ": " + loan.getToBeReturnedDate().toGMTString() );
+
+        //the checkIn button will be only on small devices be displayed. on tablets the checkin will be in the title details fragment
+        if(button != null) {
+            button.setOnClickListener(new LoanableCheckInOnClickListener(loan.getLoanable().getTitle().getTitleId(), loan.getLoanable().getLoanableId(), activity, checkInCallback));
+        }
+>>>>>>> upstream/master
 
         return rowView;
-
     }
 
 }

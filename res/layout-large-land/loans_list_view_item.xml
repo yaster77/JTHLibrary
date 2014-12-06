@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:layout_weight="1"
+              android:padding="2sp"
+        >
+
+                <TextView
+                        android:id="@+id/tv_loans_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="titlePlaceholder"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        />
+
+                <TextView
+                        android:id="@+id/tv_loans_subcontent1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Other information"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        />
+
+                <TextView
+                        android:id="@+id/tv_loans_subcontent2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Return Date"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        />
+
+</LinearLayout>
