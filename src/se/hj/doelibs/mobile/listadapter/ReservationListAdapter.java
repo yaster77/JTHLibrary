@@ -57,18 +57,11 @@ public class ReservationListAdapter extends BaseAdapter {
         Reservation reservation = reservations.get(position);
 
         header.setText(reservation.getTitle().getBookTitle() + " (" + reservation.getTitle().getEditionYear() + ")");
-<<<<<<< HEAD
-        subcontent1.setText("");
-
-        //Todo Handle CheckOut Checkout button and implement a function to check if you're first in reservation queue
-
-=======
         if(reservation.isLoanRecalled() && reservation.getAvailableDate() != null) {
             subcontent1.setText(activity.getText(R.string.prefix_status) + ": " + Loanable.Status.AVAILABLE.getText(activity));
         } else {
             subcontent1.setText(activity.getText(R.string.prefix_status) + ": " + activity.getText(R.string.reservation_waiting_for_loanable));
         }
->>>>>>> upstream/master
 
         return rowView;
     }

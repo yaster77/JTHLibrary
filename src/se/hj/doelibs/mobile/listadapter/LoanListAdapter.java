@@ -22,16 +22,6 @@ public class LoanListAdapter extends BaseAdapter{
 
     private Activity activity;
     private List<Loan> loans;
-<<<<<<< HEAD
-    private TaskCallback<Boolean> checkingCallback;//
-
-    public LoanListAdapter( Activity activity, List<Loan> loans,TaskCallback<Boolean> callback)
-    {
-        this.activity = activity;
-        this.loans = loans;
-        this.checkingCallback = callback;//
-
-=======
     private TaskCallback<Boolean> checkInCallback;
 
     public LoanListAdapter( Activity activity, List<Loan> loans, TaskCallback<Boolean> checkInCallback)
@@ -39,7 +29,6 @@ public class LoanListAdapter extends BaseAdapter{
         this.activity = activity;
         this.loans = loans;
         this.checkInCallback = checkInCallback;
->>>>>>> upstream/master
     }
 
     @Override
@@ -71,17 +60,7 @@ public class LoanListAdapter extends BaseAdapter{
 
         Loan loan = loans.get(position);
 
-        String timeGMT = loan.getToBeReturnedDate().toGMTString().substring(0, loan.getToBeReturnedDate().toGMTString().length() -12 );
-        String LocationAndCategory = loan.getLoanable().getLocation()+" ("+loan.getLoanable().getCategory().getName()+") ";
-
         header.setText(loan.getLoanable().getTitle().getBookTitle() +" ("+ loan.getLoanable().getTitle().getEditionYear()+") ");
-<<<<<<< HEAD
-        subcontent1.setText(": " + LocationAndCategory);
-        subcontent2.setText(": "+ timeGMT);
-
-        //Todo Handle button
-        button.setOnClickListener(new LoanableCheckInOnClickListener(loan.getLoanable().getTitle().getTitleId(), loan.getLoanable().getLoanableId(), activity, checkingCallback));
-=======
         subcontent1.setText(loan.getLoanable().getLocation()+" ("+ loan.getLoanable().getCategory().getName()+") ");
         subcontent2.setText( rowView.getResources().getText(R.string.loans_to_be_returned)+ ": " + loan.getToBeReturnedDate().toGMTString() );
 
@@ -89,9 +68,7 @@ public class LoanListAdapter extends BaseAdapter{
         if(button != null) {
             button.setOnClickListener(new LoanableCheckInOnClickListener(loan.getLoanable().getTitle().getTitleId(), loan.getLoanable().getLoanableId(), activity, checkInCallback));
         }
->>>>>>> upstream/master
 
         return rowView;
     }
-
 }

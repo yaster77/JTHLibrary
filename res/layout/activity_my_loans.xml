@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<<<<<<< HEAD
-    <TextView
-            android:id="@+id/myLoanText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/my_loans_MyLoans"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:background="#00FF80"
-            />
-=======
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:baselineAligned="false">
->>>>>>> upstream/master
 
     <fragment
             android:id="@+id/listFragment"
@@ -24,27 +13,4 @@
             class="se.hj.doelibs.mobile.MyLoansListFragment" >
     </fragment>
 
-<<<<<<< HEAD
-
-    <TextView
-            android:id="@+id/myReservationsText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/my_loans_MyReservations"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:background="#00FF80"
-            />
-    <ListView
-            android:id="@+id/reservations_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="#A0A0A0"
-            />
 </LinearLayout>
-=======
-</LinearLayout>
->>>>>>> upstream/master
