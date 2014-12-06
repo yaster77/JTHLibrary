@@ -2,6 +2,7 @@ package se.hj.doelibs.mobile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,12 @@ public class BrowseActivity extends BaseActivity implements OnTitleItemSelectedL
 			}
 		});
 		_list.setAdapter(new SearchResultListAdapter(BrowseActivity.this, android.R.layout.simple_list_item_1, titles));
+
+		//on tablets select first result of list
+		if(getResources().getConfiguration().isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_LARGE)
+				&& getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			onTitleItemSelected(titles.get(0).getTitleId());
+		}
 	}
 
 	@Override

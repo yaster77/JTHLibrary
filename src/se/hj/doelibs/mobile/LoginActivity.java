@@ -94,7 +94,7 @@ public class LoginActivity extends BaseActivity {
                 dialog.dismiss();
 
                 if(loginSuccessfull) {
-                    Intent myLoanActivity = new Intent(LoginActivity.this, MyLoansListFragment.class);
+                    Intent myLoanActivity = new Intent(LoginActivity.this, MyLoansActivity.class);
                     startActivity(myLoanActivity);
                 } else {
                     passwordField.setText("");

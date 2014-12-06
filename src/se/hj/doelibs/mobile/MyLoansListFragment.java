@@ -24,7 +24,6 @@ import se.hj.doelibs.mobile.utils.CurrentUserUtils;
 import se.hj.doelibs.mobile.utils.ProgressDialogUtils;
 import se.hj.doelibs.model.Loan;
 import se.hj.doelibs.model.Reservation;
-import se.hj.doelibs.model.Title;
 
 import java.util.List;
 
@@ -41,6 +40,12 @@ public class MyLoansListFragment extends Fragment {
 	private OnTitleItemSelectedListener listener;
 	private ProgressDialog loadLoansDialog;
 	private ProgressDialog loadReservationsDialog;
+
+	/**
+	 * says if a title was already selected and loaded in the title details fragment
+	 * this is only on tablets in landscape mode important
+	 */
+	private boolean titleSelected = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -103,10 +108,13 @@ public class MyLoansListFragment extends Fragment {
 					}));
 
 					//on tablets in landscape mode load first title in title details fragment:
-					if(getResources().getConfiguration().screenLayout == Configuration.SCREENLAYOUT_SIZE_LARGE
+					if(getResources().getConfiguration().isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_LARGE)
 							&& getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 						if(loans != null && loans.size() > 0) {
-							listener.onTitleItemSelected(((Title)lv_myLoans.getItemAtPosition(0)).getTitleId());
+							listener.onTitleItemSelected(((Loan)lv_myLoans.getItemAtPosition(0)).getLoanable().getTitle().getTitleId());
+
+							//set title selected
+							titleSelected = true;
 						}
 					}
 				}
@@ -123,10 +131,20 @@ public class MyLoansListFragment extends Fragment {
 			//load reservations
 			new LoadUsersReservationsAsyncTask(new TaskCallback<List<Reservation>>() {
 				@Override
-				public void onTaskCompleted(List<Reservation> objectOnComplete) {
+				public void onTaskCompleted(List<Reservation> reservations) {
 					ProgressDialogUtils.dismissQuitely(loadReservationsDialog);
 
-					lv_myReservations.setAdapter(new ReservationListAdapter(activity, objectOnComplete));
+					lv_myReservations.setAdapter(new ReservationListAdapter(activity, reservations));
+
+					//on tablets in landscape mode load first title in title details fragment if no title from a loan was loaded:
+					if(!titleSelected
+							&& getResources().getConfiguration().isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_LARGE)
+							&& getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+						if(reservations != null && reservations.size() > 0) {
+							listener.onTitleItemSelected(((Reservation)lv_myReservations.getItemAtPosition(0)).getTitle().getTitleId());
+						}
+					}
+
 				}
 
 				@Override
