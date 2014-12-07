@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -13,6 +15,7 @@ import se.hj.doelibs.mobile.asynctask.LoadReservationStatusAsyncTask;
 import se.hj.doelibs.mobile.asynctask.LoadTitleInformationAsynTaks;
 import se.hj.doelibs.mobile.asynctask.ReserveTitleAsyncTask;
 import se.hj.doelibs.mobile.asynctask.TaskCallback;
+import se.hj.doelibs.mobile.codes.ExtraKeys;
 import se.hj.doelibs.mobile.listadapter.LoanablesListAdapter;
 import se.hj.doelibs.mobile.utils.CurrentUserUtils;
 import se.hj.doelibs.mobile.utils.ListUtils;
@@ -61,6 +64,10 @@ public class TitleDetailsFragment extends Fragment {
 		lv_loanables = (ListView)view.findViewById(R.id.lv_titledetails_loanableslist);
 		tv_noLoanablesAvailable = (TextView)view.findViewById(R.id.tv_no_loanables_available);
 
+		setHasOptionsMenu(true);
+		MenuItem addLoanableMenu = (MenuItem)view.findViewById(R.id.action_add_loanable);
+		addLoanableMenu.setVisible(true);
+
 		return view;
 	}
 
@@ -81,47 +88,6 @@ public class TitleDetailsFragment extends Fragment {
 		setupData();
 	}
 
-/*	public void onReserve(View view) {
-		reserveProgressDialog = new ProgressDialog(getActivity());
-		final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-
-		dialogBuilder
-				.setMessage(R.string.dialog_really_reserve_title)
-				.setPositiveButton(R.string.YES, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						//reserve title
-
-						new ReserveTitleAsyncTask(getActivity(), titleId, new TaskCallback<Boolean>() {
-							@Override
-							public void onTaskCompleted(Boolean success) {
-
-								if (success) {
-									btn_reserve.setVisibility(View.INVISIBLE);
-									Toast.makeText(getActivity(), getResources().getText(R.string.title_reserve_successfull), Toast.LENGTH_SHORT).show();
-								} else {
-									Toast.makeText(getActivity(), getResources().getText(R.string.title_reserve_error), Toast.LENGTH_LONG).show();
-								}
-								ProgressDialogUtils.dismissQuitely(reserveProgressDialog);
-							}
-
-							@Override
-							public void beforeTaskRun() {
-								reserveProgressDialog.setMessage(getResources().getText(R.string.dialog_progress_reserve_title));
-								reserveProgressDialog.setCancelable(false);
-								reserveProgressDialog.show();
-							}
-						}).execute();
-
-					}
-				})
-				.setNegativeButton(R.string.CANCEL, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						//nothing
-					}
-				});
-		dialogBuilder.show();
-	}*/
-
 	/**
 	 * returns the callback after the checkIn loanable
 	 * this will only make some UI changes, because it shouldn't be done in the onClick listener
@@ -139,10 +105,6 @@ public class TitleDetailsFragment extends Fragment {
 					//reload title activity
 					getActivity().finish();
 					getActivity().startActivity(getActivity().getIntent());
-//					Intent titleActivity = new Intent(getActivity(), TitleDetailsActivity.class);
-//					titleActivity.putExtra(ExtraKeys.TITLE_ID, titleId);
-//					//finish();
-//					startActivity(titleActivity);
 				} else {
 					Toast.makeText(getActivity(), getResources().getText(R.string.loanable_checkin_error), Toast.LENGTH_LONG).show();
 				}
@@ -307,6 +269,21 @@ public class TitleDetailsFragment extends Fragment {
 		} else {
 			//user is not logged in so hide button
 			btn_reserve.setVisibility(View.INVISIBLE);
+		}
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_add_loanable:
+				Intent addLoanable = new Intent(getActivity(), SettingsActivity.class);
+				addLoanable.putExtra(ExtraKeys.TITLE_ID, titleId);
+				getActivity().finish();
+				startActivity(addLoanable);
+
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
 	}
 

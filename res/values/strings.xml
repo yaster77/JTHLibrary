@@ -105,5 +105,6 @@
     <string name="loans_to_be_returned">To be returned</string>
     <string name="searching">searching&#8230;</string>
     <string name="reservation_waiting_for_loanable">waiting for loanable</string>
+    <string name="add_loanable">add loanable</string>
 
 </resources>
