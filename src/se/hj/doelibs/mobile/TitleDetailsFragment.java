@@ -6,16 +6,14 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.*;
 import se.hj.doelibs.mobile.asynctask.LoadReservationStatusAsyncTask;
 import se.hj.doelibs.mobile.asynctask.LoadTitleInformationAsynTaks;
 import se.hj.doelibs.mobile.asynctask.ReserveTitleAsyncTask;
 import se.hj.doelibs.mobile.asynctask.TaskCallback;
 import se.hj.doelibs.mobile.codes.ExtraKeys;
+import se.hj.doelibs.mobile.codes.RequestCodes;
 import se.hj.doelibs.mobile.listadapter.LoanablesListAdapter;
 import se.hj.doelibs.mobile.utils.CurrentUserUtils;
 import se.hj.doelibs.mobile.utils.ListUtils;
@@ -51,6 +49,7 @@ public class TitleDetailsFragment extends Fragment {
 	private ProgressDialog loadTitleDetailProgressDialog;
 	private ProgressDialog checkInAndOutProgressDialog;
 
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_title_details, container, false);
@@ -62,11 +61,9 @@ public class TitleDetailsFragment extends Fragment {
 		tv_authors = (TextView)view.findViewById(R.id.tv_titledetails_authors);
 		btn_reserve = (Button)view.findViewById(R.id.btn_titledetails_reserve);
 		lv_loanables = (ListView)view.findViewById(R.id.lv_titledetails_loanableslist);
-		tv_noLoanablesAvailable = (TextView)view.findViewById(R.id.tv_no_loanables_available);
+		tv_noLoanablesAvailable = (TextView) view.findViewById(R.id.tv_no_loanables_available);
 
 		setHasOptionsMenu(true);
-		MenuItem addLoanableMenu = (MenuItem)view.findViewById(R.id.action_add_loanable);
-		addLoanableMenu.setVisible(true);
 
 		return view;
 	}
@@ -79,11 +76,12 @@ public class TitleDetailsFragment extends Fragment {
 	 * loads all data into the viewfields.
 	 */
 	public void setupView(){
-		//by default will is there the relative layout to show the a error message that no title is selected.
-		// At this point a titleId was already given --> hide message
+		// by default the relative layout will be shown with the a error message that no title is selected.
+		// But at this point a titleId was already given --> hide message
 		RelativeLayout errorPannel = (RelativeLayout)getView().findViewById(R.id.title_details_no_title_selected);
 		errorPannel.setVisibility(View.GONE);
 
+		getActivity().invalidateOptionsMenu();
 		setupReserveButton();
 		setupData();
 	}
@@ -272,21 +270,6 @@ public class TitleDetailsFragment extends Fragment {
 		}
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.action_add_loanable:
-				Intent addLoanable = new Intent(getActivity(), SettingsActivity.class);
-				addLoanable.putExtra(ExtraKeys.TITLE_ID, titleId);
-				getActivity().finish();
-				startActivity(addLoanable);
-
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
-	}
-
 	/**
 	 * concats all authors and editors in a string. adds behind each author the postfix "Editor"
 	 * @param authors
@@ -304,5 +287,43 @@ public class TitleDetailsFragment extends Fragment {
 		}
 
 		return authorString + ((authorString.length()>0 && editorString.length() > 0)?", ":"") + editorString;
+	}
+
+	@Override
+	public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+
+		if(getActivity().getIntent().getIntExtra(ExtraKeys.TITLE_ID, -1) > 0
+				|| titleId > 0) {
+			//show add loanable menu item if user is admin
+			CurrentUserUtils.UserModel um = CurrentUserUtils.getCurrentUser(getActivity());
+			if(um != null && um.isAdmin()) {
+				MenuItem addLoanableMenuItem = (MenuItem)menu.findItem(R.id.action_add_loanable);
+				addLoanableMenuItem.setVisible(true);
+			}
+		}
+
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_add_loanable:
+				Intent addLoanable = new Intent(getActivity(), AddLoanableActivity.class);
+				addLoanable.putExtra(ExtraKeys.TITLE_ID, titleId);
+				startActivityForResult(addLoanable, RequestCodes.CREATE_LOANABLE); //for result is needed to navigate back through finish()
+
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == RequestCodes.CREATE_LOANABLE) {
+			//reload activity to display new loanables
+			setupView();
+		}
 	}
 }

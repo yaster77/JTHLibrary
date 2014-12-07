@@ -49,6 +49,7 @@ public class CurrentUserUtils {
 			um.firstName = pref.getString(PreferencesKeys.KEY_USER_FIRSTNAME, "");
 			um.lastName = pref.getString(PreferencesKeys.KEY_USER_LASTNAME, "");
 			um.eMail = pref.getString(PreferencesKeys.KEY_USER_USERNAME, "");
+			um.isAdmin = pref.getBoolean(PreferencesKeys.KEY_USER_IS_ADMIN, false);
 		}
 
 		return um;
@@ -61,6 +62,9 @@ public class CurrentUserUtils {
 		private String firstName;
 		private String lastName;
 		private String eMail;
+		private boolean isAdmin;
+
+		public boolean isAdmin() { return isAdmin; }
 
 		public String getFirstName() {
 			return firstName;

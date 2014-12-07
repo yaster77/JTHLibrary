@@ -11,6 +11,11 @@ public class UserCategory implements Serializable {
     private String name;
     private int loanPeriod;
 
+    /**
+     * the ID of the admin category of DoeLibS
+     */
+    public static final int ADMIN_CATEGORY_ID = 1;
+
     public int getCategoryId() {
         return categoryId;
     }
