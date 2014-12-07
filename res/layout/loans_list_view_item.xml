@@ -13,6 +13,7 @@
             android:orientation="vertical"
             android:layout_weight="1">
 
+
             <TextView
                     android:id="@+id/tv_loans_header"
                     android:layout_width="wrap_content"
@@ -21,22 +22,39 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     />
 
-        <TextView
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loans_room"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
+
+            <TextView
                 android:id="@+id/tv_loans_subcontent1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Other information"
+                android:text=":Room(Catalog)"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 />
+        </LinearLayout>
 
-        <TextView
-                android:id="@+id/tv_loans_subcontent2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Return Date"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                />
 
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="horizontal">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loans_to_be_returned"
+
+                    />
+
+            <TextView
+                    android:id="@+id/tv_loans_subcontent2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
+            </LinearLayout>
     </LinearLayout>
 
     <Button
