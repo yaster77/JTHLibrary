@@ -16,9 +16,9 @@
     <string name="btn_logout">Logout</string>
     <string name="btn_isbn_scanner_more_scanning">Scan again</string>
     <string name="btn_isbn_scanner_no_more_scanning">Cancel</string>
-    <string name="btn_check_out">check out</string>
-    <string name="btn_check_in">check in</string>
-    <string name="btn_reserve">reserve</string>
+    <string name="btn_check_out">Check out</string>
+    <string name="btn_check_in">Check in</string>
+    <string name="btn_reserve">Reserve</string>
 
     <!-- dialog messages -->
     <string name="dialog_no_isbn_on_scanning_found">The scanned ISBN number is not known in DoeLibS</string>
@@ -31,9 +31,9 @@
     <string name="dialog_progress_load_titleinformation">Loading title information&#8230;</string>
     <string name="dialog_progress_check_reservations">Load reservations&#8230;</string>
     <string name="dialog_progress_reserve_title">Reserve title&#8230;</string>
-    <string name="dialog_progress_load_loans">loading loans&#8230;</string>
-    <string name="dialog_progress_load_reservations">loading reservations&#8230;</string>
-    <string name="dialog_progress_add_loanable">adding loanable...</string>
+    <string name="dialog_progress_load_loans">Loading loans&#8230;</string>
+    <string name="dialog_progress_load_reservations">Loading reservations&#8230;</string>
+    <string name="dialog_progress_add_loanable">Adding loanable...</string>
 
     <!--textviews-->
     <string name="tv_titledetails_loanables">Loanables</string>
@@ -105,13 +105,13 @@
 
     <string name="loans_room">Room</string>
     <string name="loans_to_be_returned">To be returned</string>
-    <string name="searching">searching&#8230;</string>
-    <string name="reservation_waiting_for_loanable">waiting for loanable</string>
-    <string name="add_loanable">add loanable</string>
+    <string name="searching">Searching&#8230;</string>
+    <string name="reservation_waiting_for_loanable">Waiting for loanable</string>
+    <string name="add_loanable">Add loanable</string>
     <string name="add_loanable_doelibs_identifier">DoeLibS identifier</string>
     <string name="add_loanable_location_category">Location category</string>
     <string name="add_loanable_room">Room</string>
-    <string name="save">save</string>
+    <string name="save">Save</string>
     <string name="all_fields_required">All fields are required</string>
     <string name="add_loanable_successfull">Loanable successfully added</string>
     <string name="add_loanable_no_title">No title selected - you can only add a loanable to a given title</string>
