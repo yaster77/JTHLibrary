@@ -81,7 +81,7 @@ public class AddLoanableActivity extends BaseActivity {
 					if(ex instanceof HttpBadRequestException) {
 						//invalid data
 						Log.d("Add loanable", "answere:", ex);
-						Toast.makeText(AddLoanableActivity.this, "bad request", Toast.LENGTH_LONG).show();
+						Toast.makeText(AddLoanableActivity.this, ex.getMessage(), Toast.LENGTH_LONG).show();
 					} else {
 						//servererror, not authorized...
 						Log.d("Add loanable", "response was: " + ex.getMessage());
