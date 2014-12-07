@@ -19,6 +19,7 @@ import se.hj.doelibs.api.UserDao;
 import se.hj.doelibs.mobile.codes.PreferencesKeys;
 import se.hj.doelibs.mobile.utils.ConnectionUtils;
 import se.hj.doelibs.model.User;
+import se.hj.doelibs.model.UserCategory;
 
 /**
  * @author Christoph
@@ -79,6 +80,7 @@ public class LoginActivity extends BaseActivity {
                     editor.putString(PreferencesKeys.KEY_USER_PASSWORD, credentials.getPassword());
                     editor.putString(PreferencesKeys.KEY_USER_FIRSTNAME, user.getFirstName());
                     editor.putString(PreferencesKeys.KEY_USER_LASTNAME, user.getLastName());
+                    editor.putBoolean(PreferencesKeys.KEY_USER_IS_ADMIN, (user.getCategory().getCategoryId() == UserCategory.ADMIN_CATEGORY_ID));
 
                     editor.commit();
 				} catch (HttpException e) {

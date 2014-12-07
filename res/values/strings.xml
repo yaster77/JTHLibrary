@@ -33,6 +33,7 @@
     <string name="dialog_progress_reserve_title">Reserve title&#8230;</string>
     <string name="dialog_progress_load_loans">loading loans&#8230;</string>
     <string name="dialog_progress_load_reservations">loading reservations&#8230;</string>
+    <string name="dialog_progress_add_loanable">adding loanable...</string>
 
     <!--textviews-->
     <string name="tv_titledetails_loanables">Loanables</string>
@@ -106,5 +107,14 @@
     <string name="loans_to_be_returned">To be returned</string>
     <string name="searching">searching&#8230;</string>
     <string name="reservation_waiting_for_loanable">waiting for loanable</string>
+    <string name="add_loanable">add loanable</string>
+    <string name="add_loanable_doelibs_identifier">DoeLibS identifier</string>
+    <string name="add_loanable_location_category">Location category</string>
+    <string name="add_loanable_room">Room</string>
+    <string name="save">save</string>
+    <string name="all_fields_required">All fields are required</string>
+    <string name="add_loanable_successfull">Loanable successfully added</string>
+    <string name="add_loanable_no_title">No title selected - you can only add a loanable to a given title</string>
+
 
 </resources>

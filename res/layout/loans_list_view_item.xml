@@ -11,8 +11,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1">
 
 
             <TextView
@@ -62,7 +61,7 @@
             android:id="@+id/btn_loans_checkIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Check In"
+            android:text="@string/btn_check_in"
             />
 
 

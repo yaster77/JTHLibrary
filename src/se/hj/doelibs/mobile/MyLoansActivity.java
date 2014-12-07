@@ -10,6 +10,7 @@ import se.hj.doelibs.mobile.listener.OnTitleItemSelectedListener;
 
 /**
  * @author Alexander
+ * @author Christoph
  */
 public class MyLoansActivity extends BaseActivity implements OnTitleItemSelectedListener {
 

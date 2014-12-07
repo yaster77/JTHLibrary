@@ -18,7 +18,6 @@ public class TitleDetailsActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//setup navigation
 		LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View contentView = inflater.inflate(R.layout.activity_title_details, null, false);
 		drawerLayout.addView(contentView, 0);
