@@ -60,9 +60,11 @@ public class LoanListAdapter extends BaseAdapter{
 
         Loan loan = loans.get(position);
 
+        String timeGMT = loan.getToBeReturnedDate().toGMTString();
+
         header.setText(loan.getLoanable().getTitle().getBookTitle() +" ("+ loan.getLoanable().getTitle().getEditionYear()+") ");
-        subcontent1.setText(loan.getLoanable().getLocation()+" ("+ loan.getLoanable().getCategory().getName()+") ");
-        subcontent2.setText( rowView.getResources().getText(R.string.loans_to_be_returned)+ ": " + loan.getToBeReturnedDate().toGMTString() );
+        subcontent1.setText(": "+loan.getLoanable().getLocation()+" ("+ loan.getLoanable().getCategory().getName()+") ");
+        subcontent2.setText(": "+timeGMT.substring(0, timeGMT.length()-12));
 
         //the checkIn button will be only on small devices be displayed. on tablets the checkin will be in the title details fragment
         if(button != null) {
