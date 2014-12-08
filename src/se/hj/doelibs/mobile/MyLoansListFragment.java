@@ -20,11 +20,12 @@ import se.hj.doelibs.mobile.asynctask.TaskCallback;
 import se.hj.doelibs.mobile.listadapter.LoanListAdapter;
 import se.hj.doelibs.mobile.listadapter.ReservationListAdapter;
 import se.hj.doelibs.mobile.listener.OnTitleItemSelectedListener;
+import se.hj.doelibs.mobile.utils.ConnectionUtils;
 import se.hj.doelibs.mobile.utils.CurrentUserUtils;
 import se.hj.doelibs.mobile.utils.ProgressDialogUtils;
 import se.hj.doelibs.model.Loan;
 import se.hj.doelibs.model.Reservation;
-
+import se.hj.doelibs.mobile.utils.fileUtils;
 import java.util.List;
 
 /**
@@ -40,6 +41,8 @@ public class MyLoansListFragment extends Fragment {
 	private OnTitleItemSelectedListener listener;
 	private ProgressDialog loadLoansDialog;
 	private ProgressDialog loadReservationsDialog;
+	private String loansFile = "loans";
+	private String reservationFile = "reservations";
 
 	/**
 	 * says if a title was already selected and loaded in the title details fragment
@@ -117,6 +120,7 @@ public class MyLoansListFragment extends Fragment {
 							titleSelected = true;
 						}
 					}
+
 				}
 
 				@Override
@@ -172,9 +176,6 @@ public class MyLoansListFragment extends Fragment {
 			throw new ClassCastException(activity.toString() + " must implement OnTitleItemSelectedListener");
 		}
 	}
-
-
-
 	/**
 	 * task to load the users reservations
 	 */
@@ -188,9 +189,16 @@ public class MyLoansListFragment extends Fragment {
 
 		@Override
 		protected List<Reservation> doInBackground(Void... params) {
-			ReservationDao reservationDao = new ReservationDao(CurrentUserUtils.getCredentials(activity));
 
-			return  reservationDao.getCurrentUsersReservations();
+			if(ConnectionUtils.isConnected(getActivity().getBaseContext())) {
+				ReservationDao reservationDao = new ReservationDao(CurrentUserUtils.getCredentials(activity));
+				fileUtils.writeReservationToFile(reservationFile, getActivity().getBaseContext(), reservationDao.getCurrentUsersReservations());
+				return reservationDao.getCurrentUsersReservations();
+			}
+			else {
+				return fileUtils.readReservationFromFile(reservationFile,getActivity().getBaseContext());
+			}
+
 		}
 
 		@Override
@@ -218,9 +226,17 @@ public class MyLoansListFragment extends Fragment {
 
 		@Override
 		protected List<Loan> doInBackground(Void... params) {
-			LoanDao loanDao = new LoanDao(CurrentUserUtils.getCredentials(activity));
 
-			return  loanDao.getCurrentUsersLoans();
+			if(ConnectionUtils.isConnected(getActivity().getBaseContext()) == true) {
+				LoanDao loanDao = new LoanDao(CurrentUserUtils.getCredentials(activity));
+				//Saves to file
+				fileUtils.writeLoansToFile(loansFile,getActivity().getBaseContext(),loanDao.getCurrentUsersLoans());
+				return loanDao.getCurrentUsersLoans();
+			}
+			else
+			{
+				return fileUtils.readLoansFromFile(loansFile, getActivity().getBaseContext());
+			}
 		}
 
 		@Override
@@ -233,4 +249,5 @@ public class MyLoansListFragment extends Fragment {
 			callback.onTaskCompleted(loans);
 		}
 	}
+
 }
