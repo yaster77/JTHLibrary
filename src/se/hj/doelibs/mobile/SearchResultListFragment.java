@@ -2,14 +2,18 @@ package se.hj.doelibs.mobile;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import se.hj.doelibs.mobile.listener.OnTitleItemSelectedListener;
 import se.hj.doelibs.model.Title;
+
+import java.lang.reflect.Type;
 
 /**
  * Fragment to show the search results in a list

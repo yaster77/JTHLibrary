@@ -23,13 +23,13 @@
     </style>
 
     <style name="title" parent="AppBaseTheme">
-		<item name="android:background">#27ae60</item>
+		<item name="android:background">#22b573</item>
 		<item name="android:textColor">#FFFFFF</item>
 		<item name="android:padding">10dp</item>
     </style>
     
     <style name="splashTitle" parent="AppBaseTheme">
-		<item name="android:textColor">#27ae60</item>
+		<item name="android:textColor">#22b573</item>
 		<item name="android:textSize">20sp</item>
     </style>
     

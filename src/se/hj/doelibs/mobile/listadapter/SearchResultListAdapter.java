@@ -2,6 +2,7 @@ package se.hj.doelibs.mobile.listadapter;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,7 @@ public class SearchResultListAdapter extends ArrayAdapter<Title> {
 	private List<Title> titles;
 	private int resource;
 	private Activity activity;
+	private Typeface novaThin;
 
 	public SearchResultListAdapter(Activity activity, int resource, List<Title> titles) {
 		super(activity, resource, titles);
@@ -28,6 +30,7 @@ public class SearchResultListAdapter extends ArrayAdapter<Title> {
 		this.activity = activity;
 		this.resource = resource;
 		this.titles = titles;
+		this.novaThin = Typeface.createFromAsset(getContext().getAssets(), "fonts/Proxima Nova Alt Condensed Light.otf");
 	}
 
 	@Override
@@ -39,12 +42,15 @@ public class SearchResultListAdapter extends ArrayAdapter<Title> {
 
 		TextView text = (TextView) view.findViewById(R.id.search_result_list_item_text);
 		text.setText(title.getBookTitle());
+		text.setTypeface(novaThin);
 
-		if (position % 2 == 1) {
-			view.setBackgroundResource(R.drawable.list_item1);
-		} else {
-			view.setBackgroundResource(R.drawable.list_item2);
-		}
+		view.setBackgroundResource(R.drawable.list_item1);
+
+//		if (position % 2 == 1) {
+//			view.setBackgroundResource(R.drawable.list_item1);
+//		} else {
+//			view.setBackgroundResource(R.drawable.list_item2);
+//		}
 
 		return view;
 	}

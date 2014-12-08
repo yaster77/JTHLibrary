@@ -9,24 +9,29 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_weight="1">
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Medium Text"
                 android:id="@+id/tv_titledetails_loanable_header"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="17sp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Small Text"
                 android:id="@+id/tv_titledetails_loanable_subcontent1"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="17sp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Small Text"
                 android:id="@+id/tv_titledetails_loanable_subcontent2"/>
@@ -36,6 +41,8 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:layout_gravity="center"
             android:text="checkInOrOut"
             android:id="@+id/btn_titledetails_loanable_checkInOrOut"/>
 </LinearLayout>

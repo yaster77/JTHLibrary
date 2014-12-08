@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/my_loans_MyLoans"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:background="#27ae60"
+        android:background="#22b573"
         android:padding="10dp"
             />
 
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="@string/my_loans_MyReservations"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:background="#27ae60"
+            android:background="#22b573"
             android:padding="10dp"
             />
     <ListView

@@ -130,7 +130,6 @@ public class SearchActivity extends BaseActivity {
 		}
 
 
-
 		@Override
 		protected List<Title> doInBackground(Void... params) {
 			List<Title> response = null;
