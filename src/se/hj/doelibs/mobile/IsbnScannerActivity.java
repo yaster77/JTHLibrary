@@ -48,10 +48,7 @@ public class IsbnScannerActivity extends BaseActivity {
 			String format = isbnScannerTmpValues.getString(PreferencesKeys.KEY_ISBN_VERSION, "");
 			handleScanResults(isbn, format);
 		} else {
-			//open scanner only if the user clicked on the cammera button - not in case the display was rotated
-			if(getIntent().getBooleanExtra(ExtraKeys.ISBN_SCANNER_START_ZXING, false)) {
-				openScanner();
-			}
+			openScanner();
 		}
 	}
 
