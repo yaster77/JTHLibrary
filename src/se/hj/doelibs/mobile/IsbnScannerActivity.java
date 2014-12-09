@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -27,7 +26,6 @@ public class IsbnScannerActivity extends BaseActivity {
 
 	private SharedPreferences isbnScannerTmpValues;
 	private SharedPreferences.Editor isbnScannerTmpValuesEditor;
-	private TextView tv;
 	private ProgressDialog checkIfTitleExistsDialog;
 
 	@Override
@@ -38,9 +36,6 @@ public class IsbnScannerActivity extends BaseActivity {
 		LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View contentView = inflater.inflate(R.layout.activity_isbn_scanner, null, false);
 		drawerLayout.addView(contentView, 0);
-
-		//set fields
-		tv = (TextView)findViewById(R.id.isbn_scanner_tv);
 
 		//setup SharedPreferences
 		isbnScannerTmpValues = getSharedPreferences(PreferencesKeys.NAME_TMP_VALUES, MODE_PRIVATE);
@@ -75,8 +70,6 @@ public class IsbnScannerActivity extends BaseActivity {
 			handleScanResults(isbn, format);
 		} else {
 			Toast.makeText(getApplicationContext(), "No scan data received!", Toast.LENGTH_SHORT).show();
-
-			tv.setText("try again");
 		}
 	}
 
