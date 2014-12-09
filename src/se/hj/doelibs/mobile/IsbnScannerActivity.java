@@ -69,7 +69,7 @@ public class IsbnScannerActivity extends BaseActivity {
 
 			handleScanResults(isbn, format);
 		} else {
-			Toast.makeText(getApplicationContext(), "No scan data received!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.isbn_scanner_no_scan_data_received, Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -86,7 +86,7 @@ public class IsbnScannerActivity extends BaseActivity {
 			//check isbn in another thread
 			checkIsbn(isbn, format);
 		} else {
-			Toast.makeText(getApplicationContext(), "only ISBN10 and ISBN13 supported", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.isbn_scanner_only_isbn10_and_isbn13_supported, Toast.LENGTH_SHORT).show();
 		}
 
 		//remove values from shared preferences again because they are processed
@@ -119,7 +119,7 @@ public class IsbnScannerActivity extends BaseActivity {
 			@Override
 			public void beforeTaskRun() {
 				checkIfTitleExistsDialog = new ProgressDialog(IsbnScannerActivity.this);
-				checkIfTitleExistsDialog.setMessage("checking if title exists in DoeLibS");
+				checkIfTitleExistsDialog.setMessage(getText(R.string.dialog_progress_check_if_isbn_exists));
 				checkIfTitleExistsDialog.setCancelable(false);
 				checkIfTitleExistsDialog.show();
 			}
