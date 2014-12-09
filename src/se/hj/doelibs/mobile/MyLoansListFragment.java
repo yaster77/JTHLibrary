@@ -58,20 +58,34 @@ public class MyLoansListFragment extends Fragment {
 		lv_myReservations = (ListView) view.findViewById(R.id.reservations_list);
 
 		//add on click listener
-		lv_myLoans.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Loan clicked = (Loan) lv_myLoans.getItemAtPosition(position);
-				listener.onTitleItemSelected(clicked.getLoanable().getTitle().getTitleId());
-			}
-		});
-		lv_myReservations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Reservation clicked = (Reservation) lv_myReservations.getItemAtPosition(position);
-				listener.onTitleItemSelected(clicked.getTitle().getTitleId());
-			}
-		});
+			lv_myLoans.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					if (ConnectionUtils.isConnected(getActivity()))
+					{
+						Loan clicked = (Loan) lv_myLoans.getItemAtPosition(position);
+						listener.onTitleItemSelected(clicked.getLoanable().getTitle().getTitleId());
+					}
+					else
+					{
+
+						Toast.makeText(activity, getText(R.string.generic_not_connected_error), Toast.LENGTH_LONG).show();
+					}
+				}
+			});
+			lv_myReservations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					if (ConnectionUtils.isConnected(getActivity())) {
+						Reservation clicked = (Reservation) lv_myReservations.getItemAtPosition(position);
+						listener.onTitleItemSelected(clicked.getTitle().getTitleId());
+					}
+					else
+					{
+						Toast.makeText(activity, getText(R.string.generic_not_connected_error), Toast.LENGTH_LONG).show();
+					}
+				}
+			});
 
 		//check if user is logged in
 		if(CurrentUserUtils.getCredentials(view.getContext()) == null) {
@@ -84,7 +98,6 @@ public class MyLoansListFragment extends Fragment {
 				@Override
 				public void onTaskCompleted(List<Loan> loans) {
 					ProgressDialogUtils.dismissQuitely(loadLoansDialog);
-
 					lv_myLoans.setAdapter(new LoanListAdapter(activity, loans, new TaskCallback<Boolean>() {
 						private ProgressDialog dialog;
 
@@ -92,7 +105,7 @@ public class MyLoansListFragment extends Fragment {
 						public void onTaskCompleted(Boolean checkInSuccessfull) {
 							ProgressDialogUtils.dismissQuitely(dialog);
 
-							if(!checkInSuccessfull) {
+							if (!checkInSuccessfull) {
 								Toast.makeText(activity, getText(R.string.loanable_checkin_error), Toast.LENGTH_LONG).show();
 							} else {
 								activity.finish();
@@ -113,7 +126,7 @@ public class MyLoansListFragment extends Fragment {
 					//on tablets in landscape mode load first title in title details fragment:
 					if(getResources().getConfiguration().isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_LARGE)
 							&& getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-						if(loans != null && loans.size() > 0) {
+						if(loans != null && loans.size() > 0 ) {
 							listener.onTitleItemSelected(((Loan)lv_myLoans.getItemAtPosition(0)).getLoanable().getTitle().getTitleId());
 
 							//set title selected
