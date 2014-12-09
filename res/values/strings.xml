@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">DoeLibS mobile</string>
-    <string name="hello_world">Hello world!</string>
 
     <!-- activity names -->
     <string name="title_activity_my_loans">My Loans</string>
