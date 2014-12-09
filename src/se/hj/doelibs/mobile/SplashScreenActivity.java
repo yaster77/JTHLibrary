@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import se.hj.doelibs.mobile.utils.CurrentUserUtils;
 
 /**
  * @author Adrien SAUNIER
@@ -56,11 +57,18 @@ public class SplashScreenActivity extends Activity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(SplashScreenActivity.this, MyLoansActivity.class);
-                SplashScreenActivity.this.startActivity(mainIntent);
-                SplashScreenActivity.this.finish();
+                /* Create an Intent that will start the Main-Activity. */
+				Intent mainIntent = null;
 
+				//if user is not logged in, goto search activity otherwise goto MyLoans
+				if(CurrentUserUtils.getCurrentUser(SplashScreenActivity.this) == null) {
+					mainIntent = new Intent(SplashScreenActivity.this, SearchActivity.class);
+				} else {
+					mainIntent = new Intent(SplashScreenActivity.this, MyLoansActivity.class);
+				}
+
+				SplashScreenActivity.this.startActivity(mainIntent);
+                SplashScreenActivity.this.finish();
             }
         }, 2000);
 	}
