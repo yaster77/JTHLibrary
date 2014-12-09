@@ -44,13 +44,7 @@ public class SearchResultListAdapter extends ArrayAdapter<Title> {
 		text.setText(title.getBookTitle());
 		text.setTypeface(novaThin);
 
-		view.setBackgroundResource(R.drawable.list_item1);
-
-//		if (position % 2 == 1) {
-//			view.setBackgroundResource(R.drawable.list_item1);
-//		} else {
-//			view.setBackgroundResource(R.drawable.list_item2);
-//		}
+		//view.setBackgroundResource(R.drawable.list_item1);
 
 		return view;
 	}

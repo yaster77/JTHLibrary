@@ -17,21 +17,21 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                style="@style/TextSmall"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Medium Text"
                 android:id="@+id/tv_titledetails_loanable_header"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                style="@style/TextSmaller"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Small Text"
                 android:id="@+id/tv_titledetails_loanable_subcontent1"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                style="@style/TextSmaller"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Small Text"
                 android:id="@+id/tv_titledetails_loanable_subcontent2"/>
@@ -41,8 +41,7 @@
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:layout_gravity="center"
+            style="@style/ButtonStyle"
             android:text="checkInOrOut"
             android:id="@+id/btn_titledetails_loanable_checkInOrOut"/>
 </LinearLayout>

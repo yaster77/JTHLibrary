@@ -10,7 +10,7 @@
         <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                style="@style/TextSmall"
                 android:text="@string/add_loanable_doelibs_identifier"/>
 
         <EditText
@@ -21,7 +21,7 @@
         <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                style="@style/TextSmall"
                 android:text="@string/add_loanable_location_category"/>
 
         <EditText
@@ -32,7 +32,7 @@
         <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                style="@style/TextSmall"
                 android:text="@string/add_loanable_room"/>
 
         <EditText
@@ -41,6 +41,7 @@
                 android:id="@+id/txt_room"/>
 
         <Button
+                style="@style/ButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/save"

@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="36sp"
+            style="@style/TextLarge"
             android:id="@+id/tv_titledetails_titlename"
             android:layout_marginBottom="10dp"/>
 
@@ -42,7 +42,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="20sp"
                     android:id="@+id/tv_titledetails_edition"
                     android:layout_marginBottom="7dp"
                     style="@style/table_entries" />
@@ -53,7 +52,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tv_titledetails_categories"
                     android:id="@+id/tv_titledetails_categories_header"
-                    android:textSize="20sp"
                     style="@style/table_entries"
                     />
             <TextView
@@ -61,7 +59,6 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_titledetails_categories"
-                    android:textSize="20sp"
                     style="@style/table_entries"
                     />
         </TableRow>
@@ -71,7 +68,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tv_titledetails_publisher"
                     android:id="@+id/tv_titledetails_publisher_header"
-                    android:textSize="20sp"
                     style="@style/table_entries"
                     />
             <TextView
@@ -79,7 +75,6 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_titledetails_publisher"
-                    android:textSize="20sp"
                     style="@style/table_entries"
                     />
         </TableRow>
@@ -89,7 +84,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tv_titledetails_authors"
                     android:id="@+id/tv_titledetails_authors_header"
-                    android:textSize="20sp"
                     style="@style/table_entries"
                     />
             <TextView
@@ -97,7 +91,6 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_titledetails_authors"
-                    android:textSize="20sp"
                     style="@style/table_entries"
                     />
         </TableRow>
@@ -114,14 +107,13 @@
                 android:id="@+id/tv_titledetails_loanables"
                 android:text="@string/tv_titledetails_loanables"
                 android:layout_gravity="center"
-                android:textSize="28sp"
+                style="@style/TextMedium"
                 android:layout_weight="1"
                 />
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:layout_gravity="center"
+                style="@style/ButtonStyle"
                 android:text="@string/btn_reserve"
                 android:id="@+id/btn_titledetails_reserve"
                 android:visibility="invisible"/>
@@ -137,7 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tv_no_loanables_available"
-            android:textSize="20sp"
+            style="@style/TextSmall"
             android:layout_marginTop="5dp"
             android:visibility="gone"/>
 

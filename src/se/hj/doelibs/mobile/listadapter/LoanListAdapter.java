@@ -1,6 +1,7 @@
 package se.hj.doelibs.mobile.listadapter;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,17 @@ public class LoanListAdapter extends BaseAdapter{
     private Activity activity;
     private List<Loan> loans;
     private TaskCallback<Boolean> checkInCallback;
+    private Typeface novaLight;
+    private Typeface novaRegItalic;
 
     public LoanListAdapter( Activity activity, List<Loan> loans, TaskCallback<Boolean> checkInCallback)
     {
         this.activity = activity;
         this.loans = loans;
         this.checkInCallback = checkInCallback;
+        this.novaLight = Typeface.createFromAsset(activity.getAssets(), "fonts/Proxima Nova Alt Condensed Light.otf");
+        this.novaRegItalic = Typeface.createFromAsset(activity.getAssets(), "fonts/Proxima Nova Alt Condensed Regular Italic.otf");
+
     }
 
     @Override
@@ -55,8 +61,16 @@ public class LoanListAdapter extends BaseAdapter{
 
         TextView header = (TextView) rowView.findViewById(R.id.tv_loans_header);
         TextView subcontent1 = (TextView) rowView.findViewById(R.id.tv_loans_subcontent1);
+        TextView subcontent1Header = (TextView) rowView.findViewById(R.id.tv_loans_subcontent1_header);
         TextView subcontent2 = (TextView) rowView.findViewById(R.id.tv_loans_subcontent2);
+        TextView subcontent2Header = (TextView) rowView.findViewById(R.id.tv_loans_subcontent2_header);
         Button button = (Button)rowView.findViewById(R.id.btn_loans_checkIn);
+
+        header.setTypeface(novaLight);
+        subcontent1.setTypeface(novaRegItalic);
+        subcontent2.setTypeface(novaRegItalic);
+        subcontent1Header.setTypeface(novaRegItalic);
+        subcontent2Header.setTypeface(novaRegItalic);
 
         Loan loan = loans.get(position);
 

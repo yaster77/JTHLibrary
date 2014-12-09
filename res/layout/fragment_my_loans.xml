@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="se.hj.doelibs.mobile.MyLoansListFragment" >
 
 
@@ -14,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/my_loans_MyLoans"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        style="@style/TextMedium"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/white"
         android:background="#22b573"
         android:padding="10dp"
             />
@@ -23,7 +24,7 @@
             android:id="@+id/loans_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            style="@style/ListViewStyle"
             />
 
     <TextView
@@ -31,7 +32,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/my_loans_MyReservations"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            style="@style/TextMedium"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/white"
             android:background="#22b573"
             android:padding="10dp"
             />
@@ -39,6 +42,6 @@
             android:id="@+id/reservations_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            style="@style/ListViewStyle"
             />
 </LinearLayout>

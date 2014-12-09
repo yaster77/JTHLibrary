@@ -5,7 +5,7 @@
               android:layout_height="wrap_content"
               android:orientation="vertical"
               android:layout_weight="1"
-              android:padding="2sp"
+              style="@style/ListViewItemStyle"
         >
 
                 <TextView
@@ -13,23 +13,43 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="titlePlaceholder"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        style="@style/TextSmall"
                         />
 
-                <TextView
-                        android:id="@+id/tv_loans_subcontent1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Other information"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        />
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/loans_room"
+                                android:id="@+id/tv_loans_subcontent1_header"
+                                style="@style/TextSmaller"
+                                />
+                        <TextView
+                                android:id="@+id/tv_loans_subcontent1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Other information"
+                                style="@style/TextSmaller"
+                                />
+                </LinearLayout>
 
-                <TextView
-                        android:id="@+id/tv_loans_subcontent2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Return Date"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        />
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="horizontal">
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_loans_subcontent2_header"
+                                android:text="@string/loans_to_be_returned"
+                                style="@style/TextSmaller"
+
+                                />
+
+                        <TextView
+                                android:id="@+id/tv_loans_subcontent2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Return Date"
+                                style="@style/TextSmaller"
+                                />
+                </LinearLayout>
 
 </LinearLayout>
