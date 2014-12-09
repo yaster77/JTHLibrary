@@ -117,4 +117,8 @@
     <string name="add_loanable_no_title">No title selected - you can only add a loanable to a given title</string>
 
 
+    <string name="search_title">Title</string>
+    <string name="search_topic">Topics</string>
+
+
 </resources>

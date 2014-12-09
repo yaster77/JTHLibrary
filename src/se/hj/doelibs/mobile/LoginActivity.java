@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.apache.http.HttpException;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -40,6 +42,17 @@ public class LoginActivity extends BaseActivity {
         usernameField = (EditText)findViewById(R.id.login_username);
         passwordField = (EditText)findViewById(R.id.login_password);
         btnLogin = (Button)findViewById(R.id.login_button);
+
+        TextView loginUsr = (TextView)findViewById(R.id.login_username_header);
+        TextView loginPsw = (TextView)findViewById(R.id.login_password_header);
+
+        Typeface novaLight = Typeface.createFromAsset(contentView.getResources().getAssets(), "fonts/Proxima Nova Alt Condensed Light.otf");
+
+        usernameField.setTypeface(novaLight);
+        passwordField.setTypeface(novaLight);
+        btnLogin.setTypeface(novaLight);
+        loginPsw.setTypeface(novaLight);
+        loginUsr.setTypeface(novaLight);
 
         if(!ConnectionUtils.isConnected(this)) {
             btnLogin.setActivated(false);
