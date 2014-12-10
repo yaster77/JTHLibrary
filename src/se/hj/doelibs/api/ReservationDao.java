@@ -7,6 +7,7 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import se.hj.doelibs.api.exception.HttpNotFoundException;
 import se.hj.doelibs.model.Reservation;
 
 import java.io.IOException;
@@ -106,7 +107,10 @@ public class ReservationDao extends BaseDao<Reservation> {
             }
         } catch (IOException e) {
             Log.d("ReservationDao", "check if user has available reservation", e);
-        } catch (HttpException e) {
+        } catch (HttpNotFoundException e) {
+            //this is the case we are looking for --> no reservation
+            Log.d("ReservationDao", "user has no available reservation");
+        }  catch (HttpException e) {
             Log.d("ReservationDao", "check if user has available reservation", e);
         } catch (JSONException e) {
             Log.d("ReservationDao", "check if user has available reservation", e);

@@ -3,13 +3,17 @@ package se.hj.doelibs.api;
 import android.util.Log;
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 import se.hj.doelibs.model.Loan;
 import se.hj.doelibs.model.Loanable;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Christoph
@@ -95,6 +99,34 @@ public class LoanableDao extends BaseDao<Loanable> {
             }
         }
         return false;
+    }
+
+    /**
+     * Adds a new loanable to DoeLibS
+     *
+     * @param titleId
+     * @param doeLibSId
+     * @param locationCategory
+     * @param room
+     * @return
+     */
+    public boolean addLoanableBasic(int titleId, String doeLibSId, String locationCategory, String room) throws HttpException {
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+        nameValuePairs.add(new BasicNameValuePair("Barcode", doeLibSId));
+        nameValuePairs.add(new BasicNameValuePair("Location", room));
+        nameValuePairs.add(new BasicNameValuePair("Category", locationCategory));
+
+        boolean success = false;
+        try {
+            HttpResponse response = post("/Title/"+titleId, nameValuePairs);
+            checkResponse(response);
+
+            success = true;
+        } catch (IOException e) {
+            Log.d("Add loanable", "IOException on POST request", e);
+        }
+
+        return success;
     }
 
     public static Loanable parseFromJson(JSONObject jsonObject) throws JSONException {

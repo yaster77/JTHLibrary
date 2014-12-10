@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">DoeLibS mobile</string>
-    <string name="hello_world">Hello world!</string>
 
     <!-- activity names -->
     <string name="title_activity_my_loans">My Loans</string>
@@ -22,21 +21,32 @@
 
     <!-- dialog messages -->
     <string name="dialog_no_isbn_on_scanning_found">The scanned ISBN number is not known in DoeLibS</string>
-    <string name="dialog_really_checkout_loanable">Do you really want to checkout this loanable?</string>
-    <string name="dialog_really_checkin_loanable">Do you really want to checkin this loanable again?</string>
+    <string name="dialog_really_checkout_loanable">Do you really want to check out this loanable?</string>
+    <string name="dialog_really_checkin_loanable">Do you really want to check in this loanable again?</string>
     <string name="dialog_really_reserve_title">Do you really want to reserve this title?</string>
 
     <string name="dialog_progress_checkin_loanable">Check in loanable&#8230;</string>
     <string name="dialog_progress_checkout_loanable">Check out loanable&#8230;</string>
-    <string name="dialog_progress_load_titleinformation">Load titleinformation&#8230;</string>
+    <string name="dialog_progress_load_titleinformation">Loading title information&#8230;</string>
     <string name="dialog_progress_check_reservations">Load reservations&#8230;</string>
     <string name="dialog_progress_reserve_title">Reserve title&#8230;</string>
+    <string name="dialog_progress_load_loans">loading loans&#8230;</string>
+    <string name="dialog_progress_load_reservations">loading reservations&#8230;</string>
+    <string name="dialog_progress_add_loanable">adding loanable...</string>
 
     <!--textviews-->
     <string name="tv_titledetails_loanables">Loanables</string>
     <string name="tv_titledetails_categories">Topics</string>
     <string name="tv_titledetails_publisher">Publisher</string>
     <string name="tv_titledetails_authors">Authors</string>
+
+
+    <!-- search & search result -->
+    <string name="search_field_required">A title or a topic is required to search</string>
+    <string name="search_title_hint">Enter title...</string>
+    <string name="search_button">Search</string>
+    <string name="search_topics_hint">Enter topics to search in...</string>
+    <string name="search_result_none">No matches found</string>
 
     <!-- other descriptions -->
     <string name="YES">Yes</string>
@@ -46,21 +56,40 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="title_activity_title_search">Search</string>
+    <string name="title_activity_title_searchresult">Search result</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_isbn_scanner">ISBN scanner</string>
     <string name="title_activity_login">Login</string>
+    <string name="title_activity_title_details">Title details</string>
 
     <string name="titledetails_editor_prefix">Editor</string>
 
-    <string name="loanable_checkout_error">Error on checking the loanable out. Please try again</string>
-    <string name="loanable_checkout_successfull">Loanable successful checked out</string>
-    <string name="loanable_checkin_error">Error on checking the loanable in. Please try again</string>
+    <string name="loanable_checkout_error">Error when checking the loanable out. Please try again</string>
+    <string name="loanable_checkout_successfull">Loanable successfully checked out</string>
+    <string name="loanable_checkin_error">Error when checking the loanable in. Please try again</string>
     <string name="loanable_checkin_successfull">Loanable successful checked in again</string>
-    <string name="title_reserve_error">Error on reserving the title. Please try again</string>
+    <string name="title_reserve_error">Error when reserving the title. Please try again</string>
     <string name="title_reserve_successfull">Title successfully reserved</string>
+
+    <string name="title_details_no_title_selected">Please select a title</string>
 
     <string name="login_password">Password</string>
     <string name="login_username">Username (email)</string>
+
+    <string name="login_checking_credentials">Checking credentials&#8230;</string>
+    <string name="login_error_credentials">Could not login. Please check your credentials</string>
+    <string name="login_error_internet_connection">Could not login. Please check your internet connection</string>
+
+    <string name="loanable_status_available">Available</string>
+    <string name="loanable_status_borrowed">Borrowed</string>
+    <string name="loanable_status_reserved">Reserved</string>
+    <string name="loanable_status_recalled">Recalled</string>
+    <string name="loanable_status_unavailable">Unavailable from owner</string>
+    <string name="loanable_status_deleted">Deleted</string>
+    <string name="loanable_status_unknown">Unknown</string>
+
+    <string name="prefix_status">Status</string>
+    <string name="no_loanables_available">Currently no loanable available</string>
     <string name="settings_language_selection">Select the application language</string>
     <string name="settings_user_connected">You are currently connected as a </string>
     <string name="settings_account_section">My account</string>
@@ -70,5 +99,28 @@
     
     <string name="title_activity_splash_screen">DoeLibs</string>
     <string name="action_settings">Settings</string>
+    <string name="loggedin_as">You are logged in as %1$s %2$s (%3$s)</string>
+    <string name="logged_out_now">You are logged out now</string>
+    <string name="no_connection">Could not establish a connection to the DoeLibS server. Please make sure your device is connected to the internet</string>
+
+    <string name="my_loans_MyLoans">My loans</string>
+    <string name="my_loans_MyReservations">My reservations</string>
+
+    <string name="loans_room">Room</string>
+    <string name="loans_to_be_returned">To be returned</string>
+    <string name="searching">searching&#8230;</string>
+    <string name="reservation_waiting_for_loanable">waiting for loanable</string>
+    <string name="add_loanable">add loanable</string>
+    <string name="add_loanable_doelibs_identifier">DoeLibS identifier</string>
+    <string name="add_loanable_location_category">Location category</string>
+    <string name="add_loanable_room">Room</string>
+    <string name="save">save</string>
+    <string name="all_fields_required">All fields are required</string>
+    <string name="add_loanable_successfull">Loanable successfully added</string>
+    <string name="add_loanable_no_title">No title selected - you can only add a loanable to a given title</string>
+    <string name="isbn_scanner_no_scan_data_received">No scan data received!</string>
+    <string name="isbn_scanner_only_isbn10_and_isbn13_supported">only ISBN10 and ISBN13 supported</string>
+    <string name="dialog_progress_check_if_isbn_exists">checking if title exists in DoeLibS</string>
+
 
 </resources>

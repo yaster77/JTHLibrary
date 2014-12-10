@@ -11,7 +11,8 @@
     <!-- permissions -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-    
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -52,18 +53,21 @@
         </activity>
         <activity
             android:name=".IsbnScannerActivity"
-            android:label="@string/title_activity_isbn_scanner" >
-        </activity>
-         <activity
-         	android:name=".TitleDetailsActivity"
-            android:label="Title details">
-		</activity>
+            android:label="@string/title_activity_isbn_scanner" />
+
+		<activity
+                android:name=".LoginActivity"
+                android:label="@string/title_activity_login"/>
         <activity
-            android:name=".LoginActivity"
-			android:label="Login">
-		</activity>
-		
+                android:name=".TitleDetailsActivity"
+                android:label="@string/title_activity_title_details"/>
+        
+        <activity android:name=".NoConnectionActivity" android:label="Not connected"/>
+        <activity android:name=".BrowseActivity" android:label="Search"/>
+        <activity android:name=".AddLoanableActivity" android:label="@string/add_loanable"/>
+
         <service android:exported="false" android:name="se.hj.doelibs.NotificationService" />
+
     </application>
 
 </manifest>

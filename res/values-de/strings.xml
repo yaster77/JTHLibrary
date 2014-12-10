@@ -2,20 +2,120 @@
 <resources>
 
     <string name="app_name">DoeLibS mobile</string>
-    <string name="hello_world">Hallo Welt!</string>
 
     <!-- activity names -->
     <string name="title_activity_my_loans">Meine Leihen</string>
 
+    <!-- activity links -->
+    <string name="action_isbn_scanner">ISBN Scanner</string>
+
     <!-- Button values -->
     <!-- <string name="btn_save_value">save</string> -->
+    <string name="btn_login">Login</string>
+    <string name="btn_logout">Logout</string>
+    <string name="btn_isbn_scanner_more_scanning">erneut scannen</string>
+    <string name="btn_isbn_scanner_no_more_scanning">Abbruch</string>
+    <string name="btn_check_out">ausleihen</string>
+    <string name="btn_check_in">zurückgeben</string>
+    <string name="btn_reserve">reservieren</string>
 
+    <!-- dialog messages -->
+    <string name="dialog_no_isbn_on_scanning_found">Die gescannet ISBN Nummer ist im DoeLib-System nicht bekannt</string>
+    <string name="dialog_really_checkout_loanable">Sind Sie sicher, dass Sie dieses Exemplar ausleihen möchten?</string>
+    <string name="dialog_really_checkin_loanable">Sind Sie sicher, dass Sie dieses Exemplar zurückgeben möchten?</string>
+    <string name="dialog_really_reserve_title">Sind Sie sicher, dass Sie ein Exemplar dieses Buches reservieren möchten?</string>
+
+    <string name="dialog_progress_checkin_loanable">Exemplar wird zurückgegeben&#8230;</string>
+    <string name="dialog_progress_checkout_loanable">Exemplar wird ausgeliehen&#8230;</string>
+    <string name="dialog_progress_load_titleinformation">Lade Informationen zum Buch&#8230;</string>
+    <string name="dialog_progress_check_reservations">Lade Reservierungen&#8230;</string>
+    <string name="dialog_progress_reserve_title">Reserviere Buch&#8230;</string>
+    <string name="dialog_progress_load_loans">Lade Leihen für dieses Buch&#8230;</string>
+    <string name="dialog_progress_load_reservations">Lade Reserierungen für dieses Buch&#8230;</string>
+    <string name="dialog_progress_add_loanable">Füge Exemplar hinzu&#8230;</string>
+
+    <!--textviews-->
+    <string name="tv_titledetails_loanables">Exemplare</string>
+    <string name="tv_titledetails_categories">Kategorien</string>
+    <string name="tv_titledetails_publisher">Verleger</string>
+    <string name="tv_titledetails_authors">Autoren</string>
+
+
+    <!-- search & search result -->
+    <string name="search_field_required">Ein Buchtitel oder eine Kategorie wird für die Suche benötigt</string>
+    <string name="search_title_hint">Buchtitel&#8230;</string>
+    <string name="search_button">Suche</string>
+    <string name="search_topics_hint">Kategorien in welchen nach dem Titel gesucht werden soll&#8230;</string>
+    <string name="search_result_none">Die Suche ergab keine Treffer</string>
 
     <!-- other descriptions -->
+    <string name="YES">Ja</string>
+    <string name="NO">Nein</string>
+    <string name="CANCEL">Abbruch</string>
+
     <string name="drawer_open">Öffne Navigation</string>
     <string name="drawer_close">Schließe Navigation</string>
     <string name="title_activity_title_search">Suche</string>
+    <string name="title_activity_title_searchresult">Suchergebnisse</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="title_activity_isbn_scanner">ISBN Scanner</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_title_details">Buchinformationen</string>
+
+    <string name="titledetails_editor_prefix">Bearbeiter</string>
+
+    <string name="loanable_checkout_error">Fehler beim Ausleihen des Exemplars. Bitte veruchen Sie es erneut.</string>
+    <string name="loanable_checkout_successfull">Exemplar erfolgreich ausgeliehen</string>
+    <string name="loanable_checkin_error">Fehler bei der Rückgabe des Exemplars. Bitte veruchen Sie es erneut.</string>
+    <string name="loanable_checkin_successfull">Exemplar erfolgreich zurückgegeben</string>
+    <string name="title_reserve_error">Fehler beim Reservieren des Buches. Bitte veruchen Sie es erneut.</string>
+    <string name="title_reserve_successfull">Buch erfolgreich reserviert</string>
+
+    <string name="title_details_no_title_selected">Bitte wählen Sie ein Buch aus</string>
+
+    <string name="login_password">Passwort</string>
+    <string name="login_username">Benutzername (E-Mail)</string>
+
+    <string name="login_checking_credentials">Prüfe Zugangsdaten&#8230;</string>
+    <string name="login_error_credentials">Login nicht erfolgreich. Bitte prüfen Sie ihre Zugangsdaten.</string>
+    <string name="login_error_internet_connection">Login nicht erfolgreich. Bitte prüfen Sie ihre Internetverbindung.</string>
+
+    <string name="loanable_status_available">Verfügbar</string>
+    <string name="loanable_status_borrowed">Ausgeliehen</string>
+    <string name="loanable_status_reserved">Reserviert</string>
+    <string name="loanable_status_recalled">Zurückgerufen</string>
+    <string name="loanable_status_unavailable">Nicht verfügbar</string>
+    <string name="loanable_status_deleted">Entfernt</string>
+    <string name="loanable_status_unknown">Unbekannt</string>
+
+    <string name="prefix_status">Status</string>
+    <string name="no_loanables_available">Momentan kein Exemplar verfügbar.</string>
+    <string name="settings_language_selection">Wählen Sie ihre Sprache</string>
+    <string name="settings_user_connected">Sie sind momentan als folgende Benutzergruppe mit DoeLibS verbunden:</string>
+    <string name="settings_account_section">Mein Account</string>
+    <string name="title_activity_splash_screen">DoeLibS</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="loggedin_as">Sie sind eingeloggt als %1$s %2$s (%3$s)</string>
+    <string name="logged_out_now">Sie wurden erfolgreich ausgeloggt</string>
+    <string name="no_connection">Konnte keine Verbindung mit dem DoeLibS Server herstellen. Bitte stellen Sie sicher, dass Sie mit dem Internet verbunden sind</string>
+
+    <string name="my_loans_MyLoans">Meine Leihen</string>
+    <string name="my_loans_MyReservations">Meine Reservierungen</string>
+
+    <string name="loans_room">Raum</string>
+    <string name="loans_to_be_returned">Zurückgebracht bis</string>
+    <string name="searching">suche&#8230;</string>
+    <string name="reservation_waiting_for_loanable">warte auf Exemplar</string>
+    <string name="add_loanable">Exemplar hinzufügen</string>
+    <string name="add_loanable_doelibs_identifier">DoeLibS ID</string>
+    <string name="add_loanable_location_category">Unterkategorie</string>
+    <string name="add_loanable_room">Raum</string>
+    <string name="save">speichern</string>
+    <string name="all_fields_required">Alle Felder sind erforderlich</string>
+    <string name="add_loanable_successfull">Exemplar erfolgreich hinzugefügt</string>
+    <string name="add_loanable_no_title">Kein Buch ausgewählt - Sie können Exemplare nur zu einem existierenden Buch hinzufügen</string>
+    <string name="isbn_scanner_no_scan_data_received">Keine Daten durch Scan erhalten</string>
+    <string name="isbn_scanner_only_isbn10_and_isbn13_supported">nur ISBN10 und ISBN13 werden als Barcodeformate unterstützt</string>
+    <string name="dialog_progress_check_if_isbn_exists">prüfe ob ein Buch mit dieser ISBN Nummer im DoeLib-System existiert</string>
 
 </resources>

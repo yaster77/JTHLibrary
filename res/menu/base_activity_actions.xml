@@ -9,4 +9,10 @@
         android:showAsAction="always"
         android:icon="@drawable/ic_camera"/>
 
+    <item
+            android:id="@+id/action_add_loanable"
+            android:title="@string/add_loanable"
+            android:showAsAction="never"
+            android:visible="false"/> <!--by default it is not visible - only the title details fragment enables it-->
+
 </menu>

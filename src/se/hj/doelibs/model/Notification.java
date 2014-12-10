@@ -99,6 +99,21 @@ public class Notification implements Serializable {
         RECALL(3),
 
         /**
+         * this type of message tells the user his loan has been autorenewed
+         */
+        LOAN_RENEWED(4),
+
+        /**
+         * this type of message is used for messages which have to handle "renew expire date" requests
+         */
+        RENEW_EXPIRE_DATE_REQUEST(5),
+
+        /**
+         * this type of message is used for messages which are sent when a "renew expire date" requests was done
+         */
+        RENEW_EXPIRE_DATE_REQUEST_ALLOWED(6),
+
+        /**
          * this is a fallback
          */
         UNKNOWN(-1);

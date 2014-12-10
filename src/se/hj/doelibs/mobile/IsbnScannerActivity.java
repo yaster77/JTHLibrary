@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -20,13 +19,14 @@ import se.hj.doelibs.api.TitleDao;
 import se.hj.doelibs.mobile.asynctask.TaskCallback;
 import se.hj.doelibs.mobile.codes.ExtraKeys;
 import se.hj.doelibs.mobile.codes.PreferencesKeys;
+import se.hj.doelibs.mobile.utils.ProgressDialogUtils;
 import se.hj.doelibs.model.Title;
 
 public class IsbnScannerActivity extends BaseActivity {
 
 	private SharedPreferences isbnScannerTmpValues;
 	private SharedPreferences.Editor isbnScannerTmpValuesEditor;
-	private TextView tv;
+	private ProgressDialog checkIfTitleExistsDialog;
 
 	@Override
 	public void onCreate(Bundle state) {
@@ -36,9 +36,6 @@ public class IsbnScannerActivity extends BaseActivity {
 		LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View contentView = inflater.inflate(R.layout.activity_isbn_scanner, null, false);
 		drawerLayout.addView(contentView, 0);
-
-		//set fields
-		tv = (TextView)findViewById(R.id.isbn_scanner_tv);
 
 		//setup SharedPreferences
 		isbnScannerTmpValues = getSharedPreferences(PreferencesKeys.NAME_TMP_VALUES, MODE_PRIVATE);
@@ -51,10 +48,7 @@ public class IsbnScannerActivity extends BaseActivity {
 			String format = isbnScannerTmpValues.getString(PreferencesKeys.KEY_ISBN_VERSION, "");
 			handleScanResults(isbn, format);
 		} else {
-			//open scanner only if the user clicked on the cammera button - not in case the display was rotated
-			if(getIntent().getBooleanExtra(ExtraKeys.ISBN_SCANNER_START_ZXING, false)) {
-				openScanner();
-			}
+			openScanner();
 		}
 	}
 
@@ -72,9 +66,7 @@ public class IsbnScannerActivity extends BaseActivity {
 
 			handleScanResults(isbn, format);
 		} else {
-			Toast.makeText(getApplicationContext(), "No scan data received!", Toast.LENGTH_SHORT).show();
-
-			tv.setText("try again");
+			Toast.makeText(getApplicationContext(), R.string.isbn_scanner_no_scan_data_received, Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -91,7 +83,7 @@ public class IsbnScannerActivity extends BaseActivity {
 			//check isbn in another thread
 			checkIsbn(isbn, format);
 		} else {
-			Toast.makeText(getApplicationContext(), "only ISBN10 and ISBN13 supported", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.isbn_scanner_only_isbn10_and_isbn13_supported, Toast.LENGTH_SHORT).show();
 		}
 
 		//remove values from shared preferences again because they are processed
@@ -107,12 +99,10 @@ public class IsbnScannerActivity extends BaseActivity {
 	 * @param format
 	 */
 	private void checkIsbn(String isbn, String format) {
-		final ProgressDialog dialog = new ProgressDialog(IsbnScannerActivity.this);
-
 		new CheckIfIsbnExistsTask(isbn, format, new TaskCallback<Title>() {
 			@Override
 			public void onTaskCompleted(Title title) {
-				dialog.dismiss();
+				ProgressDialogUtils.dismissQuitely(checkIfTitleExistsDialog);
 				if (title == null) {
 					showDialogNoTitleFound();
 				} else {
@@ -125,9 +115,10 @@ public class IsbnScannerActivity extends BaseActivity {
 
 			@Override
 			public void beforeTaskRun() {
-				dialog.setMessage("checking if title exists in DoeLibS");
-				dialog.setCancelable(false);
-				dialog.show();
+				checkIfTitleExistsDialog = new ProgressDialog(IsbnScannerActivity.this);
+				checkIfTitleExistsDialog.setMessage(getText(R.string.dialog_progress_check_if_isbn_exists));
+				checkIfTitleExistsDialog.setCancelable(false);
+				checkIfTitleExistsDialog.show();
 			}
 		}).execute();
 	}
