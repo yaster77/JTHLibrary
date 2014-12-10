@@ -1,6 +1,7 @@
-package se.hj.doelibs.mobile;
+	package se.hj.doelibs.mobile;
 
 import se.hj.doelibs.LanguageManager;
+import se.hj.doelibs.NotificationService;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +21,9 @@ public class SplashScreenActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
 		
-		LanguageManager.initLanguagePreferences(this.getApplicationContext());
-		
+		LanguageManager.initLanguagePreferences(this.getApplicationContext());		
+		Intent i = new Intent(this, NotificationService.class);
+		startService(i);
 	}
 
 	@Override
@@ -49,7 +51,7 @@ public class SplashScreenActivity extends Activity {
 	}
 	
 	@Override
-	protected void onStart() {
+	protected void onStart() {		
 		super.onStart();
 		
 		/* New Handler to start the Menu-Activity 
@@ -57,7 +59,8 @@ public class SplashScreenActivity extends Activity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                /* Create an Intent that will start the Main-Activity. */
+
+            	/* Create an Intent that will start the Main-Activity. */
 				Intent mainIntent = null;
 
 				//if user is not logged in, goto search activity otherwise goto MyLoans
