@@ -80,12 +80,12 @@ public class AddLoanableActivity extends BaseActivity {
 				} else {
 					if(ex instanceof HttpBadRequestException) {
 						//invalid data
-						Log.d("Add loanable", "answere:", ex);
-						Toast.makeText(AddLoanableActivity.this, ex.getMessage(), Toast.LENGTH_LONG).show();
+						Log.d("Add loanable", "BadRequest", ex);
+						Toast.makeText(AddLoanableActivity.this, R.string.add_loanable_doelibsid_already_in_use, Toast.LENGTH_LONG).show();
 					} else {
 						//servererror, not authorized...
 						Log.d("Add loanable", "response was: " + ex.getMessage());
-						Toast.makeText(AddLoanableActivity.this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+						Toast.makeText(AddLoanableActivity.this, R.string.add_loanable_error, Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
