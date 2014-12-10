@@ -16,8 +16,9 @@
             android:gravity="center_vertical"
             android:text=""
 		    android:textColor="#ccc"
-		    android:textSize="16sp"
-            android:textStyle="bold" />
+            style="@style/TextSmall">
+
+            </TextView>
         <ImageView
             android:id="@+id/profile_image"
             android:layout_width="50dp"

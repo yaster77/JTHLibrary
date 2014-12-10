@@ -5,28 +5,37 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical|center_horizontal">
+        android:padding="40dp">
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login_username"/>
+            android:text="@string/login_username"
+            android:id="@+id/login_username_header"
+            android:layout_marginBottom="5dp"
+            style="@style/TextMedium"/>
 
     <EditText
             android:id="@+id/login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/TextSmall"
             android:inputType="textEmailAddress"/>
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login_password"/>
+            android:text="@string/login_password"
+            android:id="@+id/login_password_header"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="40dp"
+            style="@style/TextMedium"/>
 
     <EditText
             android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/TextSmall"
             android:inputType="textPassword"/>
 
     <Button
@@ -34,6 +43,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_login"
+            style="@style/ButtonStyle"
+            android:layout_marginTop="10dp"
             android:onClick="onLogin"/>
 
 </LinearLayout>

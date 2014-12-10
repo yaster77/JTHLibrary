@@ -123,4 +123,7 @@
     <string name="add_loanable_doelibsid_already_in_use">Die angegebene DoeLibS-ID ist bereits in Gebrauch. Bitte wählen Sie eine andere.</string>
     <string name="add_loanable_error">Fehler beim Hinzufügen des Exemplars. Bitte versuchen Sie es erneut</string>
 
+    <string name="search_title">Titel</string>
+    <string name="search_topic">Themen</string>
+
 </resources>

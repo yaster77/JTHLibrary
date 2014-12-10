@@ -3,8 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:padding="10dp">
+              android:layout_height="match_parent">
 
 
     <fragment
@@ -13,6 +12,8 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             class="se.hj.doelibs.mobile.SearchResultListFragment" >
+
     </fragment>
+
 
 </LinearLayout>

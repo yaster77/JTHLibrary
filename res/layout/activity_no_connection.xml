@@ -16,5 +16,6 @@
             android:layout_height="wrap_content"
             android:text="@string/no_connection"
             android:layout_below="@+id/imageView2"
+            android:padding="15dp"
             android:layout_centerHorizontal="true"/>
 </RelativeLayout>

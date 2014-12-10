@@ -1,5 +1,7 @@
 	package se.hj.doelibs.mobile;
 
+import android.graphics.Typeface;
+import android.widget.TextView;
 import se.hj.doelibs.LanguageManager;
 import se.hj.doelibs.NotificationService;
 import android.app.Activity;
@@ -9,6 +11,8 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import se.hj.doelibs.mobile.utils.CurrentUserUtils;
+
+import java.lang.reflect.Type;
 
 /**
  * @author Adrien SAUNIER
@@ -20,6 +24,10 @@ public class SplashScreenActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
+
+		TextView splashTitle = (TextView)findViewById(R.id.splashTitle);
+		Typeface novaLight = Typeface.createFromAsset(getAssets(), "fonts/Proxima Nova Thin.otf");
+		splashTitle.setTypeface(novaLight);
 		
 		LanguageManager.initLanguagePreferences(this.getApplicationContext());		
 		Intent i = new Intent(this, NotificationService.class);

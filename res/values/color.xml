@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="transparent">#00000000</color>
-    <color name="gray">#CCCCCC</color>
-    <color name="doelibs">#27ae60</color>
-    <color name="doelibs_pressed">#6DCF96</color>
-</resources>

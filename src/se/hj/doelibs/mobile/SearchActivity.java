@@ -3,14 +3,14 @@ package se.hj.doelibs.mobile;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.MultiAutoCompleteTextView;
-import android.widget.Toast;
+import android.view.inputmethod.EditorInfo;
+import android.widget.*;
 import org.apache.http.HttpException;
 import se.hj.doelibs.api.TitleDao;
 import se.hj.doelibs.api.TopicDao;
@@ -29,6 +29,7 @@ public class SearchActivity extends BaseActivity {
 	private EditText et;
 	private MultiAutoCompleteTextView mactv;
 	private ProgressDialog searchDialog;
+	private Typeface novaLight;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,17 @@ public class SearchActivity extends BaseActivity {
 		final TopicDao topicDao = new TopicDao(getCredentials());
 		final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line);
 		et = (EditText)findViewById(R.id.searchEditText);
+
+		this.novaLight = Typeface.createFromAsset(contentView.getResources().getAssets(), "fonts/Proxima Nova Alt Condensed Light.otf");
+		TextView tv_search_title = (TextView) contentView.findViewById(R.id.tv_search_title);
+		TextView tv_search_topic = (TextView) contentView.findViewById(R.id.tv_search_topic);
+		Button btn_search = (Button) contentView.findViewById(R.id.btn_search);
+
+		tv_search_title.setTypeface(novaLight);
+		tv_search_topic.setTypeface(novaLight);
+		et.setTypeface(novaLight);
+		mactv.setTypeface(novaLight);
+		btn_search.setTypeface(novaLight);
 
 		new AsyncTask<Void, Void, List<Topic>>() {
 
@@ -63,8 +75,19 @@ public class SearchActivity extends BaseActivity {
 
 		mactv.setAdapter(adapter);
 		mactv.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-	}
 
+
+		mactv.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+					searchClick(v);
+					return true;
+				}
+				return false;
+			}
+		});
+	}
 
 	public void searchClick(View v){
 		String mactvText = mactv.getText().toString().trim();
@@ -128,7 +151,6 @@ public class SearchActivity extends BaseActivity {
 			this.topics = topics;
 			this.callback = callback;
 		}
-
 
 
 		@Override

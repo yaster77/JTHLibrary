@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,6 +61,29 @@ public class SettingsActivity extends BaseActivity {
 		loginPannel = (LinearLayout)findViewById(R.id.settings_login_pannel);
 		btnLogin = (Button)findViewById(R.id.btn_login);
 		tvLoggedInAs = (TextView)findViewById(R.id.settings_tv_loggedin_as);
+		TextView tv_select_lang = (TextView)findViewById(R.id.settings_select_lang);
+		TextView tv_my_account = (TextView)findViewById(R.id.settings_my_account);
+		TextView tv_login_usr = (TextView)findViewById(R.id.settings_login_user);
+		TextView tv_login_passw = (TextView)findViewById(R.id.settings_login_passw);
+		TextView tv_notifications = (TextView)findViewById(R.id.settings_notifications);
+		//TextView tv_my_account_current = (TextView)findViewById(R.id.settings_my_account_current);
+		Switch notificationSwitch = (Switch)findViewById(R.id.notificationSwitch);
+
+
+		Typeface novaLight = Typeface.createFromAsset(getAssets(), "fonts/Proxima Nova Alt Condensed Light.otf");
+		btnLogin.setTypeface(novaLight);
+		btnLogout.setTypeface(novaLight);
+		txtPassword.setTypeface(novaLight);
+		txtUsername.setTypeface(novaLight);
+		tvLoggedInAs.setTypeface(novaLight);
+		tv_select_lang.setTypeface(novaLight);
+		tv_my_account.setTypeface(novaLight);
+		tv_login_passw.setTypeface(novaLight);
+		tv_login_usr.setTypeface(novaLight);
+		tv_notifications.setTypeface(novaLight);
+		notificationSwitch.setTypeface(novaLight);
+		//tv_my_account_current.setTypeface(novaLight);
+
 
 		//depending of the loginstatus of the current user show him the login/logout panel
 		if(getCredentials() == null) {
@@ -87,7 +111,7 @@ public class SettingsActivity extends BaseActivity {
 		// Creating an ArrayAdapter
 		ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
 		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		
+
 		spinner.setAdapter(spinnerAdapter);
 		spinner.setOnItemSelectedListener(languageListener);
 		
