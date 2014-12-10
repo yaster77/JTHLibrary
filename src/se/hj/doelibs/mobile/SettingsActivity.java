@@ -1,32 +1,42 @@
 package se.hj.doelibs.mobile;
 
+import java.util.Arrays;
+
+import org.apache.http.auth.UsernamePasswordCredentials;
+
+import se.hj.doelibs.NotificationService;
+import se.hj.doelibs.mobile.asynctask.LoginAsyncTask;
+import se.hj.doelibs.mobile.asynctask.TaskCallback;
+import se.hj.doelibs.mobile.codes.PreferencesKeys;
+import se.hj.doelibs.mobile.listener.LanguageSettingListener;
+import se.hj.doelibs.mobile.utils.ConnectionUtils;
+import se.hj.doelibs.mobile.utils.CurrentUserUtils;
+import se.hj.doelibs.mobile.utils.ProgressDialogUtils;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.*;
-import org.apache.http.HttpException;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import se.hj.doelibs.api.UserDao;
-import se.hj.doelibs.mobile.codes.PreferencesKeys;
-import se.hj.doelibs.mobile.listener.LanguageSettingListener;
-import se.hj.doelibs.mobile.utils.ConnectionUtils;
-import se.hj.doelibs.mobile.utils.CurrentUserUtils;
-import se.hj.doelibs.model.User;
-import se.hj.doelibs.model.UserCategory;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.Arrays;
 
 public class SettingsActivity extends BaseActivity {
 
+	private final static String TAG = "SettingsActivity";
 	private EditText txtUsername;
 	private EditText txtPassword;
 	private Button btnLogin;
@@ -55,6 +65,9 @@ public class SettingsActivity extends BaseActivity {
 		TextView tv_my_account = (TextView)findViewById(R.id.settings_my_account);
 		TextView tv_login_usr = (TextView)findViewById(R.id.settings_login_user);
 		TextView tv_login_passw = (TextView)findViewById(R.id.settings_login_passw);
+		TextView tv_notifications = (TextView)findViewById(R.id.settings_notifications);
+		//TextView tv_my_account_current = (TextView)findViewById(R.id.settings_my_account_current);
+		Switch notificationSwitch = (Switch)findViewById(R.id.notificationSwitch);
 
 
 		Typeface novaLight = Typeface.createFromAsset(getAssets(), "fonts/Proxima Nova Alt Condensed Light.otf");
@@ -67,6 +80,9 @@ public class SettingsActivity extends BaseActivity {
 		tv_my_account.setTypeface(novaLight);
 		tv_login_passw.setTypeface(novaLight);
 		tv_login_usr.setTypeface(novaLight);
+		tv_notifications.setTypeface(novaLight);
+		notificationSwitch.setTypeface(novaLight);
+		//tv_my_account_current.setTypeface(novaLight);
 
 
 		//depending of the loginstatus of the current user show him the login/logout panel
@@ -106,7 +122,14 @@ public class SettingsActivity extends BaseActivity {
 		
 		int position = Arrays.asList(codes).indexOf(prefs.getString("application_language", ""));
 		spinner.setSelection(position);
+		
+//		Intent notificationService = new Intent(this, NotificationService.class);
+//		startService(notificationService);
+		
+		this.setNotificationStatusOnCreate();
 	}
+	
+	
 
 	public void onLogout(View view) {
 		Log.i("Settings", "Logout");
@@ -141,37 +164,12 @@ public class SettingsActivity extends BaseActivity {
 		final UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
 
 		//make request in another thread
-		final ProgressDialog dialog = new ProgressDialog(this);
-		new AsyncTask<Void, Void, Boolean>() {
-			@Override
-			protected Boolean doInBackground(Void... voids) {
-				UserDao userDao = new UserDao(credentials);
-				Boolean loginSuccessFull = true;
-				User user = null;
-
-				try {
-					user = userDao.getCurrentLoggedin(); //would throw an exception with invalid credentials
-
-					//save credentials
-					SharedPreferences.Editor editor = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, MODE_PRIVATE).edit();
-					editor.putString(PreferencesKeys.KEY_USER_USERNAME, credentials.getUserName());
-					editor.putString(PreferencesKeys.KEY_USER_PASSWORD, credentials.getPassword());
-					editor.putString(PreferencesKeys.KEY_USER_FIRSTNAME, user.getFirstName());
-					editor.putString(PreferencesKeys.KEY_USER_LASTNAME, user.getLastName());
-					editor.putBoolean(PreferencesKeys.KEY_USER_IS_ADMIN, (user.getCategory().getCategoryId() == UserCategory.ADMIN_CATEGORY_ID));
-
-					editor.commit();
-				} catch (HttpException e) {
-					Log.d("Login", "Login failed", e);
-					loginSuccessFull = false;
-				}
-
-				return loginSuccessFull;
-			}
+		new LoginAsyncTask(this, username, password, new TaskCallback<Boolean>() {
+			private ProgressDialog dialog;
 
 			@Override
-			protected void onPostExecute(Boolean loginSuccessfull) {
-				dialog.dismiss();
+			public void onTaskCompleted(Boolean loginSuccessfull) {
+				ProgressDialogUtils.dismissQuitely(dialog);
 
 				if(loginSuccessfull) {
 					Intent myLoanActivity = new Intent(SettingsActivity.this, MyLoansActivity.class);
@@ -183,11 +181,49 @@ public class SettingsActivity extends BaseActivity {
 			}
 
 			@Override
-			protected void onPreExecute() {
+			public void beforeTaskRun() {
+				dialog = new ProgressDialog(SettingsActivity.this);
 				dialog.setMessage(getResources().getText(R.string.login_checking_credentials));
 				dialog.setCancelable(false);
 				dialog.show();
 			}
-		}.execute();
+		}).execute();
+	}
+
+	/**
+	 * Handle the changing state of the notification's switch button
+	 * 
+	 * @param view
+	 */
+	public void onNotificationChanged(View view) {
+		
+		boolean on = ((Switch) view).isChecked();
+		
+		SharedPreferences sharedpreferences = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, Context.MODE_PRIVATE);
+		Editor editor = sharedpreferences.edit();
+		
+		if(on) {
+			Log.d(TAG, "Notifications on !");
+			editor.putBoolean(PreferencesKeys.KEY_NOTIFICATIONS, on);
+		}
+		else {
+			Log.d(TAG, "Notifications off !");
+			editor.putBoolean(PreferencesKeys.KEY_NOTIFICATIONS, on);
+		}
+		
+		editor.commit();
+	}
+	
+	/**
+	 * Load the notification status in the shared preferences. 
+	 */
+	private void setNotificationStatusOnCreate(){
+		
+		Switch notificationSwitch = (Switch) this.findViewById(R.id.notificationSwitch);
+
+		SharedPreferences sharedpreferences = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, Context.MODE_PRIVATE);
+		boolean status = sharedpreferences.getBoolean(PreferencesKeys.KEY_NOTIFICATIONS, true);
+		
+		notificationSwitch.setChecked(status);
 	}
 }

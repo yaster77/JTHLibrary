@@ -13,7 +13,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import org.apache.http.auth.UsernamePasswordCredentials;
-import se.hj.doelibs.mobile.codes.ExtraKeys;
 import se.hj.doelibs.mobile.codes.PreferencesKeys;
 import se.hj.doelibs.mobile.listadapter.NavigationListAdapter;
 import se.hj.doelibs.mobile.listener.NavigationItemOnClickListener;
@@ -118,7 +117,6 @@ public abstract class BaseActivity extends Activity {
 			//if menuebar item was selected
 			return true;
 		} else {
-			//other action (probably from the menuebar)
 			switch (item.getItemId()) {
 				case R.id.action_isbn_scanner:
 					openSearch();
@@ -151,7 +149,6 @@ public abstract class BaseActivity extends Activity {
 	 */
 	private void openSearch() {
 		Intent isbnScannerActivity = new Intent(this, IsbnScannerActivity.class);
-		isbnScannerActivity.putExtra(ExtraKeys.ISBN_SCANNER_START_ZXING, true);
 		startActivity(isbnScannerActivity);
 	}
 }

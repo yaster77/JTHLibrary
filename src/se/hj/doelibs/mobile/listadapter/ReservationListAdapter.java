@@ -35,7 +35,7 @@ public class ReservationListAdapter extends BaseAdapter {
     @Override
     public int getCount()
     {
-        return reservations.size();
+        return (reservations != null) ? reservations.size() : 0;
     }
 
     @Override

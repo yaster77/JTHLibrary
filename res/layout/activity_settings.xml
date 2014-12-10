@@ -21,7 +21,7 @@
         android:id="@+id/language_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:paddingTop="10dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         style="@style/TextSmall"/>
@@ -32,12 +32,44 @@
         android:textColor="@android:color/white"
         android:background="#22b573"
         android:padding="10dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/settings_notifications"
+        android:text="@string/settings_notifications_title"
+        />
+
+    <Switch
+        android:id="@+id/notificationSwitch"
+        style="@style/TextSmall"
+        android:paddingTop="10dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_notifications_activation"
+        android:onClick="onNotificationChanged"/>
+    
+    <TextView
+        style="@style/TextMedium"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/white"
+        android:background="#22b573"
+        android:padding="10dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/settings_my_account"
         android:text="@string/settings_account_section"
         />
+    
+    <!--<TextView -->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--style="@style/TextSmall"-->
+        <!--android:id="@+id/settings_my_account_current"-->
+        <!--android:text="@string/settings_user_connected"-->
+        <!--/>-->
 
 
     <!-- this shows the current logged in user an the button to logout. By default it is visible -->
@@ -51,6 +83,10 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
                 android:id="@+id/settings_tv_loggedin_as"
                 style="@style/TextSmall"/>
         <Button
@@ -58,6 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onLogout"
+                android:layout_marginTop="10dp"
                 style="@style/ButtonStyle"
                 android:text="@string/btn_logout" />
     </LinearLayout>
