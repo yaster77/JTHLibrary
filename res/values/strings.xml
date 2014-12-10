@@ -94,7 +94,7 @@
     <string name="settings_user_connected">You are currently connected as a </string>
     <string name="settings_account_section">My account</string>
     <string name="settings_notifications_title">Notifications</string>
-    <string name="settings_notifications_activation">Activer les notifications</string>
+    <string name="settings_notifications_activation">Receive notifications</string>
     
     
     <string name="title_activity_splash_screen">DoeLibs</string>
