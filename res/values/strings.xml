@@ -117,6 +117,8 @@
     <string name="isbn_scanner_no_scan_data_received">No scan data received!</string>
     <string name="isbn_scanner_only_isbn10_and_isbn13_supported">only ISBN10 and ISBN13 supported</string>
     <string name="dialog_progress_check_if_isbn_exists">checking if title exists in DoeLibS</string>
+    <string name="add_loanable_doelibsid_already_in_use">The given DoeLibS Identifier is already in use</string>
+    <string name="add_loanable_error">Error on adding the loanable. Please try again</string>
 
 
 </resources>

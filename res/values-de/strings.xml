@@ -117,5 +117,7 @@
     <string name="isbn_scanner_no_scan_data_received">Keine Daten durch Scan erhalten</string>
     <string name="isbn_scanner_only_isbn10_and_isbn13_supported">nur ISBN10 und ISBN13 werden als Barcodeformate unterstützt</string>
     <string name="dialog_progress_check_if_isbn_exists">prüfe ob ein Buch mit dieser ISBN Nummer im DoeLib-System existiert</string>
+    <string name="add_loanable_doelibsid_already_in_use">Die angegebene DoeLibS-ID ist bereits in Gebrauch. Bitte wählen Sie eine andere.</string>
+    <string name="add_loanable_error">Fehler beim Hinzufügen des Exemplars. Bitte versuchen Sie es erneut</string>
 
 </resources>
