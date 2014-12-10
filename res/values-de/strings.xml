@@ -95,6 +95,10 @@
     <string name="settings_account_section">Mein Account</string>
     <string name="settings_notifications_title">Benachrichtigungen</string>
     <string name="settings_notifications_activation">Benachrichtungen</string>
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
     <string name="title_activity_splash_screen">DoeLibS</string>
     <string name="action_settings">Einstellungen</string>
     <string name="loggedin_as">Sie sind eingeloggt als %1$s %2$s (%3$s)</string>
