@@ -2,10 +2,13 @@ package se.hj.doelibs.mobile;
 
 import java.util.Arrays;
 
+import se.hj.doelibs.NotificationService;
 import se.hj.doelibs.mobile.codes.PreferencesKeys;
 import se.hj.doelibs.mobile.listener.LanguageSettingListener;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,11 +17,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class SettingsActivity extends BaseActivity {
 
 	private Button logoutBtn;
+	private final static String TAG = "SettingsActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,14 @@ public class SettingsActivity extends BaseActivity {
 		
 		int position = Arrays.asList(codes).indexOf(prefs.getString("application_language", ""));
 		spinner.setSelection(position);
+		
+//		Intent notificationService = new Intent(this, NotificationService.class);
+//		startService(notificationService);
+		
+		this.setNotificationStatusOnCreate();
 	}
+	
+	
 
 	public void onLogout(View view) {
 		Log.i("Settings", "Logout");
@@ -76,5 +88,48 @@ public class SettingsActivity extends BaseActivity {
 
 		Toast.makeText(this, "you are logged out now", Toast.LENGTH_SHORT).show();
 		logoutBtn.setVisibility(View.GONE);
+	}
+
+	/**
+	 * Handle the changing state of the notification's switch button
+	 * 
+	 * @param view
+	 */
+	public void onNotificationChanged(View view) {
+		
+		boolean on = ((Switch) view).isChecked();
+		
+		SharedPreferences sharedpreferences = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, Context.MODE_PRIVATE);
+		Editor editor = sharedpreferences.edit();
+		
+		if(on) {
+			Log.d(TAG, "Notifications on !");
+			editor.putBoolean(PreferencesKeys.KEY_NOTIFICATIONS, on);
+			
+			//NotificationThread n = new NotificationThread();
+			//n.start();
+			
+			Intent i = new Intent(this, NotificationService.class);
+			startService(i);
+		}
+		else {
+			Log.d(TAG, "Notifications off !");
+			editor.putBoolean(PreferencesKeys.KEY_NOTIFICATIONS, on);
+		}
+		
+		editor.commit();
+	}
+	
+	/**
+	 * Load the notification status in the shared preferences. 
+	 */
+	private void setNotificationStatusOnCreate(){
+		
+		Switch notificationSwitch = (Switch) this.findViewById(R.id.notificationSwitch);
+
+		SharedPreferences sharedpreferences = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, Context.MODE_PRIVATE);
+		boolean status = sharedpreferences.getBoolean(PreferencesKeys.KEY_NOTIFICATIONS, true);
+		
+		notificationSwitch.setChecked(status);
 	}
 }

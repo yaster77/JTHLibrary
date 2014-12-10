@@ -1,14 +1,15 @@
 package se.hj.doelibs.api;
 
-import android.util.Log;
+import java.io.IOException;
+
 import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.json.JSONException;
 import org.json.JSONObject;
-import se.hj.doelibs.model.Author;
 
-import java.io.IOException;
+import se.hj.doelibs.model.Author;
+import android.util.Log;
 
 /**
  * Class for CRUD operations to the DoeLibS API as far as it supports it
@@ -32,6 +33,8 @@ public class AuthorDao extends BaseDao<Author>{
 
             //get the result
             String responseString = getResponseAsString(response);
+            
+            
 
             //create object out of JSON result
             JSONObject result = new JSONObject(responseString);

@@ -62,6 +62,8 @@
             android:name=".LoginActivity"
 			android:label="Login">
 		</activity>
+		
+        <service android:exported="false" android:name="se.hj.doelibs.NotificationService" />
     </application>
 
 </manifest>
