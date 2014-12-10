@@ -198,7 +198,7 @@ public class SettingsActivity extends BaseActivity {
 		Switch notificationSwitch = (Switch) this.findViewById(R.id.notificationSwitch);
 
 		SharedPreferences sharedpreferences = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, Context.MODE_PRIVATE);
-		boolean status = sharedpreferences.getBoolean(PreferencesKeys.KEY_NOTIFICATIONS, true);
+		boolean status = sharedpreferences.getBoolean(PreferencesKeys.KEY_NOTIFICATIONS, false);
 		
 		notificationSwitch.setChecked(status);
 	}
