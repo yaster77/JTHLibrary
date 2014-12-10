@@ -2,6 +2,7 @@ package se.hj.doelibs.mobile;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.apache.http.HttpException;
 import se.hj.doelibs.api.LoanableDao;
@@ -53,6 +55,20 @@ public class AddLoanableActivity extends BaseActivity {
 		txtLocationCategory = (EditText)findViewById(R.id.txt_location_category);
 		txtRoom = (EditText)findViewById(R.id.txt_room);
 		btnSave = (Button)findViewById(R.id.btn_add_loanable);
+		TextView tv_doeid = (TextView)findViewById(R.id.add_loanable_identifier);
+		TextView tv_doeCat = (TextView)findViewById(R.id.add_loanable_category);
+		TextView tv_doeRoom = (TextView)findViewById(R.id.add_loanable_room);
+
+
+		Typeface novaLight = Typeface.createFromAsset(getAssets(), "fonts/Proxima Nova Alt Condensed Light.otf");
+		txtDelibsId.setTypeface(novaLight);
+		txtLocationCategory.setTypeface(novaLight);
+		txtRoom.setTypeface(novaLight);
+		tv_doeCat.setTypeface(novaLight);
+		tv_doeid.setTypeface(novaLight);
+		tv_doeRoom.setTypeface(novaLight);
+		btnSave.setTypeface(novaLight);
+
 	}
 
 	public void onSave(View view) {
