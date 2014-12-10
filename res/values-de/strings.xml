@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">DoeLibS mobile</string>
+    <string name="app_name">DoeLibS</string>
 
     <!-- activity names -->
     <string name="title_activity_my_loans">Meine Leihen</string>
@@ -93,6 +93,9 @@
     <string name="settings_language_selection">Wählen Sie ihre Sprache</string>
     <string name="settings_user_connected">Sie sind momentan als folgende Benutzergruppe mit DoeLibS verbunden:</string>
     <string name="settings_account_section">Mein Account</string>
+    <string name="settings_notifications_title">Benachrichtigungen</string>
+    <string name="settings_notifications_activation">Benachrichtungen</string>
+
     <string name="title_activity_splash_screen">DoeLibS</string>
     <string name="action_settings">Einstellungen</string>
     <string name="loggedin_as">Sie sind eingeloggt als %1$s %2$s (%3$s)</string>
@@ -119,5 +122,8 @@
     <string name="dialog_progress_check_if_isbn_exists">prüfe ob ein Buch mit dieser ISBN Nummer im DoeLib-System existiert</string>
     <string name="add_loanable_doelibsid_already_in_use">Die angegebene DoeLibS-ID ist bereits in Gebrauch. Bitte wählen Sie eine andere.</string>
     <string name="add_loanable_error">Fehler beim Hinzufügen des Exemplars. Bitte versuchen Sie es erneut</string>
+
+    <string name="search_title">Titel</string>
+    <string name="search_topic">Themen</string>
 
 </resources>

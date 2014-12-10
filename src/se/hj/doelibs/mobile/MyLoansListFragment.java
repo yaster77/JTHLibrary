@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import se.hj.doelibs.api.LoanDao;
 import se.hj.doelibs.api.ReservationDao;
@@ -41,6 +43,7 @@ public class MyLoansListFragment extends Fragment {
 	private OnTitleItemSelectedListener listener;
 	private ProgressDialog loadLoansDialog;
 	private ProgressDialog loadReservationsDialog;
+	private Typeface novaLight;
 	private String loansFile = "loans";
 	private String reservationFile = "reservations";
 
@@ -53,6 +56,12 @@ public class MyLoansListFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 		final View view = inflater.inflate(R.layout.fragment_my_loans, container, false);
+
+		this.novaLight = Typeface.createFromAsset(view.getResources().getAssets(), "fonts/Proxima Nova Alt Condensed Light.otf");
+		TextView myLoansHeader = (TextView) view.findViewById(R.id.myLoanText);
+		myLoansHeader.setTypeface(novaLight);
+		TextView myReservationsHeader = (TextView) view.findViewById(R.id.myReservationsText);
+		myReservationsHeader.setTypeface(novaLight);
 
 		lv_myLoans = (ListView) view.findViewById(R.id.loans_list);
 		lv_myReservations = (ListView) view.findViewById(R.id.reservations_list);
@@ -189,6 +198,9 @@ public class MyLoansListFragment extends Fragment {
 			throw new ClassCastException(activity.toString() + " must implement OnTitleItemSelectedListener");
 		}
 	}
+
+
+
 	/**
 	 * task to load the users reservations
 	 */

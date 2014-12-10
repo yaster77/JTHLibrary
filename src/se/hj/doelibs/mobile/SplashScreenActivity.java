@@ -1,6 +1,9 @@
-package se.hj.doelibs.mobile;
+	package se.hj.doelibs.mobile;
 
+import android.graphics.Typeface;
+import android.widget.TextView;
 import se.hj.doelibs.LanguageManager;
+import se.hj.doelibs.NotificationService;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +11,8 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import se.hj.doelibs.mobile.utils.CurrentUserUtils;
+
+import java.lang.reflect.Type;
 
 /**
  * @author Adrien SAUNIER
@@ -19,9 +24,14 @@ public class SplashScreenActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
+
+		TextView splashTitle = (TextView)findViewById(R.id.splashTitle);
+		Typeface novaLight = Typeface.createFromAsset(getAssets(), "fonts/Proxima Nova Thin.otf");
+		splashTitle.setTypeface(novaLight);
 		
-		LanguageManager.initLanguagePreferences(this.getApplicationContext());
-		
+		LanguageManager.initLanguagePreferences(this.getApplicationContext());		
+		Intent i = new Intent(this, NotificationService.class);
+		startService(i);
 	}
 
 	@Override
@@ -49,7 +59,7 @@ public class SplashScreenActivity extends Activity {
 	}
 	
 	@Override
-	protected void onStart() {
+	protected void onStart() {		
 		super.onStart();
 		
 		/* New Handler to start the Menu-Activity 
@@ -57,7 +67,8 @@ public class SplashScreenActivity extends Activity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                /* Create an Intent that will start the Main-Activity. */
+
+            	/* Create an Intent that will start the Main-Activity. */
 				Intent mainIntent = null;
 
 				//if user is not logged in, goto search activity otherwise goto MyLoans

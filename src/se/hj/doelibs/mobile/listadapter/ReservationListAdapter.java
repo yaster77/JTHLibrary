@@ -1,6 +1,7 @@
 package se.hj.doelibs.mobile.listadapter;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +20,22 @@ public class ReservationListAdapter extends BaseAdapter {
 
     private Activity activity;
     private List<Reservation> reservations;
+    private Typeface novaLight;
+    private Typeface novaRegItalic;
 
     public ReservationListAdapter( Activity activity, List<Reservation> reservations)
     {
         this.activity = activity;
         this.reservations = reservations;
+        this.novaLight = Typeface.createFromAsset(activity.getAssets(), "fonts/Proxima Nova Alt Condensed Light.otf");
+        this.novaRegItalic = Typeface.createFromAsset(activity.getAssets(), "fonts/Proxima Nova Alt Condensed Regular Italic.otf");
 
     };
 
     @Override
     public int getCount()
     {
-        return reservations.size();
+        return (reservations != null) ? reservations.size() : 0;
     }
 
     @Override
@@ -53,6 +58,9 @@ public class ReservationListAdapter extends BaseAdapter {
 
         TextView header = (TextView)rowView.findViewById(R.id.tv_reservations_header);
         TextView subcontent1 = (TextView)rowView.findViewById(R.id.tv_reservations_info);
+
+        header.setTypeface(novaLight);
+        subcontent1.setTypeface(novaRegItalic);
 
         Reservation reservation = reservations.get(position);
 

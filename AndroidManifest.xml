@@ -53,18 +53,20 @@
         </activity>
         <activity
             android:name=".IsbnScannerActivity"
-            android:label="@string/title_activity_isbn_scanner" >
-        </activity>
-        <activity
+            android:label="@string/title_activity_isbn_scanner" />
+
+		<activity
                 android:name=".LoginActivity"
                 android:label="@string/title_activity_login"/>
         <activity
                 android:name=".TitleDetailsActivity"
                 android:label="@string/title_activity_title_details"/>
+        
         <activity android:name=".NoConnectionActivity" android:label="Not connected"/>
         <activity android:name=".BrowseActivity" android:label="Search"/>
         <activity android:name=".AddLoanableActivity" android:label="@string/add_loanable"/>
 
+        <service android:exported="false" android:name="se.hj.doelibs.NotificationService" />
 
     </application>
 

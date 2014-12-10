@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -59,6 +60,8 @@ public abstract class BaseActivity extends Activity {
 		drawerListView.addHeaderView(drawerHeader, null, false);
 		TextView userNameTextView = (TextView)findViewById(R.id.username);
 
+		Typeface novaLight = Typeface.createFromAsset(getAssets(), "fonts/Proxima Nova Alt Condensed Light.otf");
+
 		//show username if loggedin
 		UsernamePasswordCredentials credentials = getCredentials();
 		if(credentials != null) {
@@ -75,7 +78,9 @@ public abstract class BaseActivity extends Activity {
 		} else {
 			userNameTextView.setText("Anonymous");
 		}
-		
+
+		userNameTextView.setTypeface(novaLight);
+
 		// Set the adapter for the list view
 		ListAdapter listAdapter = new NavigationListAdapter(this);
 		drawerListView.setAdapter(listAdapter);

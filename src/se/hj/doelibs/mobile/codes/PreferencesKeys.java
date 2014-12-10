@@ -9,6 +9,8 @@ public final class PreferencesKeys {
 
     public static final String NAME_MAIN_SETTINGS = "MainSettings";
     public static final String NAME_TMP_VALUES = "TemporaryValues";
+    
+    public static final String KEY_NOTIFICATIONS = "notificationStatus";
 
     public static final String KEY_USER_USERNAME = "loggedInUserUsername";
     public static final String KEY_USER_PASSWORD = "loggedInUserPassword";

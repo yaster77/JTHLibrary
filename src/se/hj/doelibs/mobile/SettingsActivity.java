@@ -1,17 +1,10 @@
 package se.hj.doelibs.mobile;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.*;
+import java.util.Arrays;
+
 import org.apache.http.auth.UsernamePasswordCredentials;
+
+import se.hj.doelibs.NotificationService;
 import se.hj.doelibs.mobile.asynctask.LoginAsyncTask;
 import se.hj.doelibs.mobile.asynctask.TaskCallback;
 import se.hj.doelibs.mobile.codes.PreferencesKeys;
@@ -19,11 +12,31 @@ import se.hj.doelibs.mobile.listener.LanguageSettingListener;
 import se.hj.doelibs.mobile.utils.ConnectionUtils;
 import se.hj.doelibs.mobile.utils.CurrentUserUtils;
 import se.hj.doelibs.mobile.utils.ProgressDialogUtils;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.res.Resources;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.Arrays;
 
 public class SettingsActivity extends BaseActivity {
 
+	private final static String TAG = "SettingsActivity";
 	private EditText txtUsername;
 	private EditText txtPassword;
 	private Button btnLogin;
@@ -48,6 +61,29 @@ public class SettingsActivity extends BaseActivity {
 		loginPannel = (LinearLayout)findViewById(R.id.settings_login_pannel);
 		btnLogin = (Button)findViewById(R.id.btn_login);
 		tvLoggedInAs = (TextView)findViewById(R.id.settings_tv_loggedin_as);
+		TextView tv_select_lang = (TextView)findViewById(R.id.settings_select_lang);
+		TextView tv_my_account = (TextView)findViewById(R.id.settings_my_account);
+		TextView tv_login_usr = (TextView)findViewById(R.id.settings_login_user);
+		TextView tv_login_passw = (TextView)findViewById(R.id.settings_login_passw);
+		TextView tv_notifications = (TextView)findViewById(R.id.settings_notifications);
+		//TextView tv_my_account_current = (TextView)findViewById(R.id.settings_my_account_current);
+		Switch notificationSwitch = (Switch)findViewById(R.id.notificationSwitch);
+
+
+		Typeface novaLight = Typeface.createFromAsset(getAssets(), "fonts/Proxima Nova Alt Condensed Light.otf");
+		btnLogin.setTypeface(novaLight);
+		btnLogout.setTypeface(novaLight);
+		txtPassword.setTypeface(novaLight);
+		txtUsername.setTypeface(novaLight);
+		tvLoggedInAs.setTypeface(novaLight);
+		tv_select_lang.setTypeface(novaLight);
+		tv_my_account.setTypeface(novaLight);
+		tv_login_passw.setTypeface(novaLight);
+		tv_login_usr.setTypeface(novaLight);
+		tv_notifications.setTypeface(novaLight);
+		notificationSwitch.setTypeface(novaLight);
+		//tv_my_account_current.setTypeface(novaLight);
+
 
 		//depending of the loginstatus of the current user show him the login/logout panel
 		if(getCredentials() == null) {
@@ -75,7 +111,7 @@ public class SettingsActivity extends BaseActivity {
 		// Creating an ArrayAdapter
 		ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
 		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		
+
 		spinner.setAdapter(spinnerAdapter);
 		spinner.setOnItemSelectedListener(languageListener);
 		
@@ -86,7 +122,14 @@ public class SettingsActivity extends BaseActivity {
 		
 		int position = Arrays.asList(codes).indexOf(prefs.getString("application_language", ""));
 		spinner.setSelection(position);
+		
+//		Intent notificationService = new Intent(this, NotificationService.class);
+//		startService(notificationService);
+		
+		this.setNotificationStatusOnCreate();
 	}
+	
+	
 
 	public void onLogout(View view) {
 		Log.i("Settings", "Logout");
@@ -145,5 +188,42 @@ public class SettingsActivity extends BaseActivity {
 				dialog.show();
 			}
 		}).execute();
+	}
+
+	/**
+	 * Handle the changing state of the notification's switch button
+	 * 
+	 * @param view
+	 */
+	public void onNotificationChanged(View view) {
+		
+		boolean on = ((Switch) view).isChecked();
+		
+		SharedPreferences sharedpreferences = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, Context.MODE_PRIVATE);
+		Editor editor = sharedpreferences.edit();
+		
+		if(on) {
+			Log.d(TAG, "Notifications on !");
+			editor.putBoolean(PreferencesKeys.KEY_NOTIFICATIONS, on);
+		}
+		else {
+			Log.d(TAG, "Notifications off !");
+			editor.putBoolean(PreferencesKeys.KEY_NOTIFICATIONS, on);
+		}
+		
+		editor.commit();
+	}
+	
+	/**
+	 * Load the notification status in the shared preferences. 
+	 */
+	private void setNotificationStatusOnCreate(){
+		
+		Switch notificationSwitch = (Switch) this.findViewById(R.id.notificationSwitch);
+
+		SharedPreferences sharedpreferences = getSharedPreferences(PreferencesKeys.NAME_MAIN_SETTINGS, Context.MODE_PRIVATE);
+		boolean status = sharedpreferences.getBoolean(PreferencesKeys.KEY_NOTIFICATIONS, false);
+		
+		notificationSwitch.setChecked(status);
 	}
 }

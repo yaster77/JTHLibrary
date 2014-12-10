@@ -1,6 +1,7 @@
 package se.hj.doelibs.mobile.listadapter;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,13 @@ public class LoanablesListAdapter extends BaseAdapter {
 		TextView subcontent1 = (TextView) rowView.findViewById(R.id.tv_titledetails_loanable_subcontent1);
 		TextView subcontent2 = (TextView) rowView.findViewById(R.id.tv_titledetails_loanable_subcontent2);
 		Button button = (Button)rowView.findViewById(R.id.btn_titledetails_loanable_checkInOrOut);
+
+
+		Typeface novaLight = Typeface.createFromAsset(rowView.getResources().getAssets(), "fonts/Proxima Nova Alt Condensed Light.otf");
+		header.setTypeface(novaLight);
+		subcontent1.setTypeface(novaLight);
+		subcontent2.setTypeface(novaLight);
+		button.setTypeface(novaLight);
 
 		Loanable loanable = loanables.get(position);
 

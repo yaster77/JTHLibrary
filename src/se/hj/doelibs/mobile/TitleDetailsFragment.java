@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
@@ -49,6 +50,11 @@ public class TitleDetailsFragment extends Fragment {
 	private ProgressDialog loadTitleDetailProgressDialog;
 	private ProgressDialog checkInAndOutProgressDialog;
 
+	private TextView tv_categories_header;
+	private TextView tv_publisher_header;
+	private TextView tv_authors_header;
+	private TextView tv_loanables;
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,6 +68,27 @@ public class TitleDetailsFragment extends Fragment {
 		btn_reserve = (Button)view.findViewById(R.id.btn_titledetails_reserve);
 		lv_loanables = (ListView)view.findViewById(R.id.lv_titledetails_loanableslist);
 		tv_noLoanablesAvailable = (TextView) view.findViewById(R.id.tv_no_loanables_available);
+
+
+		tv_authors_header = (TextView) view.findViewById(R.id.tv_titledetails_authors_header);
+		tv_publisher_header = (TextView) view.findViewById(R.id.tv_titledetails_publisher_header);
+		tv_categories_header = (TextView) view.findViewById(R.id.tv_titledetails_categories_header);
+		tv_loanables = (TextView) view.findViewById(R.id.tv_titledetails_loanables);
+
+		Typeface novaThin = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Proxima Nova Alt Condensed Thin.otf");
+		Typeface novaLight = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Proxima Nova Alt Condensed Light.otf");
+
+		tv_title.setTypeface(novaThin);
+		tv_edition.setTypeface(novaLight);
+		tv_categories.setTypeface(novaLight);
+		tv_publisher.setTypeface(novaLight);
+		tv_authors.setTypeface(novaLight);
+		tv_noLoanablesAvailable.setTypeface(novaLight);
+		tv_categories_header.setTypeface(novaLight);
+		tv_publisher_header.setTypeface(novaLight);
+		tv_authors_header.setTypeface(novaLight);
+		tv_loanables.setTypeface(novaThin);
+		btn_reserve.setTypeface(novaLight);
 
 		setHasOptionsMenu(true);
 

@@ -5,7 +5,7 @@
               android:layout_height="wrap_content"
               android:layout_weight="1"
               android:orientation="vertical"
-              android:padding="2sp"
+              style="@style/ListViewItemStyle"
         >
 
         <TextView
@@ -13,7 +13,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="titlePlaceholder"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                style="@style/TextSmall"
                 />
 
 
@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Misc"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                style="@style/TextSmaller"
                 />
 
 </LinearLayout>
